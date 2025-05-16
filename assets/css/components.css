@@ -336,20 +336,18 @@
 }
 
 .about-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-lg);
     padding: var(--space-md);
 }
 
 .about-text {
-    flex: 2;
-    min-width: 300px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .values-list {
     list-style-type: none;
     margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
 }
 
 .values-list li {
@@ -363,17 +361,14 @@
     margin-right: 0.5rem;
 }
 
-.team-section {
-    flex: 1;
-    min-width: 300px;
-}
-
+/* Estilos para el equipo */
 .team-grid {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
     justify-content: center;
     margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
 }
 
 .team-member {
@@ -397,107 +392,153 @@
     margin: 0;
 }
 
-/* Sección Contacto */
-.contact-content {
+/* Estilos mejorados para la sección de contacto */
+.contact-section {
+    padding: var(--space-lg) 0;
+}
+
+.contact-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-lg);
+}
+
+/* Título de contacto */
+.contact-title, 
+.social-title {
+    text-align: center;
+    margin-bottom: var(--space-md);
+    color: var(--text-light);
+}
+
+/* Grid de contacto */
+.contact-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-lg);
-    padding: var(--space-md);
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
 }
 
-.contact-info {
-    flex: 1;
-    min-width: 300px;
-}
-
-.contact-details {
-    list-style-type: none;
-    margin-top: var(--space-md);
-}
-
-.contact-details li {
+/* Elementos de contacto */
+.contact-item {
     display: flex;
     align-items: center;
-    margin-bottom: var(--space-sm);
+    position: relative;
+    padding: var(--space-sm) var(--space-sm);
+    background: rgba(138, 43, 226, 0.05);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(138, 43, 226, 0.1);
 }
 
-.contact-details svg {
-    margin-right: var(--space-xs);
-    min-width: 20px;
-}
-
-.social-media {
-    margin-top: var(--space-md);
-}
-
-.social-media .social-icons {
-    margin-top: var(--space-sm);
-}
-
-.contact-form-container {
-    flex: 2;
-    min-width: 300px;
-}
-
-.contact-form-container p {
-    margin-bottom: var(--space-md);
-}
-
-/* WhatsApp Button */
-.whatsapp-button {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    z-index: 999;
-}
-
-.whatsapp-btn {
+.contact-icon {
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-dark);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    margin-right: var(--space-md);
+    flex-shrink: 0;
 }
 
-.whatsapp-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+.contact-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
 }
 
-.whatsapp-btn svg {
+.contact-text {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contact-text p {
+    margin: 0;
+    color: var(--text-light);
+}
+
+.contact-text .text-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.map-button, 
+.copy-button {
+    background: var(--primary-dark);
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-default);
+    flex-shrink: 0;
+    margin-left: var(--space-sm);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .about-content, .contact-content {
-        flex-direction: column;
-        gap: var(--space-md);
-    }
-    
-    .team-grid {
-        justify-content: flex-start;
-    }
-    
-    .whatsapp-button {
-        bottom: 20px;
-        left: 20px;
-    }
-    
-    .whatsapp-btn {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .whatsapp-btn svg {
-        width: 30px;
-        height: 30px;
-    }
+.map-button img,
+.copy-button img {
+    filter: brightness(0) invert(1);
+}
+
+.map-button:hover,
+.copy-button:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+.copy-button.copied {
+    background: #4CAF50;
+}
+
+/* Sección de redes sociales */
+.social-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.social-icon-link {
+    text-decoration: none;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-default);
+}
+
+.social-icon img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+}
+
+.social-icon:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* Botón de contacto */
+.contact-cta {
+    text-align: center;
+}
+
+.contact-cta .button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
 }
 
 /* Modal de contacto */
@@ -556,118 +597,6 @@
     transform: scale(1.1);
 }
 
-/* Estilos adicionales para contacto */
-.contact-content {
-    display: flex;
-    padding: var(--space-md);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.social-media {
-    text-align: center;
-    margin-top: var(--space-md);
-}
-
-.social-icons {
-    display: flex;
-    gap: var(--space-sm);
-    justify-content: center;
-    margin-top: var(--space-sm);
-}
-
-.contact-details {
-    list-style-type: none;
-    margin-bottom: var(--space-md);
-}
-
-.contact-details li {
-    display: flex;
-    align-items: center;
-    margin-bottom: var(--space-md);
-    position: relative;
-}
-
-.contact-icon {
-    min-width: 40px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--primary-dark);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: var(--space-sm);
-    flex-shrink: 0;
-}
-
-.contact-text {
-    flex-grow: 1;
-    text-align: left;
-}
-
-.contact-text p {
-    margin: 0;
-}
-
-.map-button, 
-.copy-button {
-    background: var(--primary-dark);
-    border: none;
-    color: var(--text-light);
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-default);
-    flex-shrink: 0;
-    margin-left: var(--space-sm);
-}
-
-.map-button:hover,
-.copy-button:hover {
-    background: var(--primary);
-    transform: scale(1.1);
-}
-
-.copy-button.copied {
-    background: #4CAF50;
-}
-
-.contact-cta {
-    margin-top: var(--space-md);
-    text-align: center;
-}
-
-.text-muted {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-/* Media query para ajustar en pantallas pequeñas */
-@media (max-width: 500px) {
-    .contact-content {
-        padding: var(--space-sm);
-    }
-    
-    .contact-details li {
-        flex-wrap: wrap;
-    }
-    
-    .contact-text {
-        width: calc(100% - 90px);
-        margin-bottom: var(--space-xs);
-    }
-    
-    .map-button,
-    .copy-button {
-        margin-left: auto;
-        margin-top: var(--space-xs);
-    }
-}
-
 /* WhatsApp Button */
 .whatsapp-button {
     position: fixed;
@@ -702,8 +631,21 @@
     fill: white;
 }
 
-/* Media query para dispositivos móviles */
+/* Media queries */
 @media (max-width: 768px) {
+    .contact-card {
+        padding: var(--space-md);
+    }
+    
+    .about-content, .contact-content {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .team-grid {
+        justify-content: flex-start;
+    }
+    
     .whatsapp-button {
         bottom: 20px;
         left: 20px;
@@ -717,5 +659,32 @@
     .whatsapp-btn svg {
         width: 30px;
         height: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-md) var(--space-sm);
+    }
+    
+    .contact-icon {
+        margin-bottom: var(--space-sm);
+    }
+    
+    .contact-text {
+        width: 100%;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .map-button,
+    .copy-button {
+        margin-left: auto;
+    }
+    
+    .social-icons-container {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
     }
 }
