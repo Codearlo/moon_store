@@ -557,6 +557,37 @@
 }
 
 /* Estilos adicionales para contacto */
+.contact-content {
+    display: flex;
+    padding: var(--space-md);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.social-media {
+    text-align: center;
+    margin-top: var(--space-md);
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-sm);
+}
+
+.contact-details {
+    list-style-type: none;
+    margin-bottom: var(--space-md);
+}
+
+.contact-details li {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
 .contact-icon {
     min-width: 40px;
     width: 40px;
@@ -567,58 +598,35 @@
     justify-content: center;
     align-items: center;
     margin-right: var(--space-sm);
+    flex-shrink: 0;
 }
 
-.contact-details {
-    margin-bottom: var(--space-md);
+.contact-text {
+    flex-grow: 1;
+    text-align: left;
 }
 
-.contact-details li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: var(--space-md);
-    justify-content: center;
+.contact-text p {
+    margin: 0;
 }
 
-.map-button {
-    background: var(--primary-dark);
-    border: none;
-    color: var(--text-light);
-    cursor: pointer;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-default);
-}
-
-.map-button:hover {
-    background: var(--primary);
-    transform: scale(1.1);
-}
-
-.copy-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
+.map-button, 
 .copy-button {
     background: var(--primary-dark);
     border: none;
     color: var(--text-light);
     cursor: pointer;
     padding: 8px;
-    margin-left: 10px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition-default);
+    flex-shrink: 0;
+    margin-left: var(--space-sm);
 }
 
+.map-button:hover,
 .copy-button:hover {
     background: var(--primary);
     transform: scale(1.1);
@@ -638,22 +646,24 @@
     font-size: 0.9rem;
 }
 
-.contact-content {
-    display: flex;
-    padding: var(--space-md);
-}
-
-.text-center {
-    text-align: center;
-}
-
-.social-media {
-    text-align: center;
-}
-
-.social-icons {
-    display: flex;
-    gap: var(--space-sm);
-    justify-content: center;
-    margin-top: var(--space-sm);
+/* Media query para ajustar en pantallas pequeñas */
+@media (max-width: 500px) {
+    .contact-content {
+        padding: var(--space-sm);
+    }
+    
+    .contact-details li {
+        flex-wrap: wrap;
+    }
+    
+    .contact-text {
+        width: calc(100% - 90px);
+        margin-bottom: var(--space-xs);
+    }
+    
+    .map-button,
+    .copy-button {
+        margin-left: auto;
+        margin-top: var(--space-xs);
+    }
 }
