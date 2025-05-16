@@ -30,19 +30,35 @@ function initContactForm() {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Aquí se implementaría la lógica de envío del formulario
-            // Por ahora, solo simulamos el envío
-            
+            // Obtener los datos del formulario
             const formData = new FormData(contactForm);
             const formValues = Object.fromEntries(formData.entries());
             
             console.log('Formulario enviado:', formValues);
             
-            // Simulación de envío exitoso
-            showNotification('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.', 'success');
+            // Construir el mensaje para WhatsApp
+            const nombre = formValues.nombre;
+            const email = formValues.email;
+            const mensaje = formValues.mensaje;
             
-            // Resetear el formulario
-            contactForm.reset();
+            // Formatear el mensaje para WhatsApp
+            const whatsappMessage = `Hola, soy ${nombre}. Email: ${email}. ${mensaje}`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // Número de WhatsApp (formato internacional sin el +)
+            const phoneNumber = '51904505720';
+            
+            // Crear la URL de WhatsApp
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Mostrar notificación
+            showNotification('Redirigiendo a WhatsApp...', 'success');
+            
+            // Abrir WhatsApp en una nueva pestaña después de un breve retraso
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+                contactForm.reset(); // Resetear el formulario
+            }, 1000);
         });
     }
 }
