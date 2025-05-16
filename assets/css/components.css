@@ -541,6 +541,10 @@
     font-size: 1.1rem;
 }
 
+.button-text {
+    font-weight: 700;
+}
+
 /* Modal de contacto */
 .modal {
     display: none;
