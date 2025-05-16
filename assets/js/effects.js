@@ -18,6 +18,7 @@ function initParallaxEffect() {
     }
 }
 
+
 /**
  * Inicializa la animación de partículas que aparecen y desaparecen
  */
@@ -26,7 +27,7 @@ function initStarsAnimation() {
     
     if (!bgElements) return;
     
-    // Limpiar contenedor de estrellas si existe
+    // Eliminar cualquier contenedor de estrellas existente
     const existingStars = document.querySelector('.stars');
     if (existingStars) {
         existingStars.remove();
@@ -42,12 +43,13 @@ function initStarsAnimation() {
         width: 100%;
         height: 100%;
         z-index: -1;
+        background-image: none; /* Asegurarse de que no hay imagen de fondo */
     `;
     
     bgElements.appendChild(starsContainer);
     
-    // Crear partículas que aparecen y desaparecen
-    for (let i = 0; i < 100; i++) {
+    // Crear más partículas iniciales para mejor efecto
+    for (let i = 0; i < 150; i++) {
         createParticle(starsContainer);
     }
     
@@ -57,11 +59,11 @@ function initStarsAnimation() {
         
         // Eliminar una partícula aleatoria para mantener equilibrio
         const particles = starsContainer.querySelectorAll('.particle');
-        if (particles.length > 120) {
+        if (particles.length > 180) {
             const randomIndex = Math.floor(Math.random() * particles.length);
             particles[randomIndex].remove();
         }
-    }, 300);
+    }, 200);
 }
 
 /**
