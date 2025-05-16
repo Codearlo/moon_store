@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna Tech - Tu Tienda de PC</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Elementos de fondo -->
+    <div class="bg-elements">
+        <div class="stars"></div>
+        <div class="moon"></div>
+    </div>
+
+    
+
+    <!-- Header -->
+
+    <div id="header-placeholder"></div>
+
+    <header class="site-header">
+        <div class="header-wrapper">
+            <div class="logo">
+                <img src="/assets/img/logo.png" alt="Luna Tech Logo">
+                <span>Luna Tech</span>
+            </div>
+            
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                </svg>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                <li><a href="productos.html" class="nav-link">Productos</a></li>
+                <li><a href="servicios.html" class="nav-link">Servicios</a></li>
+                <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+            </ul>
+            
+            <div class="cta-button">
+                <a href="contacto.html" class="button">Contáctanos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="page-transition">
+        <!-- Hero Section -->
+        <section id="inicio" class="hero-section">
+            <div class="glass-card hero-glass">
+                <div class="section-inner hero-content">
+                    <h1>Tecnología de <span class="highlight">otro mundo</span></h1>
+                    <p>Equipos de alto rendimiento diseñados para elevar tu experiencia digital a un nivel cósmico.</p>
+                    <div class="hero-buttons">
+                        <a href="productos.html" class="button primary">Ver Productos</a>
+                        <a href="servicios.html" class="button secondary">Servicios</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos Destacados -->
+        <section id="productos" class="products-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Productos <span class="highlight">Destacados</span></h2>
+                    <p>Descubre nuestra selección de equipos y accesorios de alta gama.</p>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="glass-card product-card animate-fade-in-up">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4,6H20V16H4V6M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
+                            </svg>
+                        </div>
+                        <h3>PC Gaming</h3>
+                        <p>Equipos gaming de última generación con iluminación LED personalizable.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+                    
+                    <div class="glass-card product-card animate-fade-in-up animate-delay-1">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z" />
+                            </svg>
+                        </div>
+                        <h3>PC Workstation</h3>
+                        <p>Estaciones de trabajo optimizadas para profesionales y creadores de contenido.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+                    
+                    <div class="glass-card product-card animate-fade-in-up animate-delay-2">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4,6H20V16H4V6M20,18A2,2 0 0,0 22,16V6C22,4.89 21.1,4 20,4H4C2.89,4 2,4.89 2,6V16A2,2 0 0,0 4,18H0V20H24V18H20Z" />
+                            </svg>
+                        </div>
+                        <h3>Accesorios</h3>
+                        <p>Complementa tu equipo con los mejores periféricos y accesorios del mercado.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios -->
+        <section id="servicios" class="services-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Nuestros <span class="highlight">Servicios</span></h2>
+                    <p>Soluciones técnicas y servicios especializados para optimizar tu experiencia.</p>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="glass-card service-card animate-fade-in-up">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12,15C7.58,15 4,16.79 4,19V21H20V19C20,16.79 16.42,15 12,15M8,9A4,4 0 0,0 12,13A4,4 0 0,0 16,9M11.5,2C11.2,2 11,2.21 11,2.5V5.5H10V3C10,2.45 10.45,2 11,2H12C11.7,2 11.5,2.21 11.5,2.5V5.5H11V3C11,2.45 11.45,2 12,2H11.5Z" />
+                            </svg>
+                        </div>
+                        <h3>Mantenimiento</h3>
+                        <p>Servicio técnico especializado para mantener tu equipo en óptimas condiciones.</p>
+                    </div>
+                    
+                    <div class="glass-card service-card animate-fade-in-up animate-delay-1">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17,2V2H17V6H15C14.31,6 13.77,6.35 13.41,6.88L12,5.5L10.59,6.88C10.23,6.35 9.69,6 9,6H7V2.2H17M12,7.2L13.71,9H16V13.8L12,11.2L8,13.8V9H10.29L12,7.2M17,3H8V5H9A1,1 0 0,1 10,6V11.2L12,10L14,11.2V6A1,1 0 0,1 15,5H16V3M7,14V22H9V14H7M11,14V22H13V14H11M15,14V22H17V14H15Z" />
+                            </svg>
+                        </div>
+                        <h3>Personalización</h3>
+                        <p>Personaliza tu equipo con nuestros servicios de diseño a medida.</p>
+                    </div>
+                    
+                    <div class="glass-card service-card animate-fade-in-up animate-delay-2">
+                        <div class="icon-container">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18L5,6.3V11.22C5,15.54 8.25,20 12,21Z" />
+                            </svg>
+                        </div>
+                        <h3>Soporte Premium</h3>
+                        <p>Asistencia técnica 24/7 para resolver cualquier inconveniente con tu equipo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section id="testimonios" class="testimonials-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Lo que dicen nuestros <span class="highlight">Clientes</span></h2>
+                </div>
+                
+                <div class="glass-card testimonial animate-fade-in-up">
+                    <div class="quote">"Luna Tech transformó mi experiencia gaming. Su servicio personalizado y la calidad de sus equipos son incomparables."</div>
+                    <div class="client">
+                        <div class="client-avatar"></div>
+                        <div class="client-info">
+                            <h4>Carlos Mendoza</h4>
+                            <p>Gamer Profesional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto Rápido -->
+        <section id="contacto-rapido" class="contact-section">
+            <div class="section-inner">
+                <div class="glass-card contact-card animate-fade-in-up">
+                    <h2>Contáctanos</h2>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Tu email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                        </div>
+                        <button type="submit" class="button primary">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+
+    <div id="footer-placeholder"></div>
+
+
+    <footer class="site-footer">
+        <div class="section-inner">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="assets/img/logo.png" alt="Luna Tech Logo">
+                        <span>Luna Tech</span>
+                    </div>
+                    <p>Tu tienda especializada en equipos y accesorios para gaming y productividad.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h3>Navegación</h3>
+                        <ul>
+                            <li><a href="index.html">Inicio</a></li>
+                            <li><a href="productos.html">Productos</a></li>
+                            <li><a href="servicios.html">Servicios</a></li>
+                            <li><a href="nosotros.html">Nosotros</a></li>
+                            <li><a href="contacto.html">Contacto</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3>Contacto</h3>
+                        <p>Av. Luna 123, Lima</p>
+                        <p>+51 987 654 321</p>
+                        <p>info@lunatech.com</p>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3>Síguenos</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Luna Tech. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/effects.js"></script>
+    <script src="assets/js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+/* Animaciones y efectos */
+/* assets/css/animations.css */
+
+/* Animación de estrellas */
+@keyframes twinkle {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.stars {
+    animation: twinkle 5s infinite;
+}
+
+/* Animación de hover para links */
+@keyframes linkHover {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Animación para tarjetas al entrar en viewport */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Aplica retraso a los elementos en secuencia */
+.animate-delay-1 { animation-delay: 0.2s; }
+.animate-delay-2 { animation-delay: 0.4s; }
+.animate-delay-3 { animation-delay: 0.6s; }
+.animate-delay-4 { animation-delay: 0.8s; }
+.animate-delay-5 { animation-delay: 1s; }
+
+/* Animación para el botón de navegar hacia arriba */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.scroll-top-btn {
+    animation: pulse 2s infinite;
+}
+
+/* Animación para loading/spinners */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Animación para el menú móvil */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-links.active {
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* Efectos de transitions */
+.transition-fade {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.transition-scale {
+    transition: transform 0.3s ease;
+}
+
+.transition-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Efectos de glassmorfismo animados */
+.glass-hover-effect {
+    transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+}
+
+.glass-hover-effect:hover {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Animación para el desenfoque del fondo */
+@keyframes blurIn {
+    from { backdrop-filter: blur(0px); }
+    to { backdrop-filter: blur(12px); }
+}
+
+.blur-in {
+    animation: blurIn 0.5s ease forwards;
+}
+
+/* Animación para la carga del sitio */
+@keyframes pageLoad {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-transition {
+    animation: pageLoad 0.5s ease-out;
+}
+
+/* Animación para la luna */
+@keyframes moonGlow {
+    0% { box-shadow: 0 0 30px var(--primary); }
+    50% { box-shadow: 0 0 60px var(--primary); }
+    100% { box-shadow: 0 0 30px var(--primary); }
+}
+
+.moon {
+    animation: moonGlow 8s infinite;
+}
+
+/* Animación para estrellas fugaces */
+@keyframes shootingStar {
+    0% {
+        transform: translateX(0) translateY(0) rotate(45deg) scale(0);
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-500px) translateY(500px) rotate(45deg) scale(1);
+        opacity: 0;
+    }
+}
+
+.shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    animation: shootingStar 5s linear infinite;
+    animation-delay: calc(var(--i) * 2s);
+    top: calc(var(--y) * 1%);
+    right: 0;
+    z-index: -1;
+}
+
+/* Animaciones para botones */
+@keyframes buttonGlow {
+    0% { box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2); }
+    50% { box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5); }
+    100% { box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2); }
+}
+
+.button.primary {
+    animation: buttonGlow 3s infinite;
+}
+
+/* Animación de aparición para secciones */
+@keyframes sectionFadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-fade-in {
+    opacity: 0;
+}
+
+.section-fade-in.visible {
+    animation: sectionFadeIn 1s ease forwards;
+}

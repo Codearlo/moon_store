@@ -1,0 +1,149 @@
+/* Variables y reset global */
+/* assets/css/base.css */
+
+:root {
+    /* Colores */
+    --primary: #8A2BE2;        /* Morado principal */
+    --primary-light: #B14AFF;  /* Morado claro */
+    --primary-dark: #5D1D9A;   /* Morado oscuro */
+    --accent: #F4C430;         /* Amarillo/Dorado como acento */
+    --background: #0A0118;     /* Fondo oscuro con toque morado */
+    --text-light: #FFFFFF;     /* Texto claro */
+    --text-muted: #B9B9C0;     /* Texto secundario */
+    
+    /* Glassmorfismo */
+    --glass-bg: rgba(10, 1, 24, 0.7);  /* Fondo más oscuro para mejor contraste */
+    --glass-border: rgba(138, 43, 226, 0.2);  /* Borde con color morado sutil */
+    --glass-shadow: rgba(0, 0, 0, 0.3);      /* Sombra para efectos glassmorfismo */
+    
+    /* Tamaños y espaciados */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    
+    /* Bordes y radios */
+    --border-radius-sm: 8px;
+    --border-radius-md: 15px;
+    --border-radius-lg: 30px;
+    --border-radius-circle: 50%;
+    
+    /* Sombras */
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 8px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.15);
+    
+    /* Transiciones */
+    --transition-fast: all 0.2s ease;
+    --transition-default: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    
+    /* Contenedores */
+    --container-max: 1200px;
+    --container-small: 800px;
+}
+
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background);
+    color: var(--text-light);
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: var(--space-sm);
+    color: var(--text-muted);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-light);
+    transition: var(--transition-default);
+}
+
+a:hover {
+    color: var(--primary-light);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+ul, ol {
+    list-style-position: inside;
+}
+
+.highlight {
+    color: var(--primary-light);
+    font-weight: 700;
+}
+
+/* Contenedores */
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.section-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* Secciones */
+section {
+    width: 100%;
+    padding: var(--space-lg) 0;
+}
+
+/* Fondos */
+.bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
