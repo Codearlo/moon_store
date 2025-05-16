@@ -398,9 +398,9 @@
 }
 
 .contact-card {
-    max-width: 1000px; /* Aumentado para dar más espacio */
+    max-width: var(--container-max); /* Usa el mismo ancho máximo que el resto del sitio */
     margin: 0 auto;
-    padding: var(--space-lg) var(--space-lg);
+    padding: var(--space-md);
 }
 
 /* Contenedor flexible para la información de contacto y redes sociales */
@@ -408,7 +408,8 @@
     display: flex;
     justify-content: space-between;
     gap: var(--space-md);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
+    width: 100%;
 }
 
 /* Columna izquierda para información de contacto */
