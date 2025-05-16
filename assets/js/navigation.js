@@ -14,6 +14,7 @@ function initNavigation() {
 /**
  * Configura el menú móvil
  */
+// Función mejorada para el menú móvil (con apertura desde la derecha)
 function setupMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
@@ -33,62 +34,56 @@ function setupMobileMenu() {
                 // Agregar overlay para cerrar el menú al hacer clic fuera
                 const overlay = document.createElement('div');
                 overlay.className = 'menu-overlay';
-                overlay.style.position = 'fixed';
-                overlay.style.top = '0';
-                overlay.style.left = '0';
-                overlay.style.right = '0';
-                overlay.style.bottom = '0';
-                overlay.style.background = 'rgba(0,0,0,0.5)';
-                overlay.style.zIndex = '1000';
                 document.body.appendChild(overlay);
                 
-                // Agregar evento para cerrar menú
-                overlay.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    overlay.remove();
-                    
-                    // Restaurar ícono del menú
-                    menuToggle.innerHTML = `
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                        </svg>
-                    `;
-                });
-            } else {
-                menuToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                    </svg>
-                `;
+                // Activar overlay con un pequeño retraso para la animación
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                }, 10);
                 
-                // Remover overlay si existe
-                const overlay = document.querySelector('.menu-overlay');
-                if (overlay) {
-                    overlay.remove();
-                }
+                // Prevenir scroll del body cuando el menú está abierto
+                document.body.style.overflow = 'hidden';
+                
+                // Agregar evento para cerrar menú
+                overlay.addEventListener('click', closeMenu);
+            } else {
+                closeMenu();
             }
         });
         
         // Cerrar menú al hacer clic en un enlace
         const navItems = navLinks.querySelectorAll('a');
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                
-                // Restaurar ícono del menú
-                menuToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                    </svg>
-                `;
-                
-                // Remover overlay si existe
-                const overlay = document.querySelector('.menu-overlay');
-                if (overlay) {
-                    overlay.remove();
-                }
-            });
+            item.addEventListener('click', closeMenu);
         });
+    }
+    
+    // Función para cerrar el menú
+    function closeMenu() {
+        if (navLinks) {
+            navLinks.classList.remove('active');
+        }
+        
+        if (menuToggle) {
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                </svg>
+            `;
+        }
+        
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+        
+        // Remover overlay si existe
+        const overlay = document.querySelector('.menu-overlay');
+        if (overlay) {
+            overlay.classList.remove('active');
+            // Eliminar overlay después de la animación
+            setTimeout(() => {
+                overlay.remove();
+            }, 300);
+        }
     }
 }
 
