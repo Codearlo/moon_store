@@ -499,3 +499,127 @@
         height: 30px;
     }
 }
+
+/* Modal de contacto */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+    overflow: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 550px;
+    margin: 50px auto;
+    padding: var(--space-md);
+    position: relative;
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.close-button:hover {
+    color: var(--primary-light);
+    transform: scale(1.1);
+}
+
+/* Estilos adicionales para contacto */
+.contact-icon {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: var(--space-sm);
+}
+
+.contact-details {
+    margin-bottom: var(--space-md);
+}
+
+.contact-details li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+}
+
+.contact-details a.map-link {
+    color: var(--primary-light);
+    text-decoration: underline;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.copy-container {
+    display: flex;
+    align-items: center;
+}
+
+.copy-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-default);
+}
+
+.copy-button:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+.contact-cta {
+    margin-top: var(--space-md);
+}
+
+.text-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.contact-content {
+    display: flex;
+    padding: var(--space-md);
+}

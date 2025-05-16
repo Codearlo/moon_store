@@ -214,28 +214,97 @@
                 </div>
                 
                 <div class="glass-card contact-card animate-fade-in-up">
-                    <div class="section-inner form-container">
-                        <h3>Envíanos un mensaje</h3>
-                        <p>Completa el formulario y te responderemos a la brevedad.</p>
-                        <form class="contact-form" id="contactForm">
-                            <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                    <div class="contact-content">
+                    <!-- Información de contacto -->
+                        <div class="contact-info">
+                            <h3>Información de Contacto</h3>
+                            <ul class="contact-details">
+                                <li>
+                                    <div class="contact-icon">
+                                        <svg viewBox="0 0 24 24" width="24" height="24">
+                                            <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p>Prolongación Cutervo 761, Ica, Perú</p>
+                                        <p class="text-muted">Lunes a Sábado: 8:00 AM - 7:00 PM</p>
+                                        <a href="https://maps.app.goo.gl/6sUN2SP7iDKMgkNf7" target="_blank" class="map-link">Ver en Google Maps</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-icon">
+                                        <svg viewBox="0 0 24 24" width="24" height="24">
+                                            <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="copy-container">
+                                        <p id="phone-number">+51 904505720</p>
+                                        <button class="copy-button" data-copy="+51904505720">
+                                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                                <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-icon">
+                                        <svg viewBox="0 0 24 24" width="24" height="24">
+                                            <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="copy-container">
+                                        <p id="email-address">store.moon.main@gmail.com</p>
+                                        <button class="copy-button" data-copy="store.moon.main@gmail.com">
+                                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                                <path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <div class="social-media">
+                                <h3>Síguenos en Redes</h3>
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" title="TikTok">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 18.25 10c-.67 0-1.3-.3-1.7-.41-1.59-.54-3.1-.54-4.93 0-1.5.47-2.5.38-3.45.38-1.16-1.61-1.95-3.03-1.95-3.03s4.32-.7 8.92.7c2.5.79 5.69.96 8.77 1.05A4.27 4.27 0 0 1 22 10c0 5.25-4.25 9.5-9.5 9.5S3 15.25 3 10c0-.45.04-.89.09-1.33 2.5.34 5.32 1.44 8.42 1.44 4.24 0 5.9-2.29 5.9-2.29s-3.5-2-6.81-2c0 0 .7-.28 2.21 0 0 0 1.21.14 2.14.82.56.4 1.27.84 2.06 1.11.43.15.88.26 1.36.35.87.17 1.9.23 2.85 0a17.07 17.07 0 0 0 3.26-1.03c.83-.41 1.59-.83 1.59-.83s-1 5.25-6.86 7.76c-5.07 2.03-10.31.83-13.69-2.2-2.86-2.36-4.63-5.35-4.63-5.35s7.33.73 12.5-3.06c.09-.07.18-.13.27-.2 0 0-4.13 3.34-11.35 3.63-2.09.08-3.6-.46-3.6-.46a9.44 9.44 0 0 1 5.51-5.3l.14-.06s1.37.33 2.35.75c0 0 .33-.75-.27-1.03 0 0 4.13.55 5.02 6.01 0 0-2.24.85-3.8-.03z" fill="currentColor"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="social-icon" title="Instagram">
+                                    <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" fill="currentColor"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="social-icon" title="Facebook">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z" fill="currentColor"/>
+                                    </svg>
+                                    </a>
+                                    <a href="#" class="social-icon" title="YouTube">
+                                        <svg viewBox="0 0 24 24" width="18" height="18">
+                                            <path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z" fill="currentColor"/>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Tu email" required>
+                    
+                            <div class="contact-cta">
+                                <button id="openContactFormBtn" class="button primary">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;">
+                                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" fill="currentColor"/>
+                                    </svg>
+                                    Enviar Mensaje
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="mensaje">Mensaje</label>
-                                <textarea id="mensaje" name="mensaje" placeholder="¿En qué podemos ayudarte?" required></textarea>
-                            </div>
-                            <button type="submit" class="button primary">Enviar Mensaje</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal para formulario de contacto -->
+        <div id="contactFormModalPlaceholder"></div>
     </main>
 
     <!-- Footer -->

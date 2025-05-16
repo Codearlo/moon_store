@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
  * Carga componentes HTML reutilizables
  * @param {string} targetId - ID del elemento donde se cargará el componente
  * @param {string} componentUrl - URL del archivo de componente
+ * @param {function} callback - Función que se ejecutará después de cargar el componente (opcional)
  */
-function loadComponent(targetId, componentUrl) {
+function loadComponent(targetId, componentUrl, callback) {
     const target = document.getElementById(targetId);
     
     if (!target) {
@@ -38,6 +39,11 @@ function loadComponent(targetId, componentUrl) {
                     window.navigationModule.initNavigation();
                 }
                 markActiveNavLink();
+            }
+            
+            // Ejecutar callback si se proporcionó
+            if (typeof callback === 'function') {
+                callback();
             }
         })
         .catch(error => {

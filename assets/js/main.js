@@ -198,3 +198,143 @@ function addShootingStars() {
         }
     }
 }
+
+/**
+ * Inicializa el formulario de contacto
+ */
+function initContactForm() {
+    // Eliminar antiguo manejador si existe
+    const oldContactForm = document.getElementById('contactForm');
+    if (oldContactForm) {
+        const newContactForm = oldContactForm.cloneNode(true);
+        oldContactForm.parentNode.replaceChild(newContactForm, oldContactForm);
+    }
+    
+    // Inicializar modal del formulario
+    initContactFormModal();
+    
+    // Inicializar función copiar al portapapeles
+    initCopyToClipboard();
+}
+
+/**
+ * Inicializa el modal del formulario de contacto
+ */
+function initContactFormModal() {
+    // Cargar el componente del modal si no existe
+    if (!document.getElementById('contactFormModal')) {
+        // Crear placeholder si no existe
+        if (!document.getElementById('contactFormModalPlaceholder')) {
+            const placeholder = document.createElement('div');
+            placeholder.id = 'contactFormModalPlaceholder';
+            document.body.appendChild(placeholder);
+        }
+        
+        // Cargar componente
+        loadComponent('contactFormModalPlaceholder', '../components/contact-form-modal.html', () => {
+            setupContactFormModal();
+        });
+    } else {
+        setupContactFormModal();
+    }
+}
+
+/**
+ * Configura la funcionalidad del modal del formulario de contacto
+ */
+function setupContactFormModal() {
+    const openModalBtn = document.getElementById('openContactFormBtn');
+    const closeModalBtn = document.getElementById('closeContactFormBtn');
+    const modal = document.getElementById('contactFormModal');
+    const contactForm = document.getElementById('contactForm');
+    
+    if (!openModalBtn || !modal || !contactForm) return;
+    
+    // Abrir modal
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Evitar scroll de página
+    });
+    
+    // Cerrar modal con botón
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // Cerrar al hacer clic afuera
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Manejar envío del formulario
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Obtener datos del formulario
+        const formData = new FormData(contactForm);
+        const nombre = formData.get('nombre');
+        const asunto = formData.get('asunto');
+        const mensaje = formData.get('mensaje');
+        
+        // Formatear mensaje para WhatsApp
+        const whatsappMessage = `*Formulario de Contacto*\nNombre: ${nombre}\nAsunto: ${asunto}\nMensaje: ${mensaje}`;
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        
+        // Número de WhatsApp
+        const phoneNumber = '51904505720';
+        
+        // Crear URL de WhatsApp
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        
+        // Mostrar notificación
+        showNotification('Redirigiendo a WhatsApp...', 'success');
+        
+        // Cerrar modal
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        
+        // Abrir WhatsApp en una nueva pestaña
+        setTimeout(() => {
+            window.open(whatsappURL, '_blank');
+            contactForm.reset(); // Resetear formulario
+        }, 1000);
+    });
+}
+
+/**
+ * Inicializa la función de copiar al portapapeles
+ */
+function initCopyToClipboard() {
+    const copyButtons = document.querySelectorAll('.copy-button');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const textToCopy = button.getAttribute('data-copy');
+            
+            if (textToCopy) {
+                // Crear elemento temporal para copiar texto
+                const tempInput = document.createElement('input');
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                // Mostrar notificación
+                showNotification('Copiado al portapapeles', 'success');
+                
+                // Efecto visual en el botón
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                }, 1000);
+            }
+        });
+    });
+}
