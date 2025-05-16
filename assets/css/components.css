@@ -577,26 +577,40 @@
     display: flex;
     align-items: flex-start;
     margin-bottom: var(--space-md);
+    justify-content: center;
 }
 
-.contact-details a.map-link {
-    color: var(--primary-light);
-    text-decoration: underline;
+.map-button {
+    background: var(--primary-dark);
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 8px;
     margin-top: 5px;
-    display: inline-block;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-default);
+}
+
+.map-button:hover {
+    background: var(--primary);
+    transform: scale(1.1);
 }
 
 .copy-container {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .copy-button {
-    background: none;
+    background: var(--primary-dark);
     border: none;
     color: var(--text-light);
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     margin-left: 10px;
     border-radius: 50%;
     display: flex;
@@ -606,12 +620,17 @@
 }
 
 .copy-button:hover {
-    background: var(--primary-dark);
+    background: var(--primary);
     transform: scale(1.1);
+}
+
+.copy-button.copied {
+    background: #4CAF50;
 }
 
 .contact-cta {
     margin-top: var(--space-md);
+    text-align: center;
 }
 
 .text-muted {
@@ -622,4 +641,19 @@
 .contact-content {
     display: flex;
     padding: var(--space-md);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.social-media {
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin-top: var(--space-sm);
 }

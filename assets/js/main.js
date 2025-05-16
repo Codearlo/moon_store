@@ -218,6 +218,24 @@ function initContactForm() {
 }
 
 /**
+ * Inicializa el formulario de contacto
+ */
+function initContactForm() {
+    // Eliminar antiguo manejador si existe
+    const oldContactForm = document.getElementById('contactForm');
+    if (oldContactForm) {
+        const newContactForm = oldContactForm.cloneNode(true);
+        oldContactForm.parentNode.replaceChild(newContactForm, oldContactForm);
+    }
+    
+    // Inicializar modal del formulario
+    initContactFormModal();
+    
+    // Inicializar función copiar al portapapeles
+    initCopyToClipboard();
+}
+
+/**
  * Inicializa el modal del formulario de contacto
  */
 function initContactFormModal() {
