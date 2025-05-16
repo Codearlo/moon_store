@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cargar componentes
     loadComponent('header-placeholder', '../components/header.html');
     loadComponent('footer-placeholder', '../components/footer.html');
+    loadComponent('whatsapp-placeholder', '../components/whatsapp-button.html');
 });
 
 /**
