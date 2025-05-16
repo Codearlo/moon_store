@@ -2,46 +2,75 @@
 // Maneja efectos visuales y animaciones
 
 /**
- * Inicializa el efecto parallax para la luna y las estrellas
+ * Inicializa el efecto parallax para las estrellas
  */
 function initParallaxEffect() {
-    const moon = document.querySelector('.moon');
     const stars = document.querySelector('.stars');
     
-    if (moon && stars) {
+    if (stars) {
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
             // Aplicar transformación con diferentes intensidades
-            moon.style.transform = `translate(${x * 20}px, ${y * 20}px) rotate(45deg)`;
             stars.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
         });
     }
 }
 
 /**
- * Inicializa la animación aleatoria de estrellas parpadeantes
+ * Inicializa la animación de partículas que aparecen y desaparecen
  */
 function initStarsAnimation() {
-    const starsContainer = document.querySelector('.stars');
+    const bgElements = document.querySelector('.bg-elements');
     
-    if (!starsContainer) return;
+    if (!bgElements) return;
     
-    // Crear estrellas adicionales con parpadeo aleatorio
-    for (let i = 0; i < 30; i++) {
-        createStar(starsContainer, i);
+    // Limpiar contenedor de estrellas si existe
+    const existingStars = document.querySelector('.stars');
+    if (existingStars) {
+        existingStars.remove();
     }
+    
+    // Crear nuevo contenedor de estrellas/partículas
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'stars';
+    starsContainer.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    `;
+    
+    bgElements.appendChild(starsContainer);
+    
+    // Crear partículas que aparecen y desaparecen
+    for (let i = 0; i < 100; i++) {
+        createParticle(starsContainer);
+    }
+    
+    // Crear nuevas partículas periódicamente
+    setInterval(() => {
+        createParticle(starsContainer);
+        
+        // Eliminar una partícula aleatoria para mantener equilibrio
+        const particles = starsContainer.querySelectorAll('.particle');
+        if (particles.length > 120) {
+            const randomIndex = Math.floor(Math.random() * particles.length);
+            particles[randomIndex].remove();
+        }
+    }, 300);
 }
 
 /**
- * Crea una estrella con animación personalizada
- * @param {HTMLElement} container - Contenedor donde se añadirá la estrella
- * @param {number} index - Índice para calcular posición y retraso
+ * Crea una partícula que aparece y desaparece
+ * @param {HTMLElement} container - Contenedor donde se añadirá la partícula
  */
-function createStar(container, index) {
-    const star = document.createElement('div');
-    star.className = 'star';
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
     
     // Posicionar aleatoriamente
     const posX = Math.random() * 100;
@@ -50,8 +79,11 @@ function createStar(container, index) {
     // Tamaño aleatorio entre 1px y 3px
     const size = 1 + Math.random() * 2;
     
+    // Duración aleatoria entre 3 y 8 segundos
+    const duration = 3 + Math.random() * 5;
+    
     // Ajustar los estilos
-    star.style.cssText = `
+    particle.style.cssText = `
         position: absolute;
         background-color: white;
         width: ${size}px;
@@ -59,11 +91,16 @@ function createStar(container, index) {
         left: ${posX}%;
         top: ${posY}%;
         border-radius: 50%;
-        opacity: ${0.5 + Math.random() * 0.5};
-        animation: twinkle ${3 + Math.random() * 4}s infinite ${Math.random() * 5}s;
+        opacity: 0;
+        animation: fadeInOut ${duration}s ease-in-out forwards;
     `;
     
-    container.appendChild(star);
+    container.appendChild(particle);
+    
+    // Eliminar la partícula después de su ciclo de vida
+    setTimeout(() => {
+        particle.remove();
+    }, duration * 1000);
 }
 
 /**
@@ -85,86 +122,9 @@ function addGlassHoverEffects() {
     });
 }
 
-/**
- * Crea un efecto de starfield animado
- */
-function createStarfieldEffect() {
-    const bgElements = document.querySelector('.bg-elements');
-    
-    if (!bgElements) return;
-    
-    // Crear canvas para el starfield
-    const canvas = document.createElement('canvas');
-    canvas.className = 'starfield';
-    canvas.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    `;
-    
-    bgElements.appendChild(canvas);
-    
-    // Configurar canvas
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    
-    // Crear estrellas
-    const stars = [];
-    const starCount = 200;
-    
-    for (let i = 0; i < starCount; i++) {
-        stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 1.5,
-            vx: Math.floor(Math.random() * 50) - 25,
-            vy: Math.floor(Math.random() * 50) - 25
-        });
-    }
-    
-    // Función de animación
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.globalCompositeOperation = 'lighter';
-        
-        for (let i = 0; i < starCount; i++) {
-            const star = stars[i];
-            
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-            ctx.fillStyle = 'rgba(255, 255, 255, ' + (Math.random() * 0.5 + 0.5) + ')';
-            ctx.fill();
-            
-            // Mover estrellas
-            star.x += star.vx / 30;
-            star.y += star.vy / 30;
-            
-            // Si la estrella sale del canvas, reiniciar posición
-            if (star.x < 0 || star.x > width) star.x = Math.random() * width;
-            if (star.y < 0 || star.y > height) star.y = Math.random() * height;
-        }
-        
-        window.requestAnimationFrame(animate);
-    }
-    
-    // Ajustar tamaño del canvas cuando se redimensiona la ventana
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
-    
-    // Iniciar animación
-    animate();
-}
-
 // Exportar funciones para uso en otros archivos
 window.effectsModule = {
     initParallaxEffect,
     initStarsAnimation,
-    addGlassHoverEffects,
-    createStarfieldEffect
+    addGlassHoverEffects
 };

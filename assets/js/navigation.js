@@ -29,12 +29,43 @@ function setupMobileMenu() {
                         <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
                     </svg>
                 `;
+                
+                // Agregar overlay para cerrar el menú al hacer clic fuera
+                const overlay = document.createElement('div');
+                overlay.className = 'menu-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.right = '0';
+                overlay.style.bottom = '0';
+                overlay.style.background = 'rgba(0,0,0,0.5)';
+                overlay.style.zIndex = '1000';
+                document.body.appendChild(overlay);
+                
+                // Agregar evento para cerrar menú
+                overlay.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    overlay.remove();
+                    
+                    // Restaurar ícono del menú
+                    menuToggle.innerHTML = `
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                        </svg>
+                    `;
+                });
             } else {
                 menuToggle.innerHTML = `
                     <svg viewBox="0 0 24 24" width="24" height="24">
                         <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
                     </svg>
                 `;
+                
+                // Remover overlay si existe
+                const overlay = document.querySelector('.menu-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
             }
         });
         
@@ -50,21 +81,13 @@ function setupMobileMenu() {
                         <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
                     </svg>
                 `;
-            });
-        });
-        
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
                 
-                // Restaurar ícono del menú
-                menuToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                    </svg>
-                `;
-            }
+                // Remover overlay si existe
+                const overlay = document.querySelector('.menu-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+            });
         });
     }
 }
@@ -91,9 +114,13 @@ function setupSmoothScroll() {
                 if (targetElement) {
                     e.preventDefault();
                     
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Compensar por la barra de navegación fija
+                    const headerHeight = document.querySelector('.site-header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                     
                     // Actualizar URL sin recargar la página

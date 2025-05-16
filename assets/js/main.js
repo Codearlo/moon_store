@@ -154,11 +154,15 @@ function initScrollToTopButton() {
  * Inicializa efectos visuales generales
  */
 function initVisualEffects() {
-    // Agregar estrellas fugaces
-    addShootingStars();
+    // Iniciar partículas que aparecen y desaparecen
+    if (window.effectsModule && typeof window.effectsModule.initStarsAnimation === 'function') {
+        window.effectsModule.initStarsAnimation();
+    }
     
-    // Efecto parallax para luna y estrellas
-    initParallaxEffect();
+    // Efecto parallax para estrellas
+    if (window.effectsModule && typeof window.effectsModule.initParallaxEffect === 'function') {
+        window.effectsModule.initParallaxEffect();
+    }
 }
 
 /**

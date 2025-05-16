@@ -3,11 +3,14 @@
 
 /* Header */
 .site-header {
-    position: relative;
-    top: 0;
-    width: 100%;
+    position: fixed;
+    top: 20px; /* Margen superior */
+    left: 0;
+    right: 0;
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto; /* Centrado horizontal */
     z-index: 1000;
-    margin: 0;
 }
 
 .header-wrapper {
@@ -19,7 +22,7 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    border-radius: 0;
+    border-radius: var(--border-radius-lg); /* Bordes redondeados */
     box-shadow: 0 8px 32px 0 var(--glass-shadow);
 }
 
@@ -82,6 +85,15 @@
     margin: 0;
     position: relative;
     width: 100%;
+    padding-top: 100px; /* Espacio para la navegación fija */
+}
+
+.hero-glass {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    border-radius: var(--border-radius-lg); /* Bordes redondeados */
+    padding: var(--space-lg) 0;
 }
 
 .hero-content {
@@ -203,18 +215,7 @@
 
 /* Backgrounds y elementos decorativos */
 .moon {
-    position: absolute;
-    top: 100px;
-    right: 100px;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 30% 30%, var(--primary-light), var(--primary-dark));
-    border-radius: 50%;
-    box-shadow: 0 0 50px var(--primary);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 30% 50%);
-    transform: rotate(45deg);
-    opacity: 0.8;
-    z-index: 0;
+    display: none; /* Ocultar la luna completamente */
 }
 
 .stars {
@@ -223,18 +224,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        radial-gradient(1px 1px at 20px 30px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 60px 110px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 80px 150px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 100px 190px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 120px 230px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 140px 270px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 160px 310px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 180px 350px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 200px 390px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 220px 430px, white, rgba(0,0,0,0));
+    /* Eliminar completamente este background-image que crea el patrón diagonal */
+    background-image: none;
     background-repeat: repeat;
     background-size: 500px 500px;
 }
@@ -276,6 +267,11 @@
 }
 
 @media (max-width: 768px) {
+    .site-header {
+        width: 95%;
+        top: 10px;
+    }
+    
     .nav-links {
         display: none;
     }
@@ -287,20 +283,23 @@
     .nav-links.active {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
-        right: 0;
+        bottom: 0;
+        width: 250px;
         background: var(--glass-bg);
         backdrop-filter: blur(12px);
-        padding: var(--space-md);
-        border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
-        border: 1px solid var(--glass-border);
-        z-index: 1000;
+        padding: var(--space-xl) var(--space-md);
+        border-right: 1px solid var(--glass-border);
+        border-radius: 0;
+        z-index: 1001;
+        transition: transform 0.3s ease;
+        transform: translateX(0);
     }
     
     .nav-links.active li {
-        margin: var(--space-xs) 0;
+        margin: var(--space-md) 0;
     }
     
     .hero-content {
@@ -333,6 +332,15 @@
 }
 
 @media (max-width: 576px) {
+    .site-header {
+        width: 95%;
+        top: 10px;
+    }
+    
+    .header-wrapper {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
     h1 {
         font-size: 2rem;
     }
