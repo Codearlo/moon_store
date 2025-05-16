@@ -1,0 +1,409 @@
+/* assets/css/responsive.css */
+/* Estilos específicos para dispositivos móviles y tablets */
+
+/* Tablets grandes y dispositivos medianos */
+@media (max-width: 1200px) {
+    .contact-flex-container {
+        gap: var(--space-sm);
+    }
+    
+    .contact-info-column {
+        flex: 0 0 65%;
+    }
+    
+    .social-column {
+        flex: 0 0 20%;
+    }
+}
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 992px) {
+    .section-inner {
+        padding: 0 var(--space-sm);
+    }
+    
+    .contact-card {
+        padding: var(--space-md) var(--space-md);
+    }
+    
+    .contact-item {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .contact-info-column, .social-column {
+        padding: 0 var(--space-sm);
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-icon img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .map-button, 
+    .copy-button {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .map-button img,
+    .copy-button img {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* Adaptaciones para la navegación */
+    .site-header {
+        width: 98%;
+    }
+}
+
+/* Móviles y tablets pequeñas */
+@media (max-width: 768px) {
+    /* Navegación móvil */
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0; /* Cambio: ahora se abre desde la derecha */
+        bottom: 0;
+        width: 250px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        padding: var(--space-xl) var(--space-md);
+        border-left: 1px solid var(--glass-border); /* Borde izquierdo en lugar de derecho */
+        border-radius: 0;
+        z-index: 1001;
+        transition: transform 0.3s ease;
+        transform: translateX(0);
+    }
+    
+    .nav-links.active li {
+        margin: var(--space-md) 0;
+    }
+    
+    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
+    .cta-button .button {
+        font-size: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .cta-button .button::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('../img/svg/cart.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+    }
+    
+    /* Ajuste para la superposición de menú */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        display: none;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+    
+    /* Ajustes para sección de contacto */
+    .contact-section {
+        padding: var(--space-lg) 0;
+    }
+    
+    .section-header {
+        margin-bottom: var(--space-lg);
+    }
+    
+    .contact-flex-container {
+        flex-direction: column;
+        min-height: auto;
+        margin-bottom: var(--space-md);
+    }
+    
+    .contact-info-column {
+        flex: 1 1 auto;
+        width: 100%;
+        margin-bottom: var(--space-md);
+    }
+    
+    .social-column {
+        flex: 1 1 auto;
+        width: 100%;
+        margin-top: var(--space-sm);
+    }
+    
+    .social-title {
+        text-align: center;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--space-md);
+        height: auto;
+        margin-bottom: var(--space-md);
+    }
+    
+    .contact-grid {
+        gap: var(--space-sm);
+    }
+    
+    .contact-icon {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .contact-icon img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .contact-cta {
+        margin-top: var(--space-md);
+    }
+    
+    .contact-cta .button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .contact-card {
+        padding: var(--space-sm);
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-sm);
+    }
+    
+    .contact-icon {
+        margin-bottom: var(--space-sm);
+    }
+    
+    .contact-text {
+        width: 100%;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .map-button,
+    .copy-button {
+        margin-left: auto;
+    }
+    
+    .contact-title, 
+    .social-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .social-icons-container {
+        gap: var(--space-sm);
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .social-icon img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .contact-cta .button {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+/* Corrección para que el menú se abra correctamente desde la derecha */
+@media (max-width: 768px) {
+    .nav-links.active {
+        transform: translateX(0); /* Estaba en 0, lo que es correcto para abrir desde la derecha */
+    }
+    
+    .nav-links {
+        transform: translateX(100%); /* Inicialmente oculto a la derecha */
+        right: 0;
+        left: auto; /* Asegura que no se aplique left */
+    }
+}
+
+/* Asegurarse de que los elementos de contacto sean clickeables en móvil */
+@media (pointer: coarse) {
+    .contact-icon,
+    .social-icon,
+    .map-button,
+    .copy-button,
+    .button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-width: 850px) and (orientation: landscape) {
+    .contact-flex-container {
+        flex-direction: row;
+    }
+    
+    .contact-info-column {
+        flex: 0 0 65%;
+    }
+    
+    .social-column {
+        flex: 0 0 30%;
+    }
+    
+    .social-icons-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .contact-card {
+        padding: var(--space-sm);
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-sm);
+    }
+    
+    .contact-icon {
+        margin-bottom: var(--space-sm);
+    }
+    
+    .contact-text {
+        width: 100%;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .map-button,
+    .copy-button {
+        margin-left: auto;
+    }
+    
+    .contact-title, 
+    .social-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .social-icons-container {
+        gap: var(--space-sm);
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .social-icon img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .contact-cta .button {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+/* Reglas específicas para dispositivos con pantalla táctil */
+@media (hover: none) {
+    .social-icon:hover,
+    .map-button:hover,
+    .copy-button:hover {
+        transform: none;
+    }
+    
+    .button:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+/* Asegurarse de que los elementos de contacto sean clickeables en móvil */
+@media (pointer: coarse) {
+    .contact-icon,
+    .social-icon,
+    .map-button,
+    .copy-button,
+    .button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-width: 850px) and (orientation: landscape) {
+    .contact-flex-container {
+        flex-direction: row;
+    }
+    
+    .contact-info-column {
+        flex: 0 0 65%;
+    }
+    
+    .social-column {
+        flex: 0 0 30%;
+    }
+    
+    .social-icons-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

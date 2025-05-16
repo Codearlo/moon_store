@@ -317,7 +317,7 @@
 /* Secciones con títulos */
 .section-header {
     text-align: center;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
 }
 
 .section-header h2 {
@@ -394,13 +394,13 @@
 
 /* ----- ESTILOS ACTUALIZADOS PARA LA SECCIÓN DE CONTACTO ----- */
 .contact-section {
-    padding: var(--space-lg) 0;
+    padding: var(--space-xl) 0;
 }
 
 .contact-card {
-    max-width: var(--container-max); /* Usa el mismo ancho máximo que el resto del sitio */
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: var(--space-md);
+    padding: var(--space-lg) var(--space-lg);
 }
 
 /* Contenedor flexible para la información de contacto y redes sociales */
@@ -408,21 +408,26 @@
     display: flex;
     justify-content: space-between;
     gap: var(--space-md);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     width: 100%;
+    min-height: 300px;
 }
 
 /* Columna izquierda para información de contacto */
 .contact-info-column {
-    flex: 0 0 60%;
+    flex: 0 0 68%;
+    padding: 0 var(--space-lg);
 }
 
 /* Columna derecha para redes sociales */
 .social-column {
-    flex: 0 0 30%;
+    flex: 0 0 18%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 var(--space-lg);
+    height: 100%;
+    justify-content: flex-start;
 }
 
 /* Título de contacto */
@@ -430,18 +435,22 @@
 .social-title {
     text-align: left;
     margin-bottom: var(--space-md);
+    margin-top: var(--space-sm);
     color: var(--text-light);
+    font-size: 1.5rem;
 }
 
 .social-title {
     margin-bottom: var(--space-md);
+    margin-top: var(--space-md);
 }
 
 /* Grid de contacto */
 .contact-grid {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
 }
 
 /* Elementos de contacto */
@@ -449,16 +458,17 @@
     display: flex;
     align-items: center;
     position: relative;
-    padding: var(--space-sm) var(--space-sm);
-    background: rgba(138, 43, 226, 0.05);
+    padding: var(--space-sm) var(--space-lg);
+    background: rgba(138, 43, 226, 0.03);
     border-radius: var(--border-radius-sm);
-    border: 1px solid rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.05);
+    margin-bottom: var(--space-sm);
 }
 
 .contact-icon {
-    min-width: 50px;
-    width: 50px;
-    height: 50px;
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: var(--primary-dark);
     display: flex;
@@ -469,8 +479,8 @@
 }
 
 .contact-icon img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     filter: brightness(0) invert(1);
 }
 
@@ -496,8 +506,8 @@
     border: none;
     color: var(--text-light);
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -510,6 +520,8 @@
 .map-button img,
 .copy-button img {
     filter: brightness(0) invert(1);
+    width: 16px;
+    height: 16px;
 }
 
 .map-button:hover,
@@ -527,7 +539,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    height: 100%;
+    justify-content: space-around;
 }
 
 .social-icon-link {
@@ -535,8 +550,8 @@
 }
 
 .social-icon {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--primary-dark);
     display: flex;
@@ -546,8 +561,8 @@
 }
 
 .social-icon img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     filter: brightness(0) invert(1);
 }
 
@@ -559,6 +574,7 @@
 /* Botón de contacto */
 .contact-cta {
     text-align: center;
+    margin-top: var(--space-lg);
 }
 
 .contact-cta .button {
@@ -664,6 +680,7 @@
 @media (max-width: 768px) {
     .contact-flex-container {
         flex-direction: column;
+        min-height: auto;
     }
     
     .social-column {
@@ -678,10 +695,21 @@
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
+        gap: var(--space-md);
+        margin-top: var(--space-sm);
+        margin-bottom: var(--space-md);
     }
     
     .contact-card {
         padding: var(--space-md);
+    }
+    
+    .contact-info-column, .social-column {
+        padding: 0 var(--space-sm);
+    }
+    
+    .contact-item {
+        padding: var(--space-sm) var(--space-md);
     }
     
     .about-content, .contact-content {

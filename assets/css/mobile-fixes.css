@@ -1,0 +1,171 @@
+/* assets/css/mobile-fixes.css */
+/* Correcciones específicas para la visualización en móviles */
+
+/* Ajustes generales de fuente para móvil */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    
+    .button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .button.small {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .highlight {
+        font-weight: 600;
+    }
+}
+
+/* Corrección para sección de contacto */
+@media (max-width: 768px) {
+    /* Ajustar layout en modo móvil para la sección de contacto */
+    .contact-flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    /* Estilo único para móvil en los elementos de contacto */
+    .contact-item {
+        background: rgba(138, 43, 226, 0.03);
+        border-radius: var(--border-radius-sm);
+        border: 1px solid rgba(138, 43, 226, 0.05);
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Título de contacto centrado en móvil */
+    .contact-title {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: var(--space-md);
+    }
+    
+    /* Ocultar título de redes en móvil */
+    .social-title {
+        display: none;
+    }
+    
+    /* Iconos sociales en horizontal para móvil */
+    .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Corrección para Whatsapp y botón Subir */
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 999;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Asegurar que los botones tengan el mismo tamaño */
+.whatsapp-btn, .scroll-top-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Corrección para el Equipo */
+@media (max-width: 768px) {
+    /* Centrar sección de equipo */
+    .about-section h3 {
+        text-align: center;
+    }
+    
+    .team-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        gap: 2.5rem;
+    }
+    
+    .team-member {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .member-avatar {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+    }
+    
+    /* Centrar títulos */
+    .section-header {
+        text-align: center;
+        width: 100%;
+    }
+    
+    .section-header h2 {
+        text-align: center;
+        width: 100%;
+    }
+    
+    /* Valores en modo móvil */
+    .values-list {
+        padding-left: 1rem;
+        text-align: left;
+    }
+}
+
+/* Corrección para el menú móvil */
+@media (max-width: 768px) {
+    .nav-links.active {
+        width: 80%;
+        max-width: 300px;
+    }
+}

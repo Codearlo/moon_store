@@ -356,3 +356,68 @@ function initCopyToClipboard() {
         });
     });
 }
+
+
+// Función mejorada para configurar el menú móvil
+function setupMobileMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Cambiar ícono del menú
+            if (navLinks.classList.contains('active')) {
+                menuToggle.innerHTML = `
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
+                    </svg>
+                `;
+                
+                // Agregar overlay para cerrar el menú al hacer clic fuera
+                const overlay = document.createElement('div');
+                overlay.className = 'menu-overlay active';
+                document.body.appendChild(overlay);
+                
+                // Prevenir scroll del body cuando el menú está abierto
+                document.body.style.overflow = 'hidden';
+                
+                // Agregar evento para cerrar menú
+                overlay.addEventListener('click', closeMenu);
+            } else {
+                closeMenu();
+            }
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        const navItems = navLinks.querySelectorAll('a');
+        navItems.forEach(item => {
+            item.addEventListener('click', closeMenu);
+        });
+    }
+    
+    // Función para cerrar el menú
+    function closeMenu() {
+        if (navLinks) {
+            navLinks.classList.remove('active');
+        }
+        
+        if (menuToggle) {
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                </svg>
+            `;
+        }
+        
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+        
+        // Remover overlay si existe
+        const overlay = document.querySelector('.menu-overlay');
+        if (overlay) {
+            overlay.remove();
+        }
+    }
+}
