@@ -58,8 +58,8 @@ function setupMobileMenu() {
                 const targetElement = document.getElementById(targetId);
                 
                 if (targetElement) {
-                    // Cerrar el menú primero
-                    closeMenu();
+                    // Cerrar el menú primero manteniendo la vista móvil
+                    closeMenu(true);
                     
                     // Luego hacer scroll al elemento después de un breve retraso
                     setTimeout(() => {
@@ -74,8 +74,8 @@ function setupMobileMenu() {
                 }
             } else {
                 // Para enlaces a otras páginas, no prevenir el comportamiento predeterminado
-                // Solo cerrar el menú
-                closeMenu();
+                // Solo cerrar el menú manteniendo la vista móvil
+                closeMenu(true);
             }
         });
     });
@@ -164,12 +164,24 @@ function openMenu() {
 
 /**
  * Cierra el menú móvil
+ * @param {boolean} keepMobileView - Si es true, mantiene la vista móvil consistente
  */
-function closeMenu() {
+function closeMenu(keepMobileView = false) {
     const navLinks = document.getElementById('navLinks');
     const menuToggle = document.getElementById('menuToggle');
+    const header = document.querySelector('.site-header');
     
     if (!navLinks || !menuToggle) return;
+    
+    // Si estamos en móvil, aplicar clase para mantener vista consistente
+    if (keepMobileView && window.innerWidth <= 768) {
+        header.classList.add('mobile-view-locked');
+        
+        // Remover la clase después de un tiempo
+        setTimeout(() => {
+            header.classList.remove('mobile-view-locked');
+        }, 1000);
+    }
     
     // Remover clase active
     navLinks.classList.remove('active');
@@ -200,6 +212,13 @@ function closeMenu() {
     if (closeBtn) {
         closeBtn.remove();
     }
+    
+    // Ocultar el menú móvil completamente después de la transición
+    setTimeout(() => {
+        if (!navLinks.classList.contains('active')) {
+            navLinks.style.display = '';
+        }
+    }, 300);
 }
 
 /**

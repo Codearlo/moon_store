@@ -40,6 +40,40 @@
     .highlight {
         font-weight: 600;
     }
+    
+    /* Asegurar que el header permanezca visible */
+    .site-header {
+        position: fixed;
+        top: 10px;
+        width: 95%;
+        z-index: 1010;
+        transition: none;
+    }
+    
+    /* Prevenir cambios de tamaño en la barra de navegación móvil */
+    .site-header.mobile-view-locked,
+    .site-header.mobile-view-locked .header-wrapper,
+    .site-header.mobile-view-locked .nav-links {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    /* Asegurar que la navegación se mantenga consistente en vista móvil */
+    .site-header.mobile-view-locked .nav-links {
+        display: none;
+    }
+    
+    /* Evitar que el header cambie de tamaño */
+    .site-header {
+        height: auto !important;
+        min-height: unset !important;
+        max-height: unset !important;
+    }
+    
+    /* Header siempre compacto en móvil */
+    .header-wrapper {
+        transition: none;
+    }
 }
 
 /* CORRECCIONES PARA EL MENÚ MÓVIL */
@@ -147,6 +181,23 @@
     .site-header .nav-links.active a:hover {
         color: var(--primary-light);
     }
+    
+    /* Evitar que el header cambie después de navegar */
+    .site-header .nav-links {
+        position: absolute !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+    
+    .site-header .nav-links.active {
+        position: fixed !important;
+        width: 250px !important;
+        height: 100vh !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 }
 
 /* Estilos para overlay del menú - fuera de media query para aplicarse siempre */
@@ -197,7 +248,7 @@
 
 /* Corrección para que la barra de navegación no se oscurezca */
 .site-header {
-    position: relative;
+    position: fixed;
     z-index: 1010; /* Mayor que el overlay */
 }
 
@@ -209,6 +260,11 @@
 
 /* Corrección para sección de contacto en móvil */
 @media (max-width: 768px) {
+    /* Agregar espacio en la parte superior para evitar que el contenido se oculte bajo el header */
+    main {
+        margin-top: 80px;
+    }
+    
     section.contact-section .contact-flex-container {
         display: flex;
         flex-direction: column;
@@ -303,7 +359,7 @@
 /* Asegurar que el overlay no cubre el header */
 .menu-overlay {
     position: fixed;
-    top: var(--header-height, 80px);
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
