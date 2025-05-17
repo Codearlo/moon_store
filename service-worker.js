@@ -1,8 +1,8 @@
 // service-worker.js
 // Service Worker para gestionar la caché y actualizaciones
 
-// Nombre de la caché
-const CACHE_NAME = 'moon-store-cache-v1';
+// Nombre de la caché - cambiar versión cuando se actualice el sitio
+const CACHE_NAME = 'moon-store-cache-v1.0.1';
 
 // Recursos para pre-cachear
 const PRECACHE_URLS = [
@@ -23,9 +23,23 @@ const PRECACHE_URLS = [
   '/assets/js/cache-control.js'
 ];
 
+// Lista de recursos críticos que siempre deben recargarse desde la red
+const CRITICAL_RESOURCES = [
+  '/assets/img/svg/cart.svg',
+  '/assets/img/svg/whatsapp.svg',
+  '/assets/img/svg/facebook.svg',
+  '/assets/img/svg/instagram.svg',
+  '/assets/img/svg/youtube.svg',
+  '/assets/img/svg/tiktok.svg',
+  '/assets/img/logo.png'
+];
+
 // Instalar Service Worker
 self.addEventListener('install', event => {
   console.log('[Service Worker] Instalando...');
+  
+  // Forzar que se active inmediatamente sin esperar a que el anterior se cierre
+  self.skipWaiting();
   
   // Pre-cachear recursos esenciales
   event.waitUntil(
@@ -36,7 +50,6 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[Service Worker] Pre-caché completado');
-        return self.skipWaiting();
       })
       .catch(error => {
         console.error('[Service Worker] Error en pre-caché:', error);
@@ -66,7 +79,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Estrategia de caché: "Network First, fallback to Cache"
+// Estrategia de caché personalizada para diferentes tipos de recursos
 self.addEventListener('fetch', event => {
   // Omitir solicitudes no GET
   if (event.request.method !== 'GET') return;
@@ -75,11 +88,28 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
   
-  // Detectar solicitudes de recursos que deben ser siempre actualizados (CSS, JS)
-  const isCriticalRequest = event.request.url.match(/\.(css|js)(\?|$)/);
+  // Obtener la ruta relativa
+  const path = url.pathname;
   
-  if (isCriticalRequest) {
-    // Para recursos críticos: Network first, luego cache
+  // Comprobar si es un recurso crítico (SVG, logos, etc.)
+  const isCriticalResource = CRITICAL_RESOURCES.some(resource => path.includes(resource)) || 
+                              path.includes('.svg') || 
+                              path.includes('logo');
+  
+  // Comprobar si es un recurso que cambia frecuentemente (CSS, JS)
+  const isFrequentlyChangedResource = path.match(/\.(css|js)(\?|$)/);
+  
+  // Para recursos críticos: Network Only, sin caché
+  if (isCriticalResource) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .catch(() => {
+          return caches.match(event.request);
+        })
+    );
+  }
+  // Para recursos que cambian frecuentemente: Network First, luego cache
+  else if (isFrequentlyChangedResource) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -92,38 +122,28 @@ self.addEventListener('fetch', event => {
         })
         .catch(() => {
           // Si la red falla, intentar desde la caché
-          return caches.match(event.request)
-            .then(cachedResponse => {
-              if (cachedResponse) {
-                return cachedResponse;
-              }
-              // Si no está en caché, devolver un error
-              console.error('[Service Worker] Recurso no encontrado en cache:', event.request.url);
-              return new Response('Recurso no disponible sin conexión', {
-                status: 503,
-                statusText: 'Service Unavailable'
-              });
-            });
+          return caches.match(event.request);
         })
     );
-  } else {
-    // Para otros recursos: Stale-while-revalidate
+  } 
+  // Para otros recursos: Cache First, luego network (con actualización en segundo plano)
+  else {
     event.respondWith(
       caches.match(event.request)
         .then(cachedResponse => {
-          // Devolver la caché mientras actualizamos en segundo plano
+          // Iniciar la actualización en segundo plano
           const fetchPromise = fetch(event.request)
             .then(networkResponse => {
               // Actualizar la caché con la nueva respuesta
               caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, networkResponse.clone()));
+                .then(cache => {
+                  cache.put(event.request, networkResponse.clone());
+                });
               
               return networkResponse;
-            })
-            .catch(error => {
-              console.error('[Service Worker] Error al buscar recurso:', error);
             });
           
+          // Devolver la respuesta cacheada si existe, o esperar por la de red
           return cachedResponse || fetchPromise;
         })
     );
@@ -137,16 +157,34 @@ self.addEventListener('message', event => {
   }
   
   if (event.data && event.data.action === 'checkForUpdates') {
-    // Aquí podríamos implementar lógica para verificar actualizaciones
-    // Por simplicidad, simplemente notificamos que hay actualizaciones
+    // Notificar a todos los clientes que hay actualizaciones
     self.clients.matchAll().then(clients => {
       clients.forEach(client => {
         client.postMessage({
           type: 'updates-available',
-          hasUpdates: true
+          hasUpdates: true,
+          timestamp: Date.now()
         });
       });
     });
+  }
+  
+  if (event.data && event.data.action === 'clearCache') {
+    event.waitUntil(
+      caches.delete(CACHE_NAME).then(() => {
+        console.log('[Service Worker] Caché eliminada por solicitud del usuario');
+        
+        // Notificar a los clientes
+        self.clients.matchAll().then(clients => {
+          clients.forEach(client => {
+            client.postMessage({
+              type: 'cache-cleared',
+              timestamp: Date.now()
+            });
+          });
+        });
+      })
+    );
   }
 });
 
@@ -156,7 +194,7 @@ self.addEventListener('push', event => {
   
   const title = 'Moon Store';
   const options = {
-    body: event.data.text() || 'Nuevas actualizaciones disponibles',
+    body: event.data ? event.data.text() : 'Nuevas actualizaciones disponibles',
     icon: '/assets/img/logo.png',
     badge: '/assets/img/badge-icon.png'
   };
