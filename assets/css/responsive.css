@@ -64,61 +64,39 @@
 
 /* Móviles y tablets pequeñas */
 @media (max-width: 768px) {
-    /* Navegación móvil */
-    .nav-links {
+    /* Navegación móvil - Selector más específico en lugar de !important */
+    .site-header .nav-links {
         display: none;
     }
     
-    .mobile-menu-toggle {
+    .site-header .mobile-menu-toggle {
         display: block;
     }
     
-    .nav-links.active {
+    /* Usando selector específico en vez de !important */
+    .site-header .nav-links.active {
         display: flex;
         flex-direction: column;
         position: fixed;
         top: 0;
-        right: 0; /* Cambio: ahora se abre desde la derecha */
+        right: 0; /* Desde la derecha */
         bottom: 0;
         width: 250px;
         background: var(--glass-bg);
         backdrop-filter: blur(12px);
         padding: var(--space-xl) var(--space-md);
-        border-left: 1px solid var(--glass-border); /* Borde izquierdo en lugar de derecho */
+        border-left: 1px solid var(--glass-border);
         border-radius: 0;
         z-index: 1001;
+        /* Sin !important */
         transition: transform 0.3s ease;
         transform: translateX(0);
     }
     
-    .nav-links.active li {
+    .site-header .nav-links.active li {
         margin: var(--space-md) 0;
     }
     
-    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
-    .cta-button .button {
-        font-size: 0;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-    
-    .cta-button .button::before {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url('../img/svg/cart.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
-    }
-    
     /* Ajuste para la superposición de menú */
     .menu-overlay {
         position: fixed;
@@ -135,39 +113,39 @@
         display: block;
     }
     
-    /* Ajustes para sección de contacto */
-    .contact-section {
+    /* Ajustes para sección de contacto - aumentando especificidad */
+    section.contact-section {
         padding: var(--space-lg) 0;
     }
     
-    .section-header {
+    .contact-section .section-header {
         margin-bottom: var(--space-lg);
     }
     
-    .contact-flex-container {
+    .contact-section .contact-flex-container {
         flex-direction: column;
         min-height: auto;
         margin-bottom: var(--space-md);
     }
     
-    .contact-info-column {
+    .contact-section .contact-info-column {
         flex: 1 1 auto;
         width: 100%;
         margin-bottom: var(--space-md);
     }
     
-    .social-column {
+    .contact-section .social-column {
         flex: 1 1 auto;
         width: 100%;
         margin-top: var(--space-sm);
     }
     
-    .social-title {
+    .contact-section .social-title {
         text-align: center;
         margin-bottom: var(--space-sm);
     }
     
-    .social-icons-container {
+    .contact-section .social-icons-container {
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
@@ -176,148 +154,46 @@
         margin-bottom: var(--space-md);
     }
     
-    .contact-grid {
+    .contact-section .contact-grid {
         gap: var(--space-sm);
     }
     
-    .contact-icon {
+    .contact-section .contact-icon {
         min-width: 40px;
         width: 40px;
         height: 40px;
     }
     
-    .contact-icon img {
+    .contact-section .contact-icon img {
         width: 18px;
         height: 18px;
     }
     
-    .contact-cta {
+    .contact-section .contact-cta {
         margin-top: var(--space-md);
     }
     
-    .contact-cta .button {
+    .contact-section .contact-cta .button {
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
     }
 }
-
-/* Específico para assets/css/responsive.css - solo las secciones que necesitan modificación */
-
-/* Móviles y tablets pequeñas */
-@media (max-width: 768px) {
-    /* Navegación móvil */
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
-    /* Eliminamos las transformaciones conflictivas */
-    .nav-links.active {
-        /* Las propiedades ahora están en mobile-fixes.css */
-        display: block;
-    }
-    
-    /* Ajuste para la superposición de menú */
-    .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 1000;
-        display: none;
-    }
-    
-    .menu-overlay.active {
-        display: block;
-    }
-    
-    /* Ajustes para sección de contacto */
-    .contact-section {
-        padding: var(--space-lg) 0;
-    }
-    
-    .section-header {
-        margin-bottom: var(--space-lg);
-    }
-    
-    .contact-flex-container {
-        flex-direction: column;
-        min-height: auto;
-        margin-bottom: var(--space-md);
-    }
-    
-    .contact-info-column {
-        flex: 1 1 auto;
-        width: 100%;
-        margin-bottom: var(--space-md);
-    }
-    
-    .social-column {
-        flex: 1 1 auto;
-        width: 100%;
-        margin-top: var(--space-sm);
-    }
-    
-    .social-title {
-        text-align: center;
-        margin-bottom: var(--space-sm);
-    }
-    
-    .social-icons-container {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: var(--space-md);
-        height: auto;
-        margin-bottom: var(--space-md);
-    }
-    
-    .contact-grid {
-        gap: var(--space-sm);
-    }
-    
-    .contact-icon {
-        min-width: 40px;
-        width: 40px;
-        height: 40px;
-    }
-    
-    .contact-icon img {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .contact-cta {
-        margin-top: var(--space-md);
-    }
-    
-    .contact-cta .button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-}
-
 
 /* Orientación horizontal en móviles */
 @media (max-width: 850px) and (orientation: landscape) {
-    .contact-flex-container {
+    .contact-section .contact-flex-container {
         flex-direction: row;
     }
     
-    .contact-info-column {
+    .contact-section .contact-info-column {
         flex: 0 0 65%;
     }
     
-    .social-column {
+    .contact-section .social-column {
         flex: 0 0 30%;
     }
     
-    .social-icons-container {
+    .contact-section .social-icons-container {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
@@ -334,47 +210,48 @@
         padding: var(--space-sm);
     }
     
-    .contact-item {
+    /* Selector más específico para contacto en móviles pequeños */
+    .contact-section .contact-item {
         flex-direction: column;
         align-items: flex-start;
         padding: var(--space-sm);
     }
     
-    .contact-icon {
+    .contact-section .contact-icon {
         margin-bottom: var(--space-sm);
     }
     
-    .contact-text {
+    .contact-section .contact-text {
         width: 100%;
         margin-bottom: var(--space-sm);
     }
     
-    .map-button,
-    .copy-button {
+    .contact-section .map-button,
+    .contact-section .copy-button {
         margin-left: auto;
     }
     
-    .contact-title, 
-    .social-title {
+    .contact-section .contact-title, 
+    .contact-section .social-title {
         font-size: 1.3rem;
         text-align: center;
     }
     
-    .social-icons-container {
+    .contact-section .social-icons-container {
         gap: var(--space-sm);
     }
     
-    .social-icon {
+    .contact-section .social-icon {
         width: 40px;
         height: 40px;
     }
     
-    .social-icon img {
+    .contact-section .social-icon img {
         width: 16px;
         height: 16px;
     }
     
-    .contact-cta .button {
+    .contact-section .contact-cta .button {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
@@ -383,13 +260,18 @@
 
 /* Reglas específicas para dispositivos con pantalla táctil */
 @media (hover: none) {
+    /* Reemplazando transform: none !important con selector específico */
     .social-icon:hover,
     .map-button:hover,
-    .copy-button:hover {
+    .copy-button:hover,
+    body:not(.has-mouse) .social-icon:hover,
+    body:not(.has-mouse) .map-button:hover,
+    body:not(.has-mouse) .copy-button:hover {
         transform: none;
     }
     
-    .button:hover {
+    .button:hover,
+    body:not(.has-mouse) .button:hover {
         transform: none;
         box-shadow: none;
     }
@@ -407,23 +289,20 @@
     }
 }
 
-/* Orientación horizontal en móviles */
-@media (max-width: 850px) and (orientation: landscape) {
-    .contact-flex-container {
-        flex-direction: row;
-    }
-    
-    .contact-info-column {
-        flex: 0 0 65%;
-    }
-    
-    .social-column {
-        flex: 0 0 30%;
-    }
-    
-    .social-icons-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+/* Agregamos clase de utilidad para especificidad en caso necesario */
+.mobile-visible {
+    display: block;
+}
+
+.mobile-hidden {
+    display: none;
+}
+
+/* Script JS puede agregar estas clases para detectar capacidades */
+body.has-touch .touch-only {
+    display: block;
+}
+
+body.has-mouse .mouse-only {
+    display: block;
 }

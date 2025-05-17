@@ -5,8 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar efectos visuales
     initVisualEffects();
     
-    // Inicializar navegación
-    initNavigation();
+    // Inicializar navegación (ya no incluye setupMobileMenu duplicado)
+    if (typeof initNavigation === 'function') {
+        initNavigation();
+    } else if (window.navigationModule && typeof window.navigationModule.initNavigation === 'function') {
+        window.navigationModule.initNavigation();
+    }
     
     // Inicializar formulario de contacto
     initContactForm();
@@ -21,80 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Inicializa el formulario de contacto
+ * Inicializa efectos visuales generales
  */
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Obtener los datos del formulario
-            const formData = new FormData(contactForm);
-            const formValues = Object.fromEntries(formData.entries());
-            
-            console.log('Formulario enviado:', formValues);
-            
-            // Construir el mensaje para WhatsApp
-            const nombre = formValues.nombre;
-            const email = formValues.email;
-            const mensaje = formValues.mensaje;
-            
-            // Formatear el mensaje para WhatsApp
-            const whatsappMessage = `Hola, soy ${nombre}. Email: ${email}. ${mensaje}`;
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            
-            // Número de WhatsApp (formato internacional sin el +)
-            const phoneNumber = '51904505720';
-            
-            // Crear la URL de WhatsApp
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            // Mostrar notificación
-            showNotification('Redirigiendo a WhatsApp...', 'success');
-            
-            // Abrir WhatsApp en una nueva pestaña después de un breve retraso
-            setTimeout(() => {
-                window.open(whatsappURL, '_blank');
-                contactForm.reset(); // Resetear el formulario
-            }, 1000);
-        });
+function initVisualEffects() {
+    // Iniciar partículas que aparecen y desaparecen
+    if (window.effectsModule && typeof window.effectsModule.initStarsAnimation === 'function') {
+        window.effectsModule.initStarsAnimation();
     }
-}
-
-/**
- * Muestra una notificación temporal
- * @param {string} message - Mensaje a mostrar
- * @param {string} type - Tipo de notificación (success, error, info)
- */
-function showNotification(message, type = 'info') {
-    // Eliminar notificaciones existentes
-    const existingNotifications = document.querySelectorAll('.notification');
-    existingNotifications.forEach(notification => {
-        notification.remove();
-    });
     
-    // Crear elemento de notificación
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    
-    // Agregar al DOM
-    document.body.appendChild(notification);
-    
-    // Mostrar con animación
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 10);
-    
-    // Ocultar después de 5 segundos
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 5000);
+    // Efecto parallax para estrellas
+    if (window.effectsModule && typeof window.effectsModule.initParallaxEffect === 'function') {
+        window.effectsModule.initParallaxEffect();
+    }
 }
 
 /**
@@ -167,67 +109,9 @@ function initScrollToTopButton() {
 }
 
 /**
- * Inicializa efectos visuales generales
- */
-function initVisualEffects() {
-    // Iniciar partículas que aparecen y desaparecen
-    if (window.effectsModule && typeof window.effectsModule.initStarsAnimation === 'function') {
-        window.effectsModule.initStarsAnimation();
-    }
-    
-    // Efecto parallax para estrellas
-    if (window.effectsModule && typeof window.effectsModule.initParallaxEffect === 'function') {
-        window.effectsModule.initParallaxEffect();
-    }
-}
-
-/**
- * Añade estrellas fugaces al fondo
- */
-function addShootingStars() {
-    const bgElements = document.querySelector('.bg-elements');
-    
-    if (bgElements) {
-        // Crear 5 estrellas fugaces
-        for (let i = 0; i < 5; i++) {
-            const star = document.createElement('div');
-            star.className = 'shooting-star';
-            star.style.setProperty('--i', i);
-            star.style.setProperty('--y', 10 + Math.random() * 40); // Posición vertical aleatoria
-            bgElements.appendChild(star);
-        }
-    }
-}
-
-/**
  * Inicializa el formulario de contacto
  */
 function initContactForm() {
-    // Eliminar antiguo manejador si existe
-    const oldContactForm = document.getElementById('contactForm');
-    if (oldContactForm) {
-        const newContactForm = oldContactForm.cloneNode(true);
-        oldContactForm.parentNode.replaceChild(newContactForm, oldContactForm);
-    }
-    
-    // Inicializar modal del formulario
-    initContactFormModal();
-    
-    // Inicializar función copiar al portapapeles
-    initCopyToClipboard();
-}
-
-/**
- * Inicializa el formulario de contacto
- */
-function initContactForm() {
-    // Eliminar antiguo manejador si existe
-    const oldContactForm = document.getElementById('contactForm');
-    if (oldContactForm) {
-        const newContactForm = oldContactForm.cloneNode(true);
-        oldContactForm.parentNode.replaceChild(newContactForm, oldContactForm);
-    }
-    
     // Inicializar modal del formulario
     initContactFormModal();
     
@@ -357,67 +241,36 @@ function initCopyToClipboard() {
     });
 }
 
-
-// Función mejorada para configurar el menú móvil
-function setupMobileMenu() {
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+/**
+ * Muestra una notificación temporal
+ * @param {string} message - Mensaje a mostrar
+ * @param {string} type - Tipo de notificación (success, error, info)
+ */
+function showNotification(message, type = 'info') {
+    // Eliminar notificaciones existentes
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => {
+        notification.remove();
+    });
     
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            // Cambiar ícono del menú
-            if (navLinks.classList.contains('active')) {
-                menuToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
-                    </svg>
-                `;
-                
-                // Agregar overlay para cerrar el menú al hacer clic fuera
-                const overlay = document.createElement('div');
-                overlay.className = 'menu-overlay active';
-                document.body.appendChild(overlay);
-                
-                // Prevenir scroll del body cuando el menú está abierto
-                document.body.style.overflow = 'hidden';
-                
-                // Agregar evento para cerrar menú
-                overlay.addEventListener('click', closeMenu);
-            } else {
-                closeMenu();
-            }
-        });
-        
-        // Cerrar menú al hacer clic en un enlace
-        const navItems = navLinks.querySelectorAll('a');
-        navItems.forEach(item => {
-            item.addEventListener('click', closeMenu);
-        });
-    }
+    // Crear elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
     
-    // Función para cerrar el menú
-    function closeMenu() {
-        if (navLinks) {
-            navLinks.classList.remove('active');
-        }
-        
-        if (menuToggle) {
-            menuToggle.innerHTML = `
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                </svg>
-            `;
-        }
-        
-        // Restaurar scroll del body
-        document.body.style.overflow = '';
-        
-        // Remover overlay si existe
-        const overlay = document.querySelector('.menu-overlay');
-        if (overlay) {
-            overlay.remove();
-        }
-    }
+    // Agregar al DOM
+    document.body.appendChild(notification);
+    
+    // Mostrar con animación
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    // Ocultar después de 5 segundos
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 5000);
 }

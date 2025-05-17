@@ -18,100 +18,132 @@ function setupMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', (e) => {
-            toggleMenu(e);
-        });
-        
-        // Cerrar menú al hacer clic en un enlace
-        const navItems = navLinks.querySelectorAll('a');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                // Cerrar el menú después de un pequeño retraso para permitir la navegación
-                setTimeout(() => {
-                    closeMenu();
-                }, 100);
-            });
-        });
-    }
+    if (!menuToggle || !navLinks) return;
     
+    // Eliminar manejadores de eventos existentes para evitar duplicación
+    const newMenuToggle = menuToggle.cloneNode(true);
+    menuToggle.parentNode.replaceChild(newMenuToggle, menuToggle);
+    
+    // Agregar evento al nuevo botón de menú
+    newMenuToggle.addEventListener('click', toggleMenu);
+    
+    // Remover y volver a agregar eventos a los enlaces para evitar duplicación
+    const navItems = navLinks.querySelectorAll('a');
+    navItems.forEach(item => {
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        
+        // Añadir evento para cerrar menú al hacer clic en un enlace
+        newItem.addEventListener('click', () => {
+            // Pequeño retraso para permitir la navegación
+            setTimeout(closeMenu, 100);
+        });
+    });
+    
+    /**
+     * Alterna la visibilidad del menú móvil
+     * @param {Event} e - Evento de clic
+     */
     function toggleMenu(e) {
         if (e) e.stopPropagation();
         
-        navLinks.classList.toggle('active');
-        
-        // Cambiar ícono del menú
         if (navLinks.classList.contains('active')) {
-            menuToggle.innerHTML = `
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
-                </svg>
-            `;
-            
-            // Agregar overlay para cerrar el menú al hacer clic fuera
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    }
+    
+    /**
+     * Abre el menú móvil
+     */
+    function openMenu() {
+        navLinks.classList.add('active');
+        
+        // Cambiar ícono del menú a X
+        newMenuToggle.innerHTML = `
+            <svg viewBox="0 0 24 24" width="24" height="24">
+                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
+            </svg>
+        `;
+        
+        // Crear y mostrar overlay
+        if (!document.querySelector('.menu-overlay')) {
             const overlay = document.createElement('div');
             overlay.className = 'menu-overlay';
             document.body.appendChild(overlay);
             
-            // Activar overlay con un pequeño retraso para la animación
+            // Animar la aparición con un pequeño retraso
             setTimeout(() => {
                 overlay.classList.add('active');
             }, 10);
             
-            // Prevenir scroll del body cuando el menú está abierto
-            document.body.style.overflow = 'hidden';
-            
-            // Agregar evento para cerrar menú al hacer clic en overlay
+            // Agregar evento al overlay
             overlay.addEventListener('click', closeMenu);
-        } else {
-            closeMenu();
+        }
+        
+        // Prevenir scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Añadir botón de cierre si no existe
+        if (!navLinks.querySelector('.nav-close-btn')) {
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'nav-close-btn';
+            closeBtn.innerHTML = '×';
+            closeBtn.addEventListener('click', closeMenu);
+            navLinks.appendChild(closeBtn);
         }
     }
     
-    // Función para cerrar el menú
+    /**
+     * Cierra el menú móvil
+     */
     function closeMenu() {
-        if (navLinks) {
-            navLinks.classList.remove('active');
-        }
+        // Remover clase active
+        navLinks.classList.remove('active');
         
-        if (menuToggle) {
-            menuToggle.innerHTML = `
+        // Restaurar ícono del menú
+        if (newMenuToggle) {
+            newMenuToggle.innerHTML = `
                 <svg viewBox="0 0 24 24" width="24" height="24">
                     <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
                 </svg>
             `;
         }
         
-        // Restaurar scroll del body
+        // Restaurar scroll
         document.body.style.overflow = '';
         
-        // Remover overlay si existe
+        // Remover overlay con animación
         const overlay = document.querySelector('.menu-overlay');
         if (overlay) {
             overlay.classList.remove('active');
-            // Eliminar overlay después de la animación
+            // Remover después de la animación
             setTimeout(() => {
                 overlay.remove();
             }, 300);
         }
     }
     
-    // Manejar tecla ESC para cerrar menú
+    // Manejar tecla ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navLinks.classList.contains('active')) {
             closeMenu();
         }
     });
     
-    // Exponer la función closeMenu para uso externo
-    window.closeNavMenu = closeMenu;
+    // Exponer funciones para uso externo
+    window.navigationUtils = window.navigationUtils || {};
+    window.navigationUtils.openMenu = openMenu;
+    window.navigationUtils.closeMenu = closeMenu;
+    window.navigationUtils.toggleMenu = toggleMenu;
 }
 
 /**
  * Configura el desplazamiento suave para enlaces internos
  */
 function setupSmoothScroll() {
-    // Seleccionar todos los enlaces internos (que comienzan con # o contienen # y están en la misma página)
+    // Seleccionar enlaces internos
     const links = document.querySelectorAll('a[href^="#"], a[href*="#"]');
     
     links.forEach(link => {
@@ -120,7 +152,9 @@ function setupSmoothScroll() {
             const href = link.getAttribute('href');
             
             // Verificar si es un enlace interno dentro de la misma página
-            if (href.includes('#') && (!href.includes('.html') || (href.includes('.html') && href.split('.html')[0] === window.location.pathname.split('/').pop().split('.html')[0]))) {
+            if (href.includes('#') && (!href.includes('.html') || 
+                (href.includes('.html') && href.split('.html')[0] === window.location.pathname.split('/').pop().split('.html')[0]))) {
+                
                 // Obtener el ID del elemento objetivo
                 const targetId = href.includes('#') ? href.split('#')[1] : href.substring(1);
                 const targetElement = document.getElementById(targetId);
@@ -163,20 +197,19 @@ function markActiveNavigationLink() {
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
         
-        // Marcar como activo si coincide con la página actual
-        if (href === currentPage) {
+        // Remover clase active de todos los enlaces
+        link.classList.remove('active');
+        
+        // Marcar como activo según las condiciones
+        if (
+            // Coincide exactamente con la página actual
+            href === currentPage ||
+            // Estamos en la página de inicio y el enlace es para la página de inicio
+            (currentPage === 'index.html' && href === 'index.html') ||
+            // El enlace contiene un hash que coincide con el hash actual
+            (currentHash && href.includes(currentHash))
+        ) {
             link.classList.add('active');
-        } 
-        // O si estamos en la página de inicio y el enlace es para la página de inicio
-        else if (currentPage === 'index.html' && href === 'index.html') {
-            link.classList.add('active');
-        }
-        // O si el enlace contiene un hash que coincide con el hash actual
-        else if (currentHash && href.includes(currentHash)) {
-            link.classList.add('active');
-        }
-        else {
-            link.classList.remove('active');
         }
     });
 }
@@ -189,7 +222,20 @@ function setupScrollAnimations() {
     const sections = document.querySelectorAll('section[id]');
     
     if (sections.length > 0) {
+        // Usar throttle para mejorar el rendimiento
+        let isScrolling = false;
+        
         window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    updateActiveSection();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        });
+        
+        function updateActiveSection() {
             const scrollPosition = window.scrollY + 100; // Offset para activar un poco antes
             
             sections.forEach(section => {
@@ -201,14 +247,17 @@ function setupScrollAnimations() {
                     // Marcar enlace correspondiente como activo
                     document.querySelectorAll('.nav-link').forEach(link => {
                         link.classList.remove('active');
-                        if (link.getAttribute('href').includes('#' + sectionId) || 
-                            (link.getAttribute('href') === 'index.html' && sectionId === 'inicio')) {
+                        
+                        if (
+                            link.getAttribute('href').includes('#' + sectionId) || 
+                            (link.getAttribute('href') === 'index.html' && sectionId === 'inicio')
+                        ) {
                             link.classList.add('active');
                         }
                     });
                 }
             });
-        });
+        }
     }
 }
 
@@ -217,5 +266,6 @@ window.navigationModule = {
     initNavigation,
     setupMobileMenu,
     setupSmoothScroll,
-    markActiveNavigationLink
+    markActiveNavigationLink,
+    setupScrollAnimations
 };

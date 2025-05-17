@@ -42,105 +42,7 @@
     }
 }
 
-/* Corrección para sección de contacto */
-@media (max-width: 768px) {
-    /* Ajustar layout en modo móvil para la sección de contacto */
-    .contact-flex-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-    }
-    
-    /* Estilo único para móvil en los elementos de contacto */
-    .contact-item {
-        background: rgba(138, 43, 226, 0.03);
-        border-radius: var(--border-radius-sm);
-        border: 1px solid rgba(138, 43, 226, 0.05);
-        padding: 0.8rem 1rem;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.8rem;
-    }
-    
-    /* Título de contacto centrado en móvil */
-    .contact-title {
-        text-align: center;
-        font-size: 1.5rem;
-        margin-bottom: var(--space-md);
-    }
-    
-    /* Ocultar título de redes en móvil */
-    .social-title {
-        display: none;
-    }
-    
-    /* Iconos sociales en horizontal para móvil */
-    .social-icons-container {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* Ajustes para el carrito en móvil */
-@media (max-width: 768px) {
-    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
-    .cta-button .button {
-        font-size: 0;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-    
-    .cta-button .button::before {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url('../img/svg/cart.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
-    }
-}
-
-/* Corrección para Whatsapp y botón Subir */
-.whatsapp-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-}
-
-.scroll-top-btn {
-    position: fixed;
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 999;
-    opacity: 1 !important;
-    transform: scale(1) !important;
-}
-
-/* Asegurar que los botones tengan el mismo tamaño */
-.whatsapp-btn, .scroll-top-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* CORRECCIÓN PARA EL MENÚ MÓVIL */
+/* CORRECCIONES PARA EL MENÚ MÓVIL */
 @media (max-width: 768px) {
     /* Layout del header para móvil */
     .header-wrapper {
@@ -169,66 +71,92 @@
         order: 3;
     }
     
+    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
+    .cta-button .button {
+        font-size: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .cta-button .button::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('../img/svg/cart.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+    }
+    
     /* SOLUCIÓN PARA EL MENÚ MÓVIL */
-    .nav-links {
+    /* Aumentar especificidad usando .site-header como padre */
+    .site-header .nav-links {
         display: none; /* Inicialmente oculto */
     }
     
-    .nav-links.active {
-        display: block !important;
+    /* Selector más específico para el menú activo */
+    .site-header .nav-links.active {
+        display: block;
         position: fixed;
         top: 0;
-        right: 0; /* Ahora aparece desde la derecha */
-        left: auto; /* Asegurar que no se posicione desde la izquierda */
+        right: 0;
+        left: auto;
         bottom: 0;
         width: 250px;
         height: 100vh;
-        background-color: rgba(10, 1, 24, 0.95); /* Fondo más sólido para mejor visibilidad */
+        background-color: rgba(10, 1, 24, 0.95);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        padding: 70px 20px 20px;
+        padding: 70px var(--space-md) var(--space-md);
         border-left: 1px solid var(--glass-border);
         z-index: 1005;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
         overflow-y: auto;
+        transform: none;
+        transition: none;
     }
     
-    /* Mejorar la visibilidad del texto y los enlaces */
-    .nav-links.active li {
-        margin: 15px 0;
+    /* Selectores más específicos para los elementos del menú móvil */
+    .site-header .nav-links.active li {
+        margin: var(--space-md) 0;
         position: relative;
         z-index: 1006;
-        display: block !important;
+        opacity: 1;
+        visibility: visible;
+        display: block;
     }
     
-    .nav-links.active a {
-        display: block !important;
+    .site-header .nav-links.active a.nav-link {
+        display: block;
         padding: 12px 0;
-        color: white !important; /* Asegurar que el texto sea blanco */
-        font-weight: 600 !important; /* Hacer el texto más grueso */
-        font-size: 1.1rem !important; /* Aumentar tamaño de fuente */
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para mejorar legibilidad */
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         transition: color 0.3s ease;
         text-align: left;
         width: 100%;
         position: relative;
         z-index: 1007;
-        pointer-events: auto !important; /* Asegurar que los enlaces sean clickeables */
+        pointer-events: auto;
     }
     
-    .nav-links.active a:hover {
-        color: var(--primary-light) !important;
-    }
-    
-    /* Menú hamburguesa siempre en primer plano */
-    .mobile-menu-toggle {
-        position: relative;
-        z-index: 1010;
+    /* Estilo de hover más específico */
+    .site-header .nav-links.active a.nav-link:hover,
+    .site-header .nav-links.active a.nav-link:focus {
+        color: var(--primary-light);
     }
 }
 
-/* Estilos adicionales para el menú móvil */
+/* Estilos para overlay del menú - fuera de media query para aplicarse siempre */
 .menu-overlay {
     position: fixed;
     top: 0;
@@ -245,4 +173,146 @@
 .menu-overlay.active {
     display: block;
     opacity: 1;
+}
+
+/* Corrección para sección de contacto en móvil */
+@media (max-width: 768px) {
+    /* Ajustar layout en modo móvil para la sección de contacto */
+    section.contact-section .contact-flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    /* Estilo único para móvil en los elementos de contacto */
+    section.contact-section .contact-item {
+        background: rgba(138, 43, 226, 0.03);
+        border-radius: var(--border-radius-sm);
+        border: 1px solid rgba(138, 43, 226, 0.05);
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Título de contacto centrado en móvil */
+    section.contact-section .contact-title {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: var(--space-md);
+    }
+    
+    /* Iconos sociales en horizontal para móvil */
+    section.contact-section .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Corrección para Whatsapp y botón Subir 
+   Usando selectores de atributos para mayor especificidad */
+[class^="whatsapp-button"],
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+/* Selector más específico para el botón arriba */
+body .scroll-top-btn,
+.scroll-top-btn[class] {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Selectores combinados para mayor especificidad */
+.whatsapp-btn, 
+.scroll-top-btn,
+body .whatsapp-btn,
+body .scroll-top-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Añadir botón de cierre explícito - alta especificidad */
+.site-header .nav-links.active .nav-close-btn,
+.nav-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 30px;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1010;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Clases para mejorar accesibilidad en modo táctil */
+@media (pointer: coarse) {
+    /* Clase general para objetivos táctiles */
+    .touch-target,
+    a[class*="nav-link"],
+    button[class*="button"],
+    .social-icon,
+    .contact-icon,
+    .map-button,
+    .copy-button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Clases añadidas dinámicamente por mobile-fixes.js 
+   Uso de selectores compuestos para aumentar especificidad */
+body.is-mobile .site-header .nav-links a {
+    pointer-events: auto;
+}
+
+body.is-landscape .contact-section .contact-flex-container {
+    flex-direction: row;
+}
+
+body.is-landscape .contact-section .contact-info-column {
+    flex: 0 0 65%;
+}
+
+body.is-landscape .contact-section .social-column {
+    flex: 0 0 30%;
+}
+
+/* Aumentar especificidad para evitar conflictos en dispositivos móviles */
+@media (max-width: 768px) {
+    body.is-mobile {
+        /* Mantiene el fondo visible en scroll iOS */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevenir problemas con el menú fijo en iOS */
+    body.is-mobile .site-header {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
 }
