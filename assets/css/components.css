@@ -710,6 +710,23 @@
     
     .contact-item {
         padding: var(--space-sm) var(--space-md);
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .contact-item .contact-icon {
+        margin-bottom: 0;
+        margin-right: var(--space-sm);
+    }
+    
+    .contact-item .contact-text {
+        width: auto;
+        margin-bottom: 0;
+    }
+    
+    .contact-item .map-button,
+    .contact-item .copy-button {
+        margin-left: var(--space-sm);
     }
     
     .about-content, .contact-content {
@@ -739,18 +756,22 @@
 
 @media (max-width: 500px) {
     .contact-item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--space-md) var(--space-sm);
+        flex-direction: row;
+        align-items: center;
+        padding: var(--space-sm) var(--space-sm);
     }
     
     .contact-icon {
-        margin-bottom: var(--space-sm);
+        margin-bottom: 0;
+        margin-right: var(--space-sm);
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
     }
     
     .contact-text {
-        width: 100%;
-        margin-bottom: var(--space-sm);
+        width: auto;
+        margin-bottom: 0;
     }
     
     .map-button,

@@ -198,15 +198,20 @@
         gap: var(--space-sm);
     }
     
+    /* Ocultar iconos de contacto en móvil */
     .contact-section .contact-icon {
-        min-width: 40px;
-        width: 40px;
-        height: 40px;
+        display: none;
     }
     
-    .contact-section .contact-icon img {
-        width: 18px;
-        height: 18px;
+    .contact-section .contact-item {
+        padding: var(--space-sm) var(--space-sm);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .contact-section .contact-text {
+        margin: 0;
     }
     
     .contact-section .contact-cta {
@@ -216,6 +221,41 @@
     .contact-section .contact-cta .button {
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
+    }
+    
+    /* Sección Nosotros - Ajustes móvil */
+    .about-section .about-text {
+        text-align: center;
+    }
+    
+    .about-section .values-list {
+        text-align: left;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .about-section .team-grid {
+        gap: var(--space-sm);
+    }
+    
+    .about-section .team-member {
+        width: 100%;
+        max-width: 200px;
+        margin-bottom: var(--space-md);
+    }
+    
+    .about-section .member-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .about-section .team-member h4 {
+        font-size: 1rem;
+    }
+    
+    .about-section .team-member p {
+        font-size: 0.8rem;
     }
 }
 
@@ -250,26 +290,6 @@
         padding: var(--space-sm);
     }
     
-    .contact-section .contact-item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: var(--space-sm);
-    }
-    
-    .contact-section .contact-icon {
-        margin-bottom: var(--space-sm);
-    }
-    
-    .contact-section .contact-text {
-        width: 100%;
-        margin-bottom: var(--space-sm);
-    }
-    
-    .contact-section .map-button,
-    .contact-section .copy-button {
-        margin-left: auto;
-    }
-    
     .contact-section .contact-title, 
     .contact-section .social-title {
         font-size: 1.3rem;
@@ -294,6 +314,23 @@
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
+    }
+    
+    /* Más ajustes para la sección Nosotros en móviles pequeños */
+    .about-section .team-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .about-section .about-content {
+        padding: var(--space-sm);
+    }
+    
+    .about-section h3 {
+        text-align: center;
+        font-size: 1.3rem;
+        margin-top: var(--space-md);
     }
 }
 
@@ -354,5 +391,33 @@ body.has-mouse .mouse-only {
     /* Asegurar que los enlaces sean clickeables */
     .site-header .nav-links.active a {
         pointer-events: auto;
+    }
+    
+    /* Ajustar el diseño de los contactos para móvil */
+    .contact-section .contact-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .contact-section .contact-text {
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .contact-section .contact-text p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .contact-section .map-button,
+    .contact-section .copy-button {
+        flex-shrink: 0;
+        margin-left: var(--space-sm);
     }
 }
