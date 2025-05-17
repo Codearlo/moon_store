@@ -1,0 +1,206 @@
+/* assets/css/mobile-menu.css */
+/* Estilos mejorados para el menú hamburguesa */
+
+/* Estilo base del botón de menú móvil */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+}
+
+.mobile-menu-toggle:hover, 
+.mobile-menu-toggle:focus {
+    color: var(--primary-light);
+    transform: scale(1.05);
+    background-color: rgba(138, 43, 226, 0.2);
+}
+
+.mobile-menu-toggle:active {
+    transform: scale(0.95);
+}
+
+.mobile-menu-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Estilos para el menú móvil activado */
+.nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-left: 1px solid var(--glass-border);
+    padding: var(--space-xl) var(--space-md);
+    z-index: 1001;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(0);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.nav-links:not(.active) {
+    transform: translateX(100%);
+}
+
+/* Animación para los elementos del menú */
+.nav-links.active li {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideInMenu 0.4s forwards;
+}
+
+@keyframes slideInMenu {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Aplicar retraso a los elementos del menú para crear efecto cascada */
+.nav-links.active li:nth-child(1) { animation-delay: 0.1s; }
+.nav-links.active li:nth-child(2) { animation-delay: 0.15s; }
+.nav-links.active li:nth-child(3) { animation-delay: 0.2s; }
+.nav-links.active li:nth-child(4) { animation-delay: 0.25s; }
+.nav-links.active li:nth-child(5) { animation-delay: 0.3s; }
+.nav-links.active li:nth-child(6) { animation-delay: 0.35s; }
+
+/* Overlay para el menú móvil */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Estilos para los elementos de navegación en móvil */
+.nav-links.active a {
+    display: block;
+    padding: 15px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.nav-links.active a:hover,
+.nav-links.active a:focus {
+    color: var(--primary-light);
+    padding-left: 5px;
+}
+
+/* Botón de cierre del menú en la parte superior */
+.mobile-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    color: var(--text-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-close-btn:hover,
+.mobile-close-btn:focus {
+    background: rgba(138, 43, 226, 0.3);
+    transform: rotate(90deg);
+}
+
+/* Mejoras para el header responsive */
+@media (max-width: 768px) {
+    .header-wrapper {
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+    
+    .logo img {
+        height: 35px;
+    }
+    
+    .cta-button {
+        margin-left: 8px;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    /* Reducir espacio entre elementos del header en móvil */
+    .site-header {
+        padding: 0 5px;
+    }
+}
+
+/* Ajustes específicos para dispositivos pequeños */
+@media (max-width: 576px) {
+    .nav-links.active {
+        width: 85%; /* Más ancho en pantallas pequeñas */
+    }
+    
+    .mobile-menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .mobile-menu-toggle svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* Ajustes para dispositivos con pantalla táctil para mejorar la experiencia */
+@media (pointer: coarse) {
+    .mobile-menu-toggle,
+    .mobile-close-btn,
+    .nav-links.active a {
+        padding: 12px;
+    }
+    
+    .nav-links.active li {
+        margin: 5px 0;
+    }
+}
