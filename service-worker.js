@@ -2,7 +2,7 @@
 // Service Worker para gestionar la caché y actualizaciones
 
 // Nombre de la caché - cambiar versión cuando se actualice el sitio
-const CACHE_NAME = 'moon-store-cache-v1.0.1';
+const CACHE_NAME = 'moon-store-cache-v3.0';
 
 // Recursos para pre-cachear
 const PRECACHE_URLS = [
