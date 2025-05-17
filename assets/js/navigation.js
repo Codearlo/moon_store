@@ -19,65 +19,53 @@ function setupMobileMenu() {
     const navLinks = document.getElementById('navLinks');
     
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            // Cambiar ícono del menú
-            if (navLinks.classList.contains('active')) {
-                menuToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
-                    </svg>
-                `;
-                
-                // Agregar overlay para cerrar el menú al hacer clic fuera
-                const overlay = document.createElement('div');
-                overlay.className = 'menu-overlay';
-                document.body.appendChild(overlay);
-                
-                // Activar overlay con un pequeño retraso para la animación
-                setTimeout(() => {
-                    overlay.classList.add('active');
-                }, 10);
-                
-                // Prevenir scroll del body cuando el menú está abierto
-                document.body.style.overflow = 'hidden';
-                
-                // Agregar evento para cerrar menú
-                overlay.addEventListener('click', closeMenu);
-                
-                // Añadir evento al pseudo-elemento para cerrar el menú
-                setTimeout(() => {
-                    const menuArea = document.querySelector('.nav-links.active');
-                    if (menuArea) {
-                        menuArea.addEventListener('click', function(e) {
-                            // Verificar si el clic fue en el botón de cierre (pseudo-elemento)
-                            const rect = this.getBoundingClientRect();
-                            const closeButtonArea = {
-                                top: rect.top + 20 - 15, // posición top del pseudoelemento ± margen de error
-                                right: rect.right - 20 + 15, // posición right del pseudoelemento ± margen de error
-                                bottom: rect.top + 20 + 15, // altura aproximada + margen
-                                left: rect.right - 20 - 15 // ancho aproximado - margen
-                            };
-                            
-                            if (e.clientX >= closeButtonArea.left && e.clientX <= closeButtonArea.right &&
-                                e.clientY >= closeButtonArea.top && e.clientY <= closeButtonArea.bottom) {
-                                closeMenu();
-                                e.stopPropagation();
-                            }
-                        });
-                    }
-                }, 100);
-            } else {
-                closeMenu();
-            }
+        menuToggle.addEventListener('click', (e) => {
+            toggleMenu(e);
         });
         
         // Cerrar menú al hacer clic en un enlace
         const navItems = navLinks.querySelectorAll('a');
         navItems.forEach(item => {
-            item.addEventListener('click', closeMenu);
+            item.addEventListener('click', (e) => {
+                // Cerrar el menú después de un pequeño retraso para permitir la navegación
+                setTimeout(() => {
+                    closeMenu();
+                }, 100);
+            });
         });
+    }
+    
+    function toggleMenu(e) {
+        if (e) e.stopPropagation();
+        
+        navLinks.classList.toggle('active');
+        
+        // Cambiar ícono del menú
+        if (navLinks.classList.contains('active')) {
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
+                </svg>
+            `;
+            
+            // Agregar overlay para cerrar el menú al hacer clic fuera
+            const overlay = document.createElement('div');
+            overlay.className = 'menu-overlay';
+            document.body.appendChild(overlay);
+            
+            // Activar overlay con un pequeño retraso para la animación
+            setTimeout(() => {
+                overlay.classList.add('active');
+            }, 10);
+            
+            // Prevenir scroll del body cuando el menú está abierto
+            document.body.style.overflow = 'hidden';
+            
+            // Agregar evento para cerrar menú al hacer clic en overlay
+            overlay.addEventListener('click', closeMenu);
+        } else {
+            closeMenu();
+        }
     }
     
     // Función para cerrar el menú
@@ -107,6 +95,16 @@ function setupMobileMenu() {
             }, 300);
         }
     }
+    
+    // Manejar tecla ESC para cerrar menú
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Exponer la función closeMenu para uso externo
+    window.closeNavMenu = closeMenu;
 }
 
 /**
@@ -142,15 +140,6 @@ function setupSmoothScroll() {
                     
                     // Actualizar URL sin recargar la página
                     history.pushState(null, null, '#' + targetId);
-                    
-                    // Si el menú móvil está abierto, cerrarlo
-                    const navLinks = document.getElementById('navLinks');
-                    if (navLinks && navLinks.classList.contains('active')) {
-                        const menuToggle = document.getElementById('menuToggle');
-                        if (menuToggle) {
-                            menuToggle.click();
-                        }
-                    }
                 }
             }
         });

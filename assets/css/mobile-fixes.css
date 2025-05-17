@@ -160,6 +160,7 @@
         grid-column: 3;
         margin-right: 10px;
         order: 2;
+        z-index: 1010;
     }
     
     /* Carrito a la derecha del todo */
@@ -174,7 +175,7 @@
     }
     
     .nav-links.active {
-        display: block;
+        display: block !important;
         position: fixed;
         top: 0;
         right: 0; /* Ahora aparece desde la derecha */
@@ -185,12 +186,13 @@
         background-color: rgba(10, 1, 24, 0.95); /* Fondo más sólido para mejor visibilidad */
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        padding: var(--space-xl) var(--space-md);
+        padding: 70px var(--space-md) var(--space-md);
         border-left: 1px solid var(--glass-border);
-        z-index: 1001;
+        z-index: 1005;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
         transform: none !important; /* Eliminar transformaciones que puedan interferir */
         transition: none !important; /* Eliminar transiciones que puedan causar problemas */
+        overflow-y: auto;
     }
     
     /* Mejorar la visibilidad del texto y los enlaces */
@@ -198,6 +200,8 @@
         margin: var(--space-md) 0;
         opacity: 1 !important;
         visibility: visible !important;
+        position: relative;
+        z-index: 1006;
     }
     
     .nav-links.active a {
@@ -211,11 +215,39 @@
         transition: color 0.3s ease;
         text-align: left;
         width: 100%;
+        position: relative;
+        z-index: 1007;
         pointer-events: auto !important; /* Asegurar que los enlaces sean clickeables */
     }
     
     .nav-links.active a:hover {
         color: var(--primary-light) !important;
+    }
+    
+    /* Agregar un botón de cierre explícito */
+    .nav-links.active::before {
+        content: "×";
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+        z-index: 1010;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background-color: var(--primary-dark);
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        visibility: visible;
     }
 }
 
@@ -238,14 +270,23 @@
     opacity: 1;
 }
 
-/* Añadir botón de cierre visible en el menú */
-.nav-links.active::before {
-    content: "×";
+/* Añadir botón de cierre explícito como elemento real */
+.nav-close-btn {
     position: absolute;
     top: 20px;
     right: 20px;
-    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-dark);
     color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 30px;
+    line-height: 20px;
     cursor: pointer;
-    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1010;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

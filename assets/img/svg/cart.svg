@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Shopping Cart SVG Icon -->
-<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M4.78571 5H18.2143C19.2 5 20 5.9 20 7C20 8.1 19.2 9 18.2143 9H4.78571C3.8 9 3 8.1 3 7C3 5.9 3.8 5 4.78571 5Z" fill="#000000"/>
-  <path d="M5 7L16.5 7L16.5 17C16.5 18.1046 15.6046 19 14.5 19H7C5.89543 19 5 18.1046 5 17L5 7Z" fill="#000000"/>
-  <path d="M15 5C15 3.34315 13.6569 2 12 2C10.3431 2 9 3.34315 9 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="8.5" cy="22" r="1" stroke="#000000" stroke-width="2"/>
-  <circle cx="14.5" cy="22" r="1" stroke="#000000" stroke-width="2"/>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.2998 5H22L20 12H8.37675M21 16H9L7 3H4M4 8H2M5 11H2M6 14H2M10 20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19C9.55228 19 10 19.4477 10 20ZM21 20C21 20.5523 20.5523 21 20 21C19.4477 21 19 20.5523 19 20C19 19.4477 19.4477 19 20 19C20.5523 19 21 19.4477 21 20Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

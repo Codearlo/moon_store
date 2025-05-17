@@ -1,78 +1,248 @@
-// assets/js/mobile-fixes.js
-// Correcciones para la navegación y el desplazamiento suave
+/* assets/css/mobile-fixes.css */
+/* Correcciones específicas para la visualización en móviles */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Actualizar el enlace del logo para que vaya a moonstore.codearlo.com
-    updateLogoLink();
+/* Ajustes generales de fuente para móvil */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
     
-    // Configurar botones de copiar para elementos de contacto
-    setupCopyButtons();
-});
-
-/**
- * Actualiza el enlace del logo para que vaya a moonstore.codearlo.com
- */
-function updateLogoLink() {
-    const logoLinks = document.querySelectorAll('.logo a, .logo');
+    h1 {
+        font-size: 1.8rem;
+    }
     
-    logoLinks.forEach(link => {
-        // Si el logo es un enlace o contiene un enlace
-        if (link.tagName === 'A' || link.querySelector('a')) {
-            const actualLink = link.tagName === 'A' ? link : link.querySelector('a');
-            actualLink.href = 'https://moonstore.codearlo.com';
-            actualLink.setAttribute('title', 'Moon Store - Inicio');
-        } else {
-            // Si el logo no es un enlace, convertirlo en uno
-            const parent = link.parentNode;
-            
-            // Guardar el contenido actual del logo
-            const logoContent = link.innerHTML;
-            
-            // Crear un nuevo enlace
-            const newLink = document.createElement('a');
-            newLink.href = 'https://moonstore.codearlo.com';
-            newLink.setAttribute('title', 'Moon Store - Inicio');
-            newLink.innerHTML = logoContent;
-            
-            // Aplicar estilos del logo original al nuevo enlace
-            newLink.className = link.className;
-            
-            // Reemplazar el logo original con el nuevo enlace
-            parent.replaceChild(newLink, link);
-        }
-    });
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    
+    .button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    .button.small {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .highlight {
+        font-weight: 600;
+    }
 }
 
-/**
- * Configura los botones de copiar para elementos de contacto
- */
-function setupCopyButtons() {
-    const copyButtons = document.querySelectorAll('.copy-button');
+/* Corrección para sección de contacto */
+@media (max-width: 768px) {
+    /* Ajustar layout en modo móvil para la sección de contacto */
+    .contact-flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
     
-    copyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const textToCopy = button.getAttribute('data-copy');
-            
-            if (textToCopy) {
-                // Crear elemento temporal para copiar texto
-                const tempInput = document.createElement('input');
-                tempInput.value = textToCopy;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                
-                // Efecto visual en el botón
-                button.classList.add('copied');
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                }, 1000);
-                
-                // Mostrar notificación si existe la función
-                if (typeof showNotification === 'function') {
-                    showNotification('Copiado al portapapeles', 'success');
-                }
-            }
-        });
-    });
+    /* Estilo único para móvil en los elementos de contacto */
+    .contact-item {
+        background: rgba(138, 43, 226, 0.03);
+        border-radius: var(--border-radius-sm);
+        border: 1px solid rgba(138, 43, 226, 0.05);
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+    }
+    
+    /* Título de contacto centrado en móvil */
+    .contact-title {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: var(--space-md);
+    }
+    
+    /* Ocultar título de redes en móvil */
+    .social-title {
+        display: none;
+    }
+    
+    /* Iconos sociales en horizontal para móvil */
+    .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Ajustes para el carrito en móvil */
+@media (max-width: 768px) {
+    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
+    .cta-button .button {
+        font-size: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+    
+    .cta-button .button::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url('../img/svg/cart.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+    }
+}
+
+/* Corrección para Whatsapp y botón Subir */
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 999;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Asegurar que los botones tengan el mismo tamaño */
+.whatsapp-btn, .scroll-top-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* CORRECCIÓN PARA EL MENÚ MÓVIL */
+@media (max-width: 768px) {
+    /* Layout del header para móvil */
+    .header-wrapper {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        align-items: center;
+        padding: 0.8rem;
+    }
+    
+    /* Logo a la izquierda */
+    .logo {
+        grid-column: 1;
+    }
+    
+    /* Menú hamburguesa a la derecha al lado del carrito */
+    .mobile-menu-toggle {
+        grid-column: 3;
+        margin-right: 10px;
+        order: 2;
+        z-index: 1010;
+    }
+    
+    /* Carrito a la derecha del todo */
+    .cta-button {
+        grid-column: 4;
+        order: 3;
+    }
+    
+    /* SOLUCIÓN PARA EL MENÚ MÓVIL */
+    .nav-links {
+        display: none; /* Inicialmente oculto */
+    }
+    
+    .nav-links.active {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        right: 0; /* Ahora aparece desde la derecha */
+        left: auto; /* Asegurar que no se posicione desde la izquierda */
+        bottom: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: rgba(10, 1, 24, 0.95); /* Fondo más sólido para mejor visibilidad */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 70px 20px 20px;
+        border-left: 1px solid var(--glass-border);
+        z-index: 1005;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+    }
+    
+    /* Mejorar la visibilidad del texto y los enlaces */
+    .nav-links.active li {
+        margin: 15px 0;
+        position: relative;
+        z-index: 1006;
+        display: block !important;
+    }
+    
+    .nav-links.active a {
+        display: block !important;
+        padding: 12px 0;
+        color: white !important; /* Asegurar que el texto sea blanco */
+        font-weight: 600 !important; /* Hacer el texto más grueso */
+        font-size: 1.1rem !important; /* Aumentar tamaño de fuente */
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra para mejorar legibilidad */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: color 0.3s ease;
+        text-align: left;
+        width: 100%;
+        position: relative;
+        z-index: 1007;
+        pointer-events: auto !important; /* Asegurar que los enlaces sean clickeables */
+    }
+    
+    .nav-links.active a:hover {
+        color: var(--primary-light) !important;
+    }
+    
+    /* Menú hamburguesa siempre en primer plano */
+    .mobile-menu-toggle {
+        position: relative;
+        z-index: 1010;
+    }
+}
+
+/* Estilos adicionales para el menú móvil */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
 }
