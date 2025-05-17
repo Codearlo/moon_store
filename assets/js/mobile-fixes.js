@@ -1,318 +1,107 @@
-/* assets/css/mobile-fixes.css */
-/* Correcciones específicas para la visualización en móviles */
+// assets/js/mobile-fixes.js
+// Script para solucionar problemas específicos en dispositivos móviles
 
-/* Ajustes generales de fuente para móvil */
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    // La gestión del menú móvil ahora está centralizada en navigation.js
+    // Aquí solo añadimos correcciones específicas para rendimiento en móviles
+    applyMobileFixes();
+});
+
+/**
+ * Aplica correcciones específicas para dispositivos móviles
+ */
+function applyMobileFixes() {
+    // Optimizar imágenes para dispositivos móviles
+    optimizeMobileImages();
     
-    h1 {
-        font-size: 1.8rem;
-    }
+    // Corregir problemas de scroll en iOS
+    fixIOSScroll();
     
-    h2 {
-        font-size: 1.5rem;
-    }
+    // Mejorar rendimiento general en móviles
+    improvePerformance();
+}
+
+/**
+ * Optimiza imágenes para móviles
+ */
+function optimizeMobileImages() {
+    // Solo aplicar en móviles
+    if (window.innerWidth > 768) return;
     
-    h3 {
-        font-size: 1.2rem;
-    }
+    // Cargar imágenes livianas específicas para móvil si existen
+    const images = document.querySelectorAll('img[data-mobile-src]');
+    images.forEach(img => {
+        const mobileSrc = img.getAttribute('data-mobile-src');
+        if (mobileSrc) {
+            img.setAttribute('src', mobileSrc);
+        }
+    });
     
-    p {
-        font-size: 0.9rem;
-    }
+    // Cargar imágenes con lazy loading nativo
+    const lazyImages = document.querySelectorAll('img:not([loading])');
+    lazyImages.forEach(img => {
+        img.setAttribute('loading', 'lazy');
+    });
+}
+
+/**
+ * Corrige problemas específicos de scroll en iOS
+ */
+function fixIOSScroll() {
+    // Detectar iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     
-    .nav-link {
-        font-size: 0.9rem;
-    }
-    
-    .button {
-        font-size: 0.9rem;
-        padding: 0.6rem 1.2rem;
-    }
-    
-    .button.small {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-    }
-    
-    .highlight {
-        font-weight: 600;
+    if (isIOS) {
+        // Solución para 100vh en iOS
+        const fixVh = () => {
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        };
+        
+        fixVh();
+        window.addEventListener('resize', fixVh);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(fixVh, 200);
+        });
+        
+        // Fix para problemas de scroll en inputs
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('blur', () => {
+                // Pequeño retraso para dejar que el teclado se cierre
+                setTimeout(() => {
+                    window.scrollTo(0, window.scrollY);
+                }, 100);
+            });
+        });
     }
 }
 
-/* CORRECCIONES PARA EL MENÚ MÓVIL */
-@media (max-width: 768px) {
-    /* Layout del header para móvil */
-    .header-wrapper {
-        display: grid;
-        grid-template-columns: auto 1fr auto auto;
-        align-items: center;
-        padding: 0.8rem;
-    }
+/**
+ * Mejora el rendimiento general en dispositivos móviles
+ */
+function improvePerformance() {
+    // Solo aplicar en móviles
+    if (window.innerWidth > 768) return;
     
-    /* Logo a la izquierda */
-    .logo {
-        grid-column: 1;
-    }
+    // Reducir animaciones en móviles para mejor rendimiento
+    document.body.classList.add('reduce-animations');
     
-    /* Menú hamburguesa a la derecha al lado del carrito */
-    .mobile-menu-toggle {
-        grid-column: 3;
-        margin-right: 10px;
-        order: 2;
-        z-index: 1010;
-    }
+    // Optimizar scroll
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (!document.body.classList.contains('is-scrolling')) {
+            document.body.classList.add('is-scrolling');
+        }
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('is-scrolling');
+        }, 200);
+    }, { passive: true });
     
-    /* Carrito a la derecha del todo */
-    .cta-button {
-        grid-column: 4;
-        order: 3;
-    }
-    
-    /* Cambio del botón "Comprar Ahora" a icono de carrito en móvil */
-    .cta-button .button {
-        font-size: 0;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-    }
-    
-    .cta-button .button::before {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url('../img/svg/cart.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: brightness(0) invert(1); /* Para que el icono sea blanco */
-    }
-    
-    /* SOLUCIÓN PARA EL MENÚ MÓVIL */
-    /* Aumentar especificidad usando .site-header como padre */
-    .site-header .nav-links {
-        display: none; /* Inicialmente oculto */
-    }
-    
-    /* Selector más específico para el menú activo */
-    .site-header .nav-links.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: auto;
-        bottom: 0;
-        width: 250px;
-        height: 100vh;
-        background-color: rgba(10, 1, 24, 0.95);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 70px var(--space-md) var(--space-md);
-        border-left: 1px solid var(--glass-border);
-        z-index: 1005;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
-        transform: none;
-        transition: none;
-    }
-    
-    /* Selectores más específicos para los elementos del menú móvil */
-    .site-header .nav-links.active li {
-        margin: var(--space-md) 0;
-        position: relative;
-        z-index: 1006;
-        opacity: 1;
-        visibility: visible;
-        display: block;
-    }
-    
-    .site-header .nav-links.active a.nav-link {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        font-weight: 600;
-        font-size: 1.1rem;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: color 0.3s ease;
-        text-align: left;
-        width: 100%;
-        position: relative;
-        z-index: 1007;
-        pointer-events: auto;
-    }
-    
-    /* Estilo de hover más específico */
-    .site-header .nav-links.active a.nav-link:hover,
-    .site-header .nav-links.active a.nav-link:focus {
-        color: var(--primary-light);
-    }
-}
-
-/* Estilos para overlay del menú - fuera de media query para aplicarse siempre */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1;
-}
-
-/* Corrección para sección de contacto en móvil */
-@media (max-width: 768px) {
-    /* Ajustar layout en modo móvil para la sección de contacto */
-    section.contact-section .contact-flex-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-    }
-    
-    /* Estilo único para móvil en los elementos de contacto */
-    section.contact-section .contact-item {
-        background: rgba(138, 43, 226, 0.03);
-        border-radius: var(--border-radius-sm);
-        border: 1px solid rgba(138, 43, 226, 0.05);
-        padding: 0.8rem 1rem;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.8rem;
-    }
-    
-    /* Título de contacto centrado en móvil */
-    section.contact-section .contact-title {
-        text-align: center;
-        font-size: 1.5rem;
-        margin-bottom: var(--space-md);
-    }
-    
-    /* Iconos sociales en horizontal para móvil */
-    section.contact-section .social-icons-container {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* Corrección para Whatsapp y botón Subir 
-   Usando selectores de atributos para mayor especificidad */
-[class^="whatsapp-button"],
-.whatsapp-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-}
-
-/* Selector más específico para el botón arriba */
-body .scroll-top-btn,
-.scroll-top-btn[class] {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Selectores combinados para mayor especificidad */
-.whatsapp-btn, 
-.scroll-top-btn,
-body .whatsapp-btn,
-body .scroll-top-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Añadir botón de cierre explícito - alta especificidad */
-.site-header .nav-links.active .nav-close-btn,
-.nav-close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--primary-dark);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 30px;
-    line-height: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1010;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Clases para mejorar accesibilidad en modo táctil */
-@media (pointer: coarse) {
-    /* Clase general para objetivos táctiles */
-    .touch-target,
-    a[class*="nav-link"],
-    button[class*="button"],
-    .social-icon,
-    .contact-icon,
-    .map-button,
-    .copy-button {
-        min-height: 44px;
-        min-width: 44px;
-    }
-}
-
-/* Clases añadidas dinámicamente por mobile-fixes.js 
-   Uso de selectores compuestos para aumentar especificidad */
-body.is-mobile .site-header .nav-links a {
-    pointer-events: auto;
-}
-
-body.is-landscape .contact-section .contact-flex-container {
-    flex-direction: row;
-}
-
-body.is-landscape .contact-section .contact-info-column {
-    flex: 0 0 65%;
-}
-
-body.is-landscape .contact-section .social-column {
-    flex: 0 0 30%;
-}
-
-/* Aumentar especificidad para evitar conflictos en dispositivos móviles */
-@media (max-width: 768px) {
-    body.is-mobile {
-        /* Mantiene el fondo visible en scroll iOS */
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Prevenir problemas con el menú fijo en iOS */
-    body.is-mobile .site-header {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
+    // Evitar reflow con propiedades que causan reflow
+    const heavyElements = document.querySelectorAll('.product-card, .service-card, .glass-card');
+    heavyElements.forEach(el => {
+        el.style.willChange = 'transform';
+        el.style.transform = 'translateZ(0)';
+    });
 }

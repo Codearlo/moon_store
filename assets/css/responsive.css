@@ -64,56 +64,96 @@
 
 /* Móviles y tablets pequeñas */
 @media (max-width: 768px) {
-    /* Navegación móvil - Selector más específico en lugar de !important */
+    /* Cálculo de altura para el header en móviles */
+    :root {
+        --header-height: 70px;
+    }
+    
+    /* Navegación móvil - Evita conflictos con transitions */
     .site-header .nav-links {
         display: none;
+        transition: none;
+        transform: none;
     }
     
     .site-header .mobile-menu-toggle {
         display: block;
     }
     
-    /* Usando selector específico en vez de !important */
+    /* Navegación móvil más especifica y sin transformaciones que causen conflictos */
     .site-header .nav-links.active {
-        display: flex;
-        flex-direction: column;
+        display: block;
         position: fixed;
         top: 0;
-        right: 0; /* Desde la derecha */
+        right: 0;
         bottom: 0;
         width: 250px;
-        background: var(--glass-bg);
+        height: 100vh;
+        background-color: rgba(10, 1, 24, 0.95);
         backdrop-filter: blur(12px);
-        padding: var(--space-xl) var(--space-md);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 70px 20px 20px;
         border-left: 1px solid var(--glass-border);
-        border-radius: 0;
-        z-index: 1001;
-        /* Sin !important */
-        transition: transform 0.3s ease;
-        transform: translateX(0);
+        z-index: 1005;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
     }
     
     .site-header .nav-links.active li {
-        margin: var(--space-md) 0;
+        margin: 15px 0;
+        position: relative;
+        z-index: 1006;
+        display: block;
     }
     
-    /* Ajuste para la superposición de menú */
+    /* Asegurar que los enlaces en el menú móvil sean clickeables */
+    .site-header .nav-links.active a {
+        display: block;
+        padding: 12px 0;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: color 0.3s ease;
+        text-align: left;
+        width: 100%;
+        position: relative;
+        z-index: 1007;
+        pointer-events: auto;
+    }
+    
+    .site-header .nav-links.active a:hover {
+        color: var(--primary-light);
+    }
+    
+    /* Estilos del overlay del menú */
     .menu-overlay {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 1000;
+        background: rgba(0,0,0,0.7);
+        z-index: 1001;
         display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: auto;
     }
     
     .menu-overlay.active {
         display: block;
+        opacity: 1;
     }
     
-    /* Ajustes para sección de contacto - aumentando especificidad */
+    /* Asegurar que el header esté por encima del overlay */
+    .site-header .header-wrapper {
+        position: relative;
+        z-index: 1010;
+    }
+    
+    /* Ajustes para sección de contacto */
     section.contact-section {
         padding: var(--space-lg) 0;
     }
@@ -210,7 +250,6 @@
         padding: var(--space-sm);
     }
     
-    /* Selector más específico para contacto en móviles pequeños */
     .contact-section .contact-item {
         flex-direction: column;
         align-items: flex-start;
@@ -260,17 +299,12 @@
 
 /* Reglas específicas para dispositivos con pantalla táctil */
 @media (hover: none) {
-    /* Reemplazando transform: none !important con selector específico */
-    .social-icon:hover,
-    .map-button:hover,
-    .copy-button:hover,
     body:not(.has-mouse) .social-icon:hover,
     body:not(.has-mouse) .map-button:hover,
     body:not(.has-mouse) .copy-button:hover {
         transform: none;
     }
     
-    .button:hover,
     body:not(.has-mouse) .button:hover {
         transform: none;
         box-shadow: none;
@@ -305,4 +339,20 @@ body.has-touch .touch-only {
 
 body.has-mouse .mouse-only {
     display: block;
+}
+
+/* Asegurar que las transiciones y transformaciones no entren en conflicto */
+@media (max-width: 768px) {
+    /* Eliminar todas las transformaciones que puedan causar conflictos en el menú móvil */
+    .site-header .nav-links,
+    .site-header .nav-links.active {
+        transition: none;
+        transform: none;
+        animation: none;
+    }
+    
+    /* Asegurar que los enlaces sean clickeables */
+    .site-header .nav-links.active a {
+        pointer-events: auto;
+    }
 }

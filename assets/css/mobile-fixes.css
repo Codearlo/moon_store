@@ -96,12 +96,11 @@
     }
     
     /* SOLUCIÓN PARA EL MENÚ MÓVIL */
-    /* Aumentar especificidad usando .site-header como padre */
     .site-header .nav-links {
         display: none; /* Inicialmente oculto */
     }
     
-    /* Selector más específico para el menú activo */
+    /* Estilos corregidos para el menú móvil */
     .site-header .nav-links.active {
         display: block;
         position: fixed;
@@ -123,17 +122,14 @@
         transition: none;
     }
     
-    /* Selectores más específicos para los elementos del menú móvil */
+    /* Mejorar la visibilidad del texto y los enlaces */
     .site-header .nav-links.active li {
         margin: var(--space-md) 0;
         position: relative;
         z-index: 1006;
-        opacity: 1;
-        visibility: visible;
-        display: block;
     }
     
-    .site-header .nav-links.active a.nav-link {
+    .site-header .nav-links.active a {
         display: block;
         padding: 12px 0;
         color: white;
@@ -146,12 +142,9 @@
         width: 100%;
         position: relative;
         z-index: 1007;
-        pointer-events: auto;
     }
     
-    /* Estilo de hover más específico */
-    .site-header .nav-links.active a.nav-link:hover,
-    .site-header .nav-links.active a.nav-link:focus {
+    .site-header .nav-links.active a:hover {
         color: var(--primary-light);
     }
 }
@@ -168,6 +161,7 @@
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: auto;
 }
 
 .menu-overlay.active {
@@ -175,81 +169,12 @@
     opacity: 1;
 }
 
-/* Corrección para sección de contacto en móvil */
-@media (max-width: 768px) {
-    /* Ajustar layout en modo móvil para la sección de contacto */
-    section.contact-section .contact-flex-container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-    }
-    
-    /* Estilo único para móvil en los elementos de contacto */
-    section.contact-section .contact-item {
-        background: rgba(138, 43, 226, 0.03);
-        border-radius: var(--border-radius-sm);
-        border: 1px solid rgba(138, 43, 226, 0.05);
-        padding: 0.8rem 1rem;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.8rem;
-    }
-    
-    /* Título de contacto centrado en móvil */
-    section.contact-section .contact-title {
-        text-align: center;
-        font-size: 1.5rem;
-        margin-bottom: var(--space-md);
-    }
-    
-    /* Iconos sociales en horizontal para móvil */
-    section.contact-section .social-icons-container {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 1.5rem;
-    }
+/* Eliminar el botón de cierre generado automáticamente por ::before */
+.site-header .nav-links.active::before {
+    display: none;
 }
 
-/* Corrección para Whatsapp y botón Subir 
-   Usando selectores de atributos para mayor especificidad */
-[class^="whatsapp-button"],
-.whatsapp-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    z-index: 999;
-}
-
-/* Selector más específico para el botón arriba */
-body .scroll-top-btn,
-.scroll-top-btn[class] {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Selectores combinados para mayor especificidad */
-.whatsapp-btn, 
-.scroll-top-btn,
-body .whatsapp-btn,
-body .scroll-top-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Añadir botón de cierre explícito - alta especificidad */
-.site-header .nav-links.active .nav-close-btn,
+/* Añadir botón de cierre explícito como elemento real */
 .nav-close-btn {
     position: absolute;
     top: 20px;
@@ -270,49 +195,123 @@ body .scroll-top-btn {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Corrección para que la barra de navegación no se oscurezca */
+.site-header {
+    position: relative;
+    z-index: 1010; /* Mayor que el overlay */
+}
+
+/* Corrección para que el botón de menú siga siendo clickeable */
+.mobile-menu-toggle {
+    position: relative;
+    z-index: 1020; /* Mayor que el header y el overlay */
+}
+
+/* Corrección para sección de contacto en móvil */
+@media (max-width: 768px) {
+    section.contact-section .contact-flex-container {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    section.contact-section .contact-item {
+        background: rgba(138, 43, 226, 0.03);
+        border-radius: var(--border-radius-sm);
+        border: 1px solid rgba(138, 43, 226, 0.05);
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+    }
+    
+    section.contact-section .contact-title {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: var(--space-md);
+    }
+    
+    section.contact-section .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Corrección para Whatsapp y botón Subir */
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Asegurar que los botones tengan el mismo tamaño */
+.whatsapp-btn, 
+.scroll-top-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
 /* Clases para mejorar accesibilidad en modo táctil */
 @media (pointer: coarse) {
-    /* Clase general para objetivos táctiles */
-    .touch-target,
-    a[class*="nav-link"],
-    button[class*="button"],
-    .social-icon,
-    .contact-icon,
-    .map-button,
-    .copy-button {
+    .touch-target {
         min-height: 44px;
         min-width: 44px;
     }
 }
 
-/* Clases añadidas dinámicamente por mobile-fixes.js 
-   Uso de selectores compuestos para aumentar especificidad */
-body.is-mobile .site-header .nav-links a {
-    pointer-events: auto;
-}
-
-body.is-landscape .contact-section .contact-flex-container {
-    flex-direction: row;
-}
-
-body.is-landscape .contact-section .contact-info-column {
-    flex: 0 0 65%;
-}
-
-body.is-landscape .contact-section .social-column {
-    flex: 0 0 30%;
-}
-
-/* Aumentar especificidad para evitar conflictos en dispositivos móviles */
+/* Usar altura variable para vh en móviles */
 @media (max-width: 768px) {
-    body.is-mobile {
-        /* Mantiene el fondo visible en scroll iOS */
-        -webkit-overflow-scrolling: touch;
+    .site-header .nav-links.active {
+        height: calc(var(--vh, 1vh) * 100);
     }
-    
-    /* Prevenir problemas con el menú fijo en iOS */
-    body.is-mobile .site-header {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
+}
+
+/* Asegurar que el menú sea independiente del header para evitar oscurecimiento */
+.site-header .header-wrapper {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 1010;
+}
+
+/* Asegurar que las transformaciones no entren en conflicto */
+.site-header .nav-links.active {
+    transform: none;
+    transition: none;
+}
+
+/* Asegurar que el overlay no cubre el header */
+.menu-overlay {
+    position: fixed;
+    top: var(--header-height, 80px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1001;
+}
+
+/* Variables personalizadas para medidas dinámicas */
+:root {
+    --header-height: 80px;
+    --vh: 1vh;
 }

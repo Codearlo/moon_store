@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar efectos visuales
     initVisualEffects();
     
-    // Inicializar navegación (ya no incluye setupMobileMenu duplicado)
+    // Inicializar navegación (contiene toda la lógica del menú móvil ahora)
     if (typeof initNavigation === 'function') {
         initNavigation();
     } else if (window.navigationModule && typeof window.navigationModule.initNavigation === 'function') {
