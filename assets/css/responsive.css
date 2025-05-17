@@ -171,13 +171,13 @@
     .contact-section .contact-info-column {
         flex: 1 1 auto;
         width: 100%;
-        margin-bottom: var(--space-md);
+        margin-bottom: var(--space-xs);
     }
     
     .contact-section .social-column {
         flex: 1 1 auto;
         width: 100%;
-        margin-top: var(--space-sm);
+        margin-top: 0;
     }
     
     .contact-section .social-title {

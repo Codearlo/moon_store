@@ -149,15 +149,6 @@ function openMenu() {
     // Prevenir scroll
     document.body.style.overflow = 'hidden';
     
-    // Añadir botón de cierre si no existe
-    if (!navLinks.querySelector('.nav-close-btn')) {
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'nav-close-btn';
-        closeBtn.innerHTML = '×';
-        closeBtn.addEventListener('click', closeMenu);
-        navLinks.appendChild(closeBtn);
-    }
-    
     // Asegurar que el elemento no se oculta debido a transiciones
     navLinks.style.display = 'block';
 }
