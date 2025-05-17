@@ -4,6 +4,9 @@
 // Versión de la caché - cambiar esto cuando se actualicen los archivos
 const CACHE_VERSION = '1.0.0';
 
+// Bandera para evitar mostrar notificaciones de actualización después de recargar
+let justReloaded = false;
+
 // Función que se ejecuta cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', () => {
     // Registrar Service Worker
@@ -13,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Aplicar versión a recursos críticos
     addVersionToResources();
+    
+    // Establecer justReloaded a true por un segundo para evitar notificaciones inmediatas
+    justReloaded = true;
+    setTimeout(() => {
+        justReloaded = false;
+    }, 2000);
     
     console.log('Cache control inicializado - v' + CACHE_VERSION);
 });
@@ -102,6 +111,9 @@ function appendVersionParam(url, version) {
  * @param {boolean} forceReload - Si es true, recarga la página si hay actualizaciones
  */
 function checkForUpdates(forceReload = false) {
+    // No mostrar notificaciones si acaba de recargar la página
+    if (justReloaded) return;
+    
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({ action: 'checkForUpdates' });
         
@@ -113,7 +125,7 @@ function checkForUpdates(forceReload = false) {
                 if (forceReload) {
                     window.location.reload();
                 } else {
-                    // Aquí podrías mostrar una notificación al usuario
+                    // Mostrar notificación de actualización
                     showUpdateNotification();
                 }
             }
@@ -125,6 +137,9 @@ function checkForUpdates(forceReload = false) {
  * Muestra una notificación de actualización disponible
  */
 function showUpdateNotification() {
+    // No mostrar notificaciones si acaba de recargar la página
+    if (justReloaded) return;
+    
     // Comprobar si ya existe una notificación
     if (document.querySelector('.update-notification')) return;
     
@@ -149,7 +164,7 @@ function showUpdateNotification() {
         });
     }
     
-    // Eliminar después de 15 segundos si el usuario no hace clic
+    // Eliminar notificación automáticamente después de 1 segundo
     setTimeout(() => {
         if (document.body.contains(notification)) {
             notification.classList.remove('show');
@@ -157,7 +172,7 @@ function showUpdateNotification() {
                 notification.remove();
             }, 300);
         }
-    }, 15000);
+    }, 1000);
 }
 
 // Exportar funciones para uso global
