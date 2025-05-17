@@ -14,7 +14,6 @@ function initNavigation() {
 /**
  * Configura el menú móvil
  */
-// Función mejorada para el menú móvil (con apertura desde la derecha)
 function setupMobileMenu() {
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
@@ -110,8 +109,8 @@ function setupSmoothScroll() {
                     e.preventDefault();
                     
                     // Compensar por la barra de navegación fija
-                    const headerHeight = document.querySelector('.site-header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
                     
                     window.scrollTo({
                         top: targetPosition,
@@ -120,6 +119,15 @@ function setupSmoothScroll() {
                     
                     // Actualizar URL sin recargar la página
                     history.pushState(null, null, '#' + targetId);
+                    
+                    // Si el menú móvil está abierto, cerrarlo
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks && navLinks.classList.contains('active')) {
+                        const menuToggle = document.getElementById('menuToggle');
+                        if (menuToggle) {
+                            menuToggle.click();
+                        }
+                    }
                 }
             }
         });

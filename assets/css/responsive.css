@@ -201,87 +201,107 @@
     }
 }
 
-/* Móviles pequeños */
-@media (max-width: 576px) {
-    .section-header h2 {
-        font-size: 1.8rem;
+/* Específico para assets/css/responsive.css - solo las secciones que necesitan modificación */
+
+/* Móviles y tablets pequeñas */
+@media (max-width: 768px) {
+    /* Navegación móvil */
+    .nav-links {
+        display: none;
     }
     
-    .contact-card {
-        padding: var(--space-sm);
+    .mobile-menu-toggle {
+        display: block;
     }
     
-    .contact-item {
+    /* Eliminamos las transformaciones conflictivas */
+    .nav-links.active {
+        /* Las propiedades ahora están en mobile-fixes.css */
+        display: block;
+    }
+    
+    /* Ajuste para la superposición de menú */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        display: none;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+    
+    /* Ajustes para sección de contacto */
+    .contact-section {
+        padding: var(--space-lg) 0;
+    }
+    
+    .section-header {
+        margin-bottom: var(--space-lg);
+    }
+    
+    .contact-flex-container {
         flex-direction: column;
-        align-items: flex-start;
-        padding: var(--space-sm);
+        min-height: auto;
+        margin-bottom: var(--space-md);
     }
     
-    .contact-icon {
-        margin-bottom: var(--space-sm);
-    }
-    
-    .contact-text {
+    .contact-info-column {
+        flex: 1 1 auto;
         width: 100%;
-        margin-bottom: var(--space-sm);
+        margin-bottom: var(--space-md);
     }
     
-    .map-button,
-    .copy-button {
-        margin-left: auto;
+    .social-column {
+        flex: 1 1 auto;
+        width: 100%;
+        margin-top: var(--space-sm);
     }
     
-    .contact-title, 
     .social-title {
-        font-size: 1.3rem;
         text-align: center;
+        margin-bottom: var(--space-sm);
     }
     
     .social-icons-container {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--space-md);
+        height: auto;
+        margin-bottom: var(--space-md);
+    }
+    
+    .contact-grid {
         gap: var(--space-sm);
     }
     
-    .social-icon {
+    .contact-icon {
+        min-width: 40px;
         width: 40px;
         height: 40px;
     }
     
-    .social-icon img {
-        width: 16px;
-        height: 16px;
+    .contact-icon img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .contact-cta {
+        margin-top: var(--space-md);
     }
     
     .contact-cta .button {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
     }
 }
 
-/* Corrección para que el menú se abra correctamente desde la derecha */
-@media (max-width: 768px) {
-    .nav-links.active {
-        transform: translateX(0); /* Estaba en 0, lo que es correcto para abrir desde la derecha */
-    }
-    
-    .nav-links {
-        transform: translateX(100%); /* Inicialmente oculto a la derecha */
-        right: 0;
-        left: auto; /* Asegura que no se aplique left */
-    }
-}
-
-/* Asegurarse de que los elementos de contacto sean clickeables en móvil */
-@media (pointer: coarse) {
-    .contact-icon,
-    .social-icon,
-    .map-button,
-    .copy-button,
-    .button {
-        min-height: 44px;
-        min-width: 44px;
-    }
-}
 
 /* Orientación horizontal en móviles */
 @media (max-width: 850px) and (orientation: landscape) {
