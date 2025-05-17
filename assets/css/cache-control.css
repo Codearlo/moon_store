@@ -1,0 +1,112 @@
+/* assets/css/cache-control.css */
+/* Estilos para el sistema de control de caché */
+
+/* Notificación de actualización disponible */
+.update-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: 12px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    z-index: 1002;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    text-align: center;
+    border-left: 4px solid var(--primary);
+}
+
+.update-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.update-notification p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.reload-btn {
+    background: var(--primary);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.reload-btn:hover {
+    background: var(--primary-light);
+}
+
+/* Indicador de carga para recursos */
+.resource-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.resource-loading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    animation: resourceLoadingProgress 2s infinite;
+}
+
+@keyframes resourceLoadingProgress {
+    0% { width: 0%; left: 0; }
+    50% { width: 100%; left: 0; }
+    100% { width: 0%; left: 100%; }
+}
+
+/* Modo offline */
+.offline-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 0;
+    background-color: rgba(10, 1, 24, 0.9);
+    color: var(--text-light);
+    text-align: center;
+    font-size: 0.85rem;
+    z-index: 1100;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+body.is-offline .offline-indicator {
+    transform: translateY(0);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .update-notification {
+        width: 90%;
+        left: 5%;
+        transform: translateX(0) translateY(100px);
+    }
+    
+    .update-notification.show {
+        transform: translateX(0) translateY(0);
+    }
+    
+    .update-notification p {
+        font-size: 0.8rem;
+    }
+}

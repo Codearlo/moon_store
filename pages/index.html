@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luna Tech - Tu Tienda de PC</title>
 
+    <!-- Meta para control de caché -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/components.css">
@@ -13,16 +18,24 @@
     <link rel="stylesheet" href="/assets/css/animations.css">
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <link rel="stylesheet" href="/assets/css/mobile-fixes.css">
-
+    <link rel="stylesheet" href="/assets/css/cache-control.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+        
+    <!-- Script de control de caché -->
+    <script src="/assets/js/cache-control.js"></script>
 </head>
 
 <body>
+    <!-- Indicador de modo offline -->
+    <div class="offline-indicator">
+        Estás en modo offline. Algunos contenidos pueden no estar actualizados.
+    </div>
+
     <!-- Elementos de fondo -->
     <div class="bg-elements">
         <div class="stars"></div>
@@ -296,9 +309,6 @@
 
         <!-- Modal para formulario de contacto -->
         <div id="contactFormModalPlaceholder"></div>
-
-        <!-- Modal para formulario de contacto -->
-        <div id="contactFormModalPlaceholder"></div>
     </main>
 
     <!-- Footer -->
@@ -314,6 +324,26 @@
     <script src="/assets/js/navigation.js"></script>
     <script src="/assets/js/mobile-fixes.js"></script>
 
+    <!-- Script para comprobar estado de conexión -->
+    <script>
+        // Comprobar estado de conexión
+        function updateOnlineStatus() {
+            const isOnline = navigator.onLine;
+            document.body.classList.toggle('is-offline', !isOnline);
+            
+            // Si volvemos a estar online, comprobar actualizaciones
+            if (isOnline && window.cacheControl) {
+                window.cacheControl.checkForUpdates();
+            }
+        }
+
+        // Agregar listeners de estado de conexión
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // Comprobar estado inicial
+        updateOnlineStatus();
+    </script>
 </body>
 
 </html>
