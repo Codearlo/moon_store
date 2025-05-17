@@ -45,6 +45,29 @@ function setupMobileMenu() {
                 
                 // Agregar evento para cerrar menú
                 overlay.addEventListener('click', closeMenu);
+                
+                // Añadir evento al pseudo-elemento para cerrar el menú
+                setTimeout(() => {
+                    const menuArea = document.querySelector('.nav-links.active');
+                    if (menuArea) {
+                        menuArea.addEventListener('click', function(e) {
+                            // Verificar si el clic fue en el botón de cierre (pseudo-elemento)
+                            const rect = this.getBoundingClientRect();
+                            const closeButtonArea = {
+                                top: rect.top + 20 - 15, // posición top del pseudoelemento ± margen de error
+                                right: rect.right - 20 + 15, // posición right del pseudoelemento ± margen de error
+                                bottom: rect.top + 20 + 15, // altura aproximada + margen
+                                left: rect.right - 20 - 15 // ancho aproximado - margen
+                            };
+                            
+                            if (e.clientX >= closeButtonArea.left && e.clientX <= closeButtonArea.right &&
+                                e.clientY >= closeButtonArea.top && e.clientY <= closeButtonArea.bottom) {
+                                closeMenu();
+                                e.stopPropagation();
+                            }
+                        });
+                    }
+                }, 100);
             } else {
                 closeMenu();
             }
