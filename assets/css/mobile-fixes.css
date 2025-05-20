@@ -76,7 +76,7 @@
 }
 
 /* Correcciones para tablets */
-@media (min-width: 769px) and (max-width: 1366px) {
+@media (min-width: 1024px) and (max-width: 1366px) {
     /* Layout del header para tablet */
     .header-wrapper {
         display: grid;
@@ -125,7 +125,7 @@
 }
 
 /* CORRECCIONES PARA EL MENÚ MÓVIL */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     /* Layout del header para móvil */
     .header-wrapper {
         display: grid;
