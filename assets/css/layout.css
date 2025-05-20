@@ -43,10 +43,14 @@
 .logo img {
     height: 40px;
     margin-right: var(--space-xs);
+    display: flex;
+    align-self: center;
 }
 
 .logo span {
+    display: flex;
     align-self: center;
+    line-height: 1;
 }
 
 .nav-links {
