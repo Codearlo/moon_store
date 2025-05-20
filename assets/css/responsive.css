@@ -114,7 +114,7 @@
 }
 
 /* Tablets y dispositivos medianos */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .section-inner {
         padding: 0 var(--space-sm);
     }
