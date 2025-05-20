@@ -45,6 +45,10 @@
     margin-right: var(--space-xs);
 }
 
+.logo span {
+    align-self: center;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
