@@ -44,7 +44,6 @@
     /* Asegurar que el header permanezca visible */
     .site-header {
         position: fixed;
-        top: 10px;
         width: 95%;
         z-index: 1010;
         transition: none;
