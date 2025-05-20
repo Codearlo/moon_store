@@ -1,5 +1,5 @@
-/* Variables y reset global */
 /* assets/css/base.css */
+/* Variables y reset global */
 
 :root {
     /* Colores */
@@ -42,6 +42,9 @@
     /* Contenedores */
     --container-max: 1200px;
     --container-small: 800px;
+    
+    /* Margen superior del header */
+    --header-top-margin: 50px;
 }
 
 /* Reseteo básico */

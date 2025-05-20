@@ -4,7 +4,7 @@
 /* Header */
 .site-header {
     position: fixed;
-    top: 30px;
+    top: var(--header-top-margin);
     left: 0;
     right: 0;
     width: 90%;
@@ -85,7 +85,7 @@
     margin: 0;
     position: relative;
     width: 100%;
-    padding-top: 110px; /* Espacio para la navegación fija (incrementado) */
+    padding-top: calc(var(--header-top-margin) + 80px); /* Espacio para la navegación fija */
 }
 
 .hero-glass {
@@ -227,9 +227,12 @@
 }
 
 @media (max-width: 768px) {
+    :root {
+        --header-top-margin: 20px;
+    }
+    
     .site-header {
         width: 95%;
-        top: 10px;
     }
     
     .nav-links {
@@ -289,12 +292,15 @@
         width: 80px;
         height: 80px;
     }
+    
+    .hero-section {
+        padding-top: calc(var(--header-top-margin) + 70px);
+    }
 }
 
 @media (max-width: 576px) {
     .site-header {
         width: 95%;
-        top: 10px;
     }
     
     .header-wrapper {
