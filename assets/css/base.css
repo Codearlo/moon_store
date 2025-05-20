@@ -43,7 +43,7 @@
     --container-max: 1200px;
     --container-small: 800px;
     
-    /* Margen superior del header - valor por defecto para PC */
+    /* Margen superior del header */
     --header-top-margin: 50px;
 }
 

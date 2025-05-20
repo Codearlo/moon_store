@@ -12,7 +12,7 @@ window.navigationModule = {
     openMenu,
     toggleMenu,
     isMobileMenuOpen: false,
-    isTablet: window.innerWidth <= 1200 && window.innerWidth > 768
+    isTablet: window.innerWidth <= 1366 && window.innerWidth > 768
 };
 
 /**
@@ -166,7 +166,7 @@ function closeMenu(keepMobileView = false) {
     if (!navLinks || !menuToggle) return;
     
     // Si estamos en móvil o tablet, aplicar clase para mantener vista consistente
-    const isSmallScreen = window.innerWidth <= 1200; // Incluir tablets
+    const isSmallScreen = window.innerWidth <= 1366; // Incluir tablets
     if (keepMobileView && isSmallScreen) {
         header.classList.add('mobile-view-locked');
         
@@ -345,7 +345,7 @@ function setupScrollAnimations() {
  */
 function setupMobileDetection() {
     const isMobile = window.innerWidth <= 768;
-    const isTablet = window.innerWidth <= 1200 && window.innerWidth > 768;
+    const isTablet = window.innerWidth <= 1366 && window.innerWidth > 768;
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     // Añadir clases al body para poder usarlas en CSS
@@ -361,7 +361,7 @@ function setupMobileDetection() {
     window.addEventListener('resize', () => {
         // Actualizar navegación según el ancho de la ventana
         const newIsMobile = window.innerWidth <= 768;
-        const newIsTablet = window.innerWidth <= 1200 && window.innerWidth > 768;
+        const newIsTablet = window.innerWidth <= 1366 && window.innerWidth > 768;
         
         // Actualizar clases en el body
         document.body.classList.toggle('is-mobile', newIsMobile);
@@ -371,7 +371,7 @@ function setupMobileDetection() {
         window.navigationModule.isTablet = newIsTablet;
         
         // Si cambiamos a una resolución grande, asegurar que el menú se cierre
-        if (window.innerWidth > 1200) {
+        if (window.innerWidth > 1366) {
             if (window.navigationModule.isMobileMenuOpen) {
                 closeMenu();
             }

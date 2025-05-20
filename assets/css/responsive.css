@@ -1,8 +1,8 @@
 /* assets/css/responsive.css */
 /* Estilos específicos para dispositivos móviles y tablets */
 
-/* Tablets grandes y dispositivos medianos */
-@media (max-width: 1200px) {
+/* Tablets y iPads */
+@media (min-width: 769px) and (max-width: 1366px) {
     /* Cambios para el menú de navegación en tablets */
     .site-header .nav-links {
         display: none;
@@ -73,6 +73,33 @@
         z-index: 1007;
     }
     
+    /* Layout del header para tablet */
+    .header-wrapper {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        align-items: center;
+        padding: 0.8rem;
+    }
+    
+    /* Logo a la izquierda */
+    .logo {
+        grid-column: 1;
+    }
+    
+    /* Menú hamburguesa a la derecha al lado del carrito */
+    .mobile-menu-toggle {
+        grid-column: 3;
+        margin-right: 10px;
+        order: 2;
+        z-index: 1010;
+    }
+    
+    /* Carrito a la derecha del todo */
+    .cta-button {
+        grid-column: 4;
+        order: 3;
+    }
+    
     .contact-flex-container {
         gap: var(--space-sm);
     }
@@ -129,33 +156,6 @@
     /* Adaptaciones para la navegación */
     .site-header {
         width: 98%;
-    }
-    
-    /* Layout del header para tablet */
-    .header-wrapper {
-        display: grid;
-        grid-template-columns: auto 1fr auto auto;
-        align-items: center;
-        padding: 0.8rem;
-    }
-    
-    /* Logo a la izquierda */
-    .logo {
-        grid-column: 1;
-    }
-    
-    /* Menú hamburguesa a la derecha al lado del carrito */
-    .mobile-menu-toggle {
-        grid-column: 3;
-        margin-right: 10px;
-        order: 2;
-        z-index: 1010;
-    }
-    
-    /* Carrito a la derecha del todo */
-    .cta-button {
-        grid-column: 4;
-        order: 3;
     }
 }
 
