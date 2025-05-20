@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luna Tech - Tu Tienda de PC</title>
+    <title>Moon Store</title>
+    <link rel="icon" href="assets/img/logo.png" type="image/png">
 
     <!-- Meta para control de caché -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -25,10 +26,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-        
+
     <!-- Script de control de caché -->
     <script src="/assets/js/cache-control.js?v=20250517"></script>
-    
+
     <!-- Script para corregir el icono de carrito -->
     <script src="/assets/js/header-fix.js?v=20250517"></script>
 </head>
@@ -84,7 +85,8 @@
 
                     <div class="glass-card product-card animate-fade-in-up animate-delay-1">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/accesorios.svg?v=20250517" alt="Accesorios" width="30" height="30">
+                            <img src="../assets/img/svg/accesorios.svg?v=20250517" alt="Accesorios" width="30"
+                                height="30">
                         </div>
                         <h3>Accesorios</h3>
                         <p>Complementa tu equipo con los mejores periféricos y accesorios del mercado.</p>
@@ -114,7 +116,8 @@
                 <div class="card-grid">
                     <div class="glass-card service-card animate-fade-in-up">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/mantenimiento.svg?v=20250517" alt="Mantenimiento" width="30" height="30">
+                            <img src="../assets/img/svg/mantenimiento.svg?v=20250517" alt="Mantenimiento" width="30"
+                                height="30">
                         </div>
                         <h3>Mantenimiento</h3>
                         <p>Servicio técnico especializado para mantener tu equipo en óptimas condiciones.</p>
@@ -239,31 +242,36 @@
                                     </div>
                                     <button class="map-button"
                                         onclick="window.open('https://maps.app.goo.gl/6sUN2SP7iDKMgkNf7', '_blank')">
-                                        <img src="../assets/img/svg/map.svg?v=20250517" alt="Ver mapa" width="20" height="20">
+                                        <img src="../assets/img/svg/map.svg?v=20250517" alt="Ver mapa" width="20"
+                                            height="20">
                                     </button>
                                 </div>
 
                                 <div class="contact-item">
                                     <div class="contact-icon">
-                                        <img src="../assets/img/svg/phone.svg?v=20250517" alt="Teléfono" width="24" height="24">
+                                        <img src="../assets/img/svg/phone.svg?v=20250517" alt="Teléfono" width="24"
+                                            height="24">
                                     </div>
                                     <div class="contact-text">
                                         <p id="phone-number">+51 904505720</p>
                                     </div>
                                     <button class="copy-button" data-copy="+51904505720">
-                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18" height="18">
+                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
+                                            height="18">
                                     </button>
                                 </div>
 
                                 <div class="contact-item">
                                     <div class="contact-icon">
-                                        <img src="../assets/img/svg/mail.svg?v=20250517" alt="Email" width="24" height="24">
+                                        <img src="../assets/img/svg/mail.svg?v=20250517" alt="Email" width="24"
+                                            height="24">
                                     </div>
                                     <div class="contact-text">
                                         <p id="email-address">store.moon.main@gmail.com</p>
                                     </div>
                                     <button class="copy-button" data-copy="store.moon.main@gmail.com">
-                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18" height="18">
+                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
+                                            height="18">
                                     </button>
                                 </div>
                             </div>
@@ -275,7 +283,8 @@
                             <div class="social-icons-container">
                                 <a href="#" class="social-icon-link" title="TikTok">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/tiktok.svg?v=20250517" alt="TikTok" width="18" height="18">
+                                        <img src="../assets/img/svg/tiktok.svg?v=20250517" alt="TikTok" width="18"
+                                            height="18">
                                     </div>
                                 </a>
                                 <a href="#" class="social-icon-link" title="Instagram">
@@ -286,12 +295,14 @@
                                 </a>
                                 <a href="#" class="social-icon-link" title="Facebook">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/facebook.svg?v=20250517" alt="Facebook" width="18" height="18">
+                                        <img src="../assets/img/svg/facebook.svg?v=20250517" alt="Facebook" width="18"
+                                            height="18">
                                     </div>
                                 </a>
                                 <a href="#" class="social-icon-link" title="YouTube">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/youtube.svg?v=20250517" alt="YouTube" width="18" height="18">
+                                        <img src="../assets/img/svg/youtube.svg?v=20250517" alt="YouTube" width="18"
+                                            height="18">
                                     </div>
                                 </a>
                             </div>
@@ -334,7 +345,7 @@
         function updateOnlineStatus() {
             const isOnline = navigator.onLine;
             document.body.classList.toggle('is-offline', !isOnline);
-            
+
             // Si volvemos a estar online, comprobar actualizaciones
             if (isOnline && window.cacheControl) {
                 window.cacheControl.checkForUpdates();
@@ -344,12 +355,12 @@
         // Agregar listeners de estado de conexión
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
-        
+
         // Comprobar estado inicial
         updateOnlineStatus();
-        
+
         // Recargar recursos críticos al iniciar
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             if (window.cacheTools) {
                 window.cacheTools.reloadCriticalResources();
             }

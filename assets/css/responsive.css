@@ -113,6 +113,32 @@
     }
 }
 
+/* iPadPro - Tratar como tablet */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .nav-links {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: block !important;
+    }
+    
+    .cta-button .button {
+        font-size: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+    }
+    
+    .cta-button .button .button-text {
+        display: none !important;
+    }
+}
+
 /* Tablets y dispositivos medianos */
 @media (max-width: 1024px) {
     .section-inner {

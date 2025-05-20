@@ -75,8 +75,8 @@
     }
 }
 
-/* Correcciones para tablets */
-@media (min-width: 1024px) and (max-width: 1366px) {
+/* Correcciones para tablets e iPadPro */
+@media (min-width: 769px) and (max-width: 1366px) {
     /* Layout del header para tablet */
     .header-wrapper {
         display: grid;
@@ -124,8 +124,35 @@
     }
 }
 
+/* iPadPro específico - forzar reglas */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .nav-links {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: block !important;
+    }
+    
+    .cta-button .button {
+        font-size: 0 !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        position: relative !important;
+    }
+    
+    .cta-button .button .button-text {
+        display: none !important;
+    }
+}
+
 /* CORRECCIONES PARA EL MENÚ MÓVIL */
-@media (max-width: 1024px) {
+@media (max-width: 1366px) {
     /* Layout del header para móvil */
     .header-wrapper {
         display: grid;
@@ -379,7 +406,7 @@
 }
 
 /* Usar altura variable para vh en móviles */
-@media (max-width: 1024px) {
+@media (max-width: 1366px) {
     .site-header .nav-links.active {
         height: calc(var(--vh, 1vh) * 100);
     }

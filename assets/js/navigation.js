@@ -12,7 +12,7 @@ window.navigationModule = {
     openMenu,
     toggleMenu,
     isMobileMenuOpen: false,
-    isTablet: window.innerWidth <= 1366 && window.innerWidth > 768
+    isTablet: window.innerWidth <= 1366
 };
 
 /**
@@ -72,6 +72,22 @@ function setupMobileMenu() {
                             behavior: 'smooth'
                         });
                     }, 300);
+                }
+            } else if (href === 'index.html') {
+                e.preventDefault();
+                // Si el enlace es a index.html y estamos en la página principal
+                if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+                    // Cerrar el menú primero
+                    closeMenu(true);
+                    
+                    // Hacer scroll al inicio de la página
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Si no estamos en la página principal, navegar a ella
+                    window.location.href = href;
                 }
             } else {
                 // Para enlaces a otras páginas, no prevenir el comportamiento predeterminado

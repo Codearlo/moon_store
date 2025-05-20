@@ -48,7 +48,7 @@ function initCartIcon() {
     const cartButton = document.querySelector('.cta-button .button');
     if (!cartButton) return;
     
-    // Verificar si estamos en móvil o tablet (cualquier cosa menos desktop)
+    // Verificar si estamos en móvil o tablet (cualquier cosa hasta 1366px - incluye iPadPro)
     const isSmallScreen = window.innerWidth <= 1366;
     
     // Si estamos en pantalla pequeña, asegurarnos de que el icono del carrito esté presente
