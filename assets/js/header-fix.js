@@ -53,11 +53,8 @@ function initCartIcon() {
         // Buscar si ya existe un ícono del carrito
         let cartIcon = cartButton.querySelector('.cart-icon');
         
-        // Si no existe o no se cargó correctamente
-        if (!cartIcon || getComputedStyle(cartIcon).display === 'none') {
-            // Eliminar cualquier icono existente
-            if (cartIcon) cartIcon.remove();
-            
+        // Si no existe, crearlo
+        if (!cartIcon) {
             // Crear un nuevo icono
             cartIcon = document.createElement('img');
             cartIcon.src = '/assets/img/svg/cart.svg?v=' + Date.now(); // Forzar recarga
@@ -80,10 +77,16 @@ function initCartIcon() {
             }
         }
     } else {
-        // En desktop, mostrar el texto del botón
+        // En desktop, mostrar el texto del botón y asegurarse de que no haya ícono
         const buttonText = cartButton.querySelector('.button-text');
         if (buttonText) {
             buttonText.style.display = '';
+        }
+        
+        // Remover cualquier ícono existente en desktop
+        const cartIcon = cartButton.querySelector('.cart-icon');
+        if (cartIcon) {
+            cartIcon.remove();
         }
     }
 }

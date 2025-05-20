@@ -1,10 +1,10 @@
-/* Layouts y estructuras */
 /* assets/css/layout.css */
+/* Layouts y estructuras */
 
 /* Header */
 .site-header {
     position: fixed;
-    top: 0;
+    top: 20px;
     left: 0;
     right: 0;
     width: 90%;
