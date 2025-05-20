@@ -204,6 +204,48 @@
     padding: var(--space-lg) 0 var(--space-xl);
 }
 
+/* Tablets y pantallas medianas */
+@media (max-width: 1200px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    /* Aplicar la estructura de grid para tablets */
+    .header-wrapper {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        align-items: center;
+        padding: 0.8rem;
+    }
+    
+    /* Logo a la izquierda */
+    .logo {
+        grid-column: 1;
+    }
+    
+    /* Menú hamburguesa a la derecha al lado del carrito */
+    .mobile-menu-toggle {
+        grid-column: 3;
+        margin-right: 10px;
+        order: 2;
+        z-index: 1010;
+    }
+    
+    /* Carrito a la derecha del todo */
+    .cta-button {
+        grid-column: 4;
+        order: 3;
+    }
+    
+    .site-header {
+        width: 95%;
+    }
+}
+
 /* Media Queries */
 @media (max-width: 992px) {
     h1 {
@@ -233,36 +275,6 @@
     
     .site-header {
         width: 95%;
-    }
-    
-    .nav-links {
-        display: none;
-    }
-    
-    .mobile-menu-toggle {
-        display: block;
-    }
-    
-    .nav-links.active {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        padding: var(--space-xl) var(--space-md);
-        border-right: 1px solid var(--glass-border);
-        border-radius: 0;
-        z-index: 1001;
-        transition: transform 0.3s ease;
-        transform: translateX(0);
-    }
-    
-    .nav-links.active li {
-        margin: var(--space-md) 0;
     }
     
     .hero-content {

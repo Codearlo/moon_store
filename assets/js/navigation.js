@@ -11,7 +11,8 @@ window.navigationModule = {
     closeMenu,
     openMenu,
     toggleMenu,
-    isMobileMenuOpen: false
+    isMobileMenuOpen: false,
+    isTablet: window.innerWidth <= 1200 && window.innerWidth > 768
 };
 
 /**
@@ -164,8 +165,9 @@ function closeMenu(keepMobileView = false) {
     
     if (!navLinks || !menuToggle) return;
     
-    // Si estamos en móvil, aplicar clase para mantener vista consistente
-    if (keepMobileView && window.innerWidth <= 768) {
+    // Si estamos en móvil o tablet, aplicar clase para mantener vista consistente
+    const isSmallScreen = window.innerWidth <= 1200; // Incluir tablets
+    if (keepMobileView && isSmallScreen) {
         header.classList.add('mobile-view-locked');
         
         // Remover la clase después de un tiempo
@@ -339,14 +341,16 @@ function setupScrollAnimations() {
 }
 
 /**
- * Detecta si el dispositivo es móvil y agrega clase al body
+ * Detecta si el dispositivo es móvil o tablet y agrega clases al body
  */
 function setupMobileDetection() {
     const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth <= 1200 && window.innerWidth > 768;
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
     // Añadir clases al body para poder usarlas en CSS
     if (isMobile) document.body.classList.add('is-mobile');
+    if (isTablet) document.body.classList.add('is-tablet');
     if (isTouch) document.body.classList.add('has-touch');
     if (!isTouch) document.body.classList.add('has-mouse');
     
@@ -355,12 +359,19 @@ function setupMobileDetection() {
     
     // Actualizar al cambiar el tamaño de la ventana
     window.addEventListener('resize', () => {
-        if (window.innerWidth <= 768) {
-            document.body.classList.add('is-mobile');
-        } else {
-            document.body.classList.remove('is-mobile');
-            
-            // Asegurarse de cerrar el menú móvil si estaba abierto
+        // Actualizar navegación según el ancho de la ventana
+        const newIsMobile = window.innerWidth <= 768;
+        const newIsTablet = window.innerWidth <= 1200 && window.innerWidth > 768;
+        
+        // Actualizar clases en el body
+        document.body.classList.toggle('is-mobile', newIsMobile);
+        document.body.classList.toggle('is-tablet', newIsTablet);
+        
+        // Actualizar bandera global
+        window.navigationModule.isTablet = newIsTablet;
+        
+        // Si cambiamos a una resolución grande, asegurar que el menú se cierre
+        if (window.innerWidth > 1200) {
             if (window.navigationModule.isMobileMenuOpen) {
                 closeMenu();
             }
@@ -406,7 +417,7 @@ function setupMobileDetection() {
     }
     
     // Corregir problema de altura en dispositivos móviles (100vh)
-    if (isMobile) {
+    if (isMobile || isTablet) {
         const fixMobileHeight = () => {
             const vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);

@@ -1,5 +1,5 @@
 // assets/js/header-fix.js
-// Script para asegurar la carga correcta del icono de carrito en dispositivos móviles
+// Script para asegurar la carga correcta del icono de carrito en dispositivos móviles y tablets
 
 document.addEventListener('DOMContentLoaded', () => {
     // Esperar a que el header se cargue (ya que es un componente)
@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(intervalCheck);
         }
     }, 2000);
+    
+    // También comprobar cuando se redimensiona la ventana
+    window.addEventListener('resize', initCartIcon);
 });
 
 /**
@@ -45,11 +48,11 @@ function initCartIcon() {
     const cartButton = document.querySelector('.cta-button .button');
     if (!cartButton) return;
     
-    // Verificar si estamos en móvil
-    const isMobile = window.innerWidth <= 768;
+    // Verificar si estamos en móvil o tablet
+    const isSmallScreen = window.innerWidth <= 1200; // Actualizado para incluir tablets
     
-    // Si estamos en móvil, asegurarnos de que el icono del carrito esté presente
-    if (isMobile) {
+    // Si estamos en pantalla pequeña, asegurarnos de que el icono del carrito esté presente
+    if (isSmallScreen) {
         // Buscar si ya existe un ícono del carrito
         let cartIcon = cartButton.querySelector('.cart-icon');
         
@@ -70,7 +73,7 @@ function initCartIcon() {
             // Agregar el icono al botón
             cartButton.appendChild(cartIcon);
             
-            // Ocultar el texto del botón en móvil
+            // Ocultar el texto del botón en móvil/tablet
             const buttonText = cartButton.querySelector('.button-text');
             if (buttonText) {
                 buttonText.style.display = 'none';
@@ -90,6 +93,3 @@ function initCartIcon() {
         }
     }
 }
-
-// Comprobar también cuando se redimensiona la ventana
-window.addEventListener('resize', initCartIcon);
