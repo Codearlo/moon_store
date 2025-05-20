@@ -379,7 +379,7 @@
 }
 
 /* Usar altura variable para vh en móviles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .site-header .nav-links.active {
         height: calc(var(--vh, 1vh) * 100);
     }
