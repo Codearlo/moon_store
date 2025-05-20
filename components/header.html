@@ -1,30 +1,6 @@
 <!-- components/header.html -->
-<style>
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo a {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    height: 40px;
-    margin-right: 0.5rem;
-}
-
-.logo span {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 40px;
-    position: relative;
-    top: -3px;
-}
-</style>
-
 <header class="site-header">
+    <link rel="stylesheet" href="/assets/css/navigation.css">
     <div class="header-wrapper">
         <div class="logo">
             <a href="https://moonstore.codearlo.com">
@@ -40,7 +16,7 @@
         </button>
         
         <ul class="nav-links" id="navLinks" role="navigation">
-            <li><a href="index.html" class="nav-link">Inicio</a></li>
+            <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
             <li><a href="index.html#productos" class="nav-link">Productos</a></li>
             <li><a href="index.html#servicios" class="nav-link">Servicios</a></li>
             <li><a href="index.html#testimonios" class="nav-link">Clientes</a></li>
@@ -55,3 +31,24 @@
         </div>
     </div>
 </header>
+
+<!-- Overlay para el menú móvil -->
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<!-- Script para forzar recarga de recursos -->
+<script>
+    // Forzar recarga de recursos críticos
+    const timestamp = Date.now();
+    document.querySelectorAll('.logo img, .cta-button img, .cart-icon').forEach(img => {
+        if (img.src) {
+            const currentSrc = img.getAttribute('src');
+            if (currentSrc.includes('?')) {
+                img.setAttribute('src', currentSrc.split('?')[0] + '?v=' + timestamp);
+            } else {
+                img.setAttribute('src', currentSrc + '?v=' + timestamp);
+            }
+        }
+    });
+</script>
+<script src="/assets/js/navigation.js"></script>
+<script src="/assets/js/cache-control.js"></script>
