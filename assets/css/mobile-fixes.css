@@ -125,7 +125,9 @@
 }
 
 /* iPadPro específico - forzar reglas */
-@media (min-width: 1024px) and (max-width: 1366px) {
+@media (min-width: 1024px) and (max-width: 1366px),
+       (width: 1024px) and (height: 1366px),
+       (width: 1366px) and (height: 1024px) {
     .nav-links {
         display: none !important;
     }
@@ -148,6 +150,17 @@
     
     .cta-button .button .button-text {
         display: none !important;
+    }
+    
+    /* Asegurar que el menú móvil se muestre correctamente en iPad Pro */
+    .site-header .nav-links.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 300px !important;
+        right: 0 !important;
+        left: auto !important;
+        z-index: 9999 !important;
     }
 }
 
@@ -307,7 +320,7 @@
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: 30px;
+    font-size: 20px;
     line-height: 20px;
     cursor: pointer;
     display: flex;
@@ -315,6 +328,13 @@
     justify-content: center;
     z-index: 1010;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Ocultar botón de cierre en desktop */
+@media (min-width: 1367px) {
+    .nav-close-btn {
+        display: none !important;
+    }
 }
 
 /* Corrección para que la barra de navegación no se oscurezca */

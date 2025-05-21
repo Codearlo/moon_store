@@ -21,7 +21,9 @@ function initNavigation() {
     // Variables globales
     const state = {
         isMobileMenuOpen: false,
-        isTablet: window.innerWidth <= 1366,
+        isTablet: window.innerWidth <= 1366 || 
+                 (window.innerWidth === 1024 && window.innerHeight === 1366) || 
+                 (window.innerWidth === 1366 && window.innerHeight === 1024),
         isMobile: window.innerWidth <= 768
     };
     
@@ -58,7 +60,9 @@ function initNavigation() {
         if (!menuToggle || !navLinks) return;
         
         // Agregar evento al botón de menú
-        menuToggle.addEventListener('click', toggleMenu);
+        menuToggle.addEventListener('click', function() {
+            toggleMenu();
+        });
         
         // Agregar eventos a los enlaces
         const navItems = navLinks.querySelectorAll('a');
@@ -68,7 +72,9 @@ function initNavigation() {
         
         // Agregar evento al overlay
         if (menuOverlay) {
-            menuOverlay.addEventListener('click', closeMenu);
+            menuOverlay.addEventListener('click', function() {
+                closeMenu();
+            });
         }
         
         // Manejar tecla ESC
@@ -90,7 +96,7 @@ function initNavigation() {
         if (href.startsWith('#') || (href.includes('#') && !href.includes('.html'))) {
             e.preventDefault();
             
-            const targetId = href.replace('#', '');
+            const targetId = href.split('#')[1] || href.replace('#', '');
             const targetElement = document.getElementById(targetId);
             
             if (targetElement) {
@@ -253,21 +259,23 @@ function initNavigation() {
     }
     
     /**
-     * Maneja cambios en el tamaño de la ventana
-     */
-    function handleResize() {
-        // Actualizar variables de estado
-        state.isTablet = window.innerWidth <= 1366;
-        state.isMobile = window.innerWidth <= 768;
-        
-        // Si cambiamos a una resolución grande, asegurar que el menú se cierre
-        if (window.innerWidth > 1366 && state.isMobileMenuOpen) {
-            closeMenu();
-        }
-        
-        // Actualizar el icono de carrito
-        initCartIcon();
+ * Maneja cambios en el tamaño de la ventana
+ */
+function handleResize() {
+    // Actualizar variables de estado
+    state.isTablet = window.innerWidth <= 1366 || 
+                     (window.innerWidth === 1024 && window.innerHeight === 1366) || 
+                     (window.innerWidth === 1366 && window.innerHeight === 1024);
+    state.isMobile = window.innerWidth <= 768;
+    
+    // Si cambiamos a una resolución grande, asegurar que el menú se cierre
+    if (window.innerWidth > 1366 && !state.isTablet && state.isMobileMenuOpen) {
+        closeMenu();
     }
+    
+    // Actualizar el icono de carrito
+    initCartIcon();
+}
     
     /**
      * Actualiza la variable CSS para altura en móviles
@@ -279,37 +287,70 @@ function initNavigation() {
     }
     
     /**
-     * Abre el menú móvil
-     */
-    function openMenu() {
-        const navLinks = document.getElementById('navLinks');
-        const menuToggle = document.getElementById('menuToggle');
-        const menuOverlay = document.getElementById('menuOverlay');
-        
-        if (!navLinks || !menuToggle) return;
-        
-        // Mostrar menú
-        navLinks.classList.add('active');
-        state.isMobileMenuOpen = true;
-        
-        // Cambiar ícono del menú a X
-        menuToggle.innerHTML = `
-            <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
-            </svg>
-        `;
-        
-        // Activar overlay
-        if (menuOverlay) {
-            menuOverlay.classList.add('active');
-        }
-        
-        // Prevenir scroll
-        document.body.style.overflow = 'hidden';
-        
-        // Asegurar que el elemento no se oculta
+ * Abre el menú móvil
+ */
+function openMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const menuToggle = document.getElementById('menuToggle');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    if (!navLinks || !menuToggle) return;
+    
+    // Forzar estilos para iPad Pro específicamente
+    const isIPadPro = (window.innerWidth === 1024 && window.innerHeight === 1366) || 
+                      (window.innerWidth === 1366 && window.innerHeight === 1024);
+    
+    if (isIPadPro) {
         navLinks.style.display = 'block';
+        navLinks.style.position = 'fixed';
+        navLinks.style.top = '0';
+        navLinks.style.right = '0';
+        navLinks.style.bottom = '0';
+        navLinks.style.width = '300px';
+        navLinks.style.height = '100vh';
+        navLinks.style.backgroundColor = 'rgba(10, 1, 24, 0.95)';
+        navLinks.style.backdropFilter = 'blur(12px)';
+        navLinks.style.webkitBackdropFilter = 'blur(12px)';
+        navLinks.style.padding = '70px 20px 20px';
+        navLinks.style.borderLeft = '1px solid rgba(138, 43, 226, 0.2)';
+        navLinks.style.zIndex = '9999';
+        navLinks.style.overflowY = 'auto';
+        navLinks.style.boxShadow = '-5px 0 15px rgba(0, 0, 0, 0.5)';
     }
+    
+    // Mostrar menú
+    navLinks.classList.add('active');
+    state.isMobileMenuOpen = true;
+    
+    // NO CAMBIAR el icono del menú toggle a X, solo ocultarlo
+    menuToggle.style.visibility = 'hidden';
+    
+    // Activar overlay
+    if (menuOverlay) {
+        menuOverlay.classList.add('active');
+    }
+    
+    // Prevenir scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Asegurar que el elemento no se oculta
+    navLinks.style.display = 'block';
+    
+    // Crear botón de cierre explícito
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'nav-close-btn';
+    closeBtn.innerHTML = 'X';
+    closeBtn.setAttribute('aria-label', 'Cerrar menú');
+    closeBtn.addEventListener('click', closeMenu);
+    
+    // Eliminar cualquier botón existente antes de añadir uno nuevo
+    const existingCloseBtn = navLinks.querySelector('.nav-close-btn');
+    if (existingCloseBtn) {
+        existingCloseBtn.remove();
+    }
+    
+    navLinks.appendChild(closeBtn);
+}
     
     /**
      * Cierra el menú móvil
@@ -337,12 +378,8 @@ function initNavigation() {
         navLinks.classList.remove('active');
         state.isMobileMenuOpen = false;
         
-        // Restaurar ícono del menú
-        menuToggle.innerHTML = `
-            <svg viewBox="0 0 24 24" width="24" height="24">
-                <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-            </svg>
-        `;
+        // Hacer visible el botón de menú de nuevo
+        menuToggle.style.visibility = 'visible';
         
         // Restaurar scroll
         document.body.style.overflow = '';
@@ -350,6 +387,12 @@ function initNavigation() {
         // Desactivar overlay
         if (menuOverlay) {
             menuOverlay.classList.remove('active');
+        }
+        
+        // Eliminar el botón de cierre
+        const closeBtn = navLinks.querySelector('.nav-close-btn');
+        if (closeBtn) {
+            closeBtn.remove();
         }
     }
     
