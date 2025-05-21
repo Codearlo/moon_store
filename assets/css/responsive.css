@@ -1,7 +1,7 @@
 /* assets/css/responsive.css */
 /* Estilos específicos para dispositivos móviles y tablets */
 
-/* Tablets y iPads */
+/* Tablets y iPads (768px - 1366px) */
 @media (min-width: 769px) and (max-width: 1366px) {
     /* Cambios para el menú de navegación en tablets */
     .site-header .nav-links {
@@ -51,55 +51,7 @@
         overflow-y: auto;
     }
     
-    .site-header .nav-links.active li {
-        margin: var(--space-md) 0;
-        position: relative;
-        z-index: 1006;
-        display: block;
-    }
-    
-    .site-header .nav-links.active a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        font-weight: 600;
-        font-size: 1.1rem;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: color 0.3s ease;
-        text-align: left;
-        width: 100%;
-        position: relative;
-        z-index: 1007;
-    }
-    
-    /* Layout del header para tablet */
-    .header-wrapper {
-        display: grid;
-        grid-template-columns: auto 1fr auto auto;
-        align-items: center;
-        padding: 0.8rem;
-    }
-    
-    /* Logo a la izquierda */
-    .logo {
-        grid-column: 1;
-    }
-    
-    /* Menú hamburguesa a la derecha al lado del carrito */
-    .mobile-menu-toggle {
-        grid-column: 3;
-        margin-right: 10px;
-        order: 2;
-        z-index: 1010;
-    }
-    
-    /* Carrito a la derecha del todo */
-    .cta-button {
-        grid-column: 4;
-        order: 3;
-    }
-    
+    /* Layout ajustado para tablet */
     .contact-flex-container {
         gap: var(--space-sm);
     }
@@ -111,214 +63,80 @@
     .social-column {
         flex: 0 0 20%;
     }
-}
-
-/* iPadPro - Tratar como tablet */
-@media (min-width: 1024px) and (max-width: 1366px) {
-    .nav-links {
-        display: none !important;
-    }
     
-    .mobile-menu-toggle {
-        display: block !important;
-    }
-    
-    .cta-button .button {
-        font-size: 0 !important;
-        width: 40px !important;
-        height: 40px !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 50% !important;
-    }
-    
-    .cta-button .button .button-text {
-        display: none !important;
-    }
-}
-
-/* Tablets y dispositivos medianos */
-@media (max-width: 1024px) {
     .section-inner {
         padding: 0 var(--space-sm);
     }
-    
-    .contact-card {
-        padding: var(--space-md) var(--space-md);
-    }
-    
-    .contact-item {
-        padding: var(--space-sm) var(--space-md);
-    }
-    
-    .contact-info-column, .social-column {
-        padding: 0 var(--space-sm);
-    }
-    
-    .social-icon {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .social-icon img {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .map-button, 
-    .copy-button {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .map-button img,
-    .copy-button img {
-        width: 14px;
-        height: 14px;
-    }
-    
-    /* Adaptaciones para la navegación */
-    .site-header {
-        width: 98%;
-    }
 }
 
-/* Móviles y tablets pequeñas */
+/* Móviles (hasta 768px) */
 @media (max-width: 768px) {
-    /* Cálculo de altura para el header en móviles */
-    :root {
-        --header-height: 70px;
+    /* Ajustes generales para móvil */
+    body {
+        font-size: 14px;
     }
     
-    /* Navegación móvil - Evita conflictos con transitions */
-    .site-header .nav-links {
-        display: none;
-        transition: none;
-        transform: none;
+    h1 {
+        font-size: 1.8rem;
     }
     
-    .site-header .mobile-menu-toggle {
-        display: block;
+    h2 {
+        font-size: 1.5rem;
     }
     
-    /* Navegación móvil más especifica y sin transformaciones que causen conflictos */
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+    }
+    
+    .button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+    
+    /* Estructura para móviles */
+    main {
+        margin-top: 80px;
+    }
+    
+    /* Navegación móvil */
     .site-header .nav-links.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
         width: 250px;
-        height: 100vh;
-        background-color: rgba(10, 1, 24, 0.95);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 70px 20px 20px;
-        border-left: 1px solid var(--glass-border);
-        z-index: 1005;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
     }
     
-    .site-header .nav-links.active li {
-        margin: 15px 0;
-        position: relative;
-        z-index: 1006;
-        display: block;
-    }
-    
-    /* Asegurar que los enlaces en el menú móvil sean clickeables */
-    .site-header .nav-links.active a {
-        display: block;
-        padding: 12px 0;
-        color: white;
-        font-weight: 600;
-        font-size: 1.1rem;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        transition: color 0.3s ease;
-        text-align: left;
-        width: 100%;
-        position: relative;
-        z-index: 1007;
-        pointer-events: auto;
-    }
-    
-    .site-header .nav-links.active a:hover {
-        color: var(--primary-light);
-    }
-    
-    /* Estilos del overlay del menú */
-    .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.7);
-        z-index: 1001;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: auto;
-    }
-    
-    .menu-overlay.active {
-        display: block;
-        opacity: 1;
-    }
-    
-    /* Asegurar que el header esté por encima del overlay */
-    .site-header .header-wrapper {
-        position: relative;
-        z-index: 1010;
-    }
-    
-    /* Ajustes para sección de contacto */
-    section.contact-section {
-        padding: var(--space-lg) 0;
-    }
-    
-    .contact-section .section-header {
-        margin-bottom: var(--space-lg);
-    }
-    
-    .contact-section .contact-flex-container {
+    /* Sección de contacto en móvil */
+    section.contact-section .contact-flex-container {
         flex-direction: column;
         min-height: auto;
-        margin-bottom: var(--space-md);
     }
     
-    .contact-section .contact-info-column {
+    section.contact-section .contact-info-column {
         flex: 1 1 auto;
         width: 100%;
         margin-bottom: var(--space-xs);
     }
     
-    .contact-section .social-column {
+    section.contact-section .social-column {
         flex: 1 1 auto;
         width: 100%;
         margin-top: 0;
     }
     
-    .contact-section .social-title {
+    section.contact-section .social-title {
         text-align: center;
         margin-bottom: var(--space-sm);
     }
     
-    .contact-section .social-icons-container {
+    section.contact-section .social-icons-container {
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
         gap: var(--space-md);
         height: auto;
         margin-bottom: var(--space-md);
-    }
-    
-    .contact-section .contact-grid {
-        gap: var(--space-sm);
     }
     
     /* Ocultar iconos de contacto en móvil */
@@ -337,73 +155,29 @@
         margin: 0;
     }
     
-    .contact-section .contact-cta {
-        margin-top: var(--space-md);
+    /* Ajustes para botones de WhatsApp y Scroll Top */
+    .whatsapp-button {
+        bottom: 20px;
+        left: 20px;
     }
     
-    .contact-section .contact-cta .button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
     }
     
-    /* Sección Nosotros - Ajustes móvil */
-    .about-section .about-text {
-        text-align: center;
+    .whatsapp-btn svg {
+        width: 30px;
+        height: 30px;
     }
     
-    .about-section .values-list {
-        text-align: left;
-        max-width: 280px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .about-section .team-grid {
-        gap: var(--space-sm);
-    }
-    
-    .about-section .team-member {
-        width: 100%;
-        max-width: 200px;
-        margin-bottom: var(--space-md);
-    }
-    
-    .about-section .member-avatar {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .about-section .team-member h4 {
-        font-size: 1rem;
-    }
-    
-    .about-section .team-member p {
-        font-size: 0.8rem;
+    .scroll-top-btn {
+        bottom: 20px;
+        right: 20px;
     }
 }
 
-/* Orientación horizontal en móviles */
-@media (max-width: 850px) and (orientation: landscape) {
-    .contact-section .contact-flex-container {
-        flex-direction: row;
-    }
-    
-    .contact-section .contact-info-column {
-        flex: 0 0 65%;
-    }
-    
-    .contact-section .social-column {
-        flex: 0 0 30%;
-    }
-    
-    .contact-section .social-icons-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
-
-/* Móviles pequeños */
+/* Móviles pequeños (hasta 576px) */
 @media (max-width: 576px) {
     .section-header h2 {
         font-size: 1.8rem;
@@ -439,39 +213,32 @@
         margin: 0 auto;
     }
     
-    /* Más ajustes para la sección Nosotros en móviles pequeños */
-    .about-section .team-grid {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    /* Header más compacto en móviles pequeños */
+    .logo img {
+        height: 25px;
     }
     
-    .about-section .about-content {
-        padding: var(--space-sm);
+    .logo span {
+        font-size: 1rem;
     }
     
-    .about-section h3 {
-        text-align: center;
-        font-size: 1.3rem;
-        margin-top: var(--space-md);
+    .cta-button .button,
+    .mobile-menu-toggle {
+        width: 35px;
+        height: 35px;
     }
 }
 
-/* Reglas específicas para dispositivos con pantalla táctil */
-@media (hover: none) {
-    body:not(.has-mouse) .social-icon:hover,
-    body:not(.has-mouse) .map-button:hover,
-    body:not(.has-mouse) .copy-button:hover {
-        transform: none;
-    }
-    
-    body:not(.has-mouse) .button:hover {
-        transform: none;
-        box-shadow: none;
-    }
+/* Clases de utilidad para pantallas específicas */
+.mobile-visible {
+    display: block;
 }
 
-/* Asegurarse de que los elementos de contacto sean clickeables en móvil */
+.mobile-hidden {
+    display: none;
+}
+
+/* Asegurar que los elementos sean tocables en móvil */
 @media (pointer: coarse) {
     .contact-icon,
     .social-icon,
@@ -483,64 +250,22 @@
     }
 }
 
-/* Agregamos clase de utilidad para especificidad en caso necesario */
-.mobile-visible {
-    display: block;
-}
-
-.mobile-hidden {
+/* Menú overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
 }
 
-/* Script JS puede agregar estas clases para detectar capacidades */
-body.has-touch .touch-only {
+.menu-overlay.active {
     display: block;
-}
-
-body.has-mouse .mouse-only {
-    display: block;
-}
-
-/* Asegurar que las transiciones y transformaciones no entren en conflicto */
-@media (max-width: 768px) {
-    /* Eliminar todas las transformaciones que puedan causar conflictos en el menú móvil */
-    .site-header .nav-links,
-    .site-header .nav-links.active {
-        transition: none;
-        transform: none;
-        animation: none;
-    }
-    
-    /* Asegurar que los enlaces sean clickeables */
-    .site-header .nav-links.active a {
-        pointer-events: auto;
-    }
-    
-    /* Ajustar el diseño de los contactos para móvil */
-    .contact-section .contact-item {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--space-sm) var(--space-md);
-    }
-    
-    .contact-section .contact-text {
-        flex-grow: 1;
-        flex-shrink: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    
-    .contact-section .contact-text p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    
-    .contact-section .map-button,
-    .contact-section .copy-button {
-        flex-shrink: 0;
-        margin-left: var(--space-sm);
-    }
+    opacity: 1;
 }

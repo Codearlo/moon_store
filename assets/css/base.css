@@ -45,6 +45,10 @@
     
     /* Margen superior del header */
     --header-top-margin: 50px;
+    
+    /* Variables de altura para móviles */
+    --vh: 1vh;
+    --header-height: 80px;
 }
 
 /* Reseteo básico */
@@ -149,5 +153,5 @@ section {
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background-color: var(--background); /* Asegurar un fondo uniforme */
+    background-color: var(--background);
 }

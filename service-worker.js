@@ -2,7 +2,7 @@
 // Service Worker para gestionar la caché y actualizaciones
 
 // Nombre de la caché - cambiar versión cuando se actualice el sitio
-const CACHE_NAME = 'moon-store-cache-v3.0';
+const CACHE_NAME = 'moon-store-cache-v3.1';
 
 // Recursos para pre-cachear
 const PRECACHE_URLS = [
@@ -15,12 +15,15 @@ const PRECACHE_URLS = [
   '/assets/css/animations.css',
   '/assets/css/responsive.css',
   '/assets/css/mobile-fixes.css',
+  '/assets/css/cache-control.css',
   '/assets/js/main.js',
   '/assets/js/components.js',
   '/assets/js/effects.js',
   '/assets/js/navigation.js',
   '/assets/js/mobile-fixes.js',
-  '/assets/js/cache-control.js'
+  '/assets/js/cache-control.js',
+  '/assets/js/functions.js',
+  '/assets/js/header-fix.js'
 ];
 
 // Lista de recursos críticos que siempre deben recargarse desde la red

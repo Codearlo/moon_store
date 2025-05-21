@@ -12,12 +12,6 @@
     animation: twinkle 5s infinite;
 }
 
-/* Animación de hover para links */
-@keyframes linkHover {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
 /* Animación para tarjetas al entrar en viewport */
 @keyframes fadeInUp {
     from {
@@ -129,25 +123,7 @@
     animation: pageLoad 0.5s ease-out;
 }
 
-/* Animación para la luna */
-@keyframes moonGlow {
-    0% { box-shadow: 0 0 30px var(--primary); }
-    50% { box-shadow: 0 0 60px var(--primary); }
-    100% { box-shadow: 0 0 30px var(--primary); }
-}
-
-.moon {
-    animation: moonGlow 8s infinite;
-}
-
-/* Animación para estrellas fugaces */
-
-
-.shooting-star {
-    display: none;
-}
-
-/* Animaciones para botones */
+/* Animación para botones */
 @keyframes buttonGlow {
     0% { box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2); }
     50% { box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5); }

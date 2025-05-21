@@ -18,7 +18,6 @@ function initParallaxEffect() {
     }
 }
 
-
 /**
  * Inicializa la animación de partículas que aparecen y desaparecen
  */

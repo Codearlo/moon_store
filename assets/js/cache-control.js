@@ -2,7 +2,7 @@
 // Script para gestionar la caché y asegurar que se carguen las últimas versiones
 
 // Versión de la caché - cambiar esto cuando se actualicen los archivos
-const CACHE_VERSION = '1.0.1';
+const CACHE_VERSION = '1.0.2';
 
 // Bandera para evitar mostrar notificaciones de actualización después de recargar
 let justReloaded = false;
