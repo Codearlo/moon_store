@@ -1,56 +1,8 @@
 /* assets/css/responsive.css */
-/* Estilos específicos para dispositivos móviles y tablets */
+/* Estilos específicos para dispositivos móviles y tablets - SIN NAVEGACIÓN */
 
 /* Tablets y iPads (768px - 1366px) */
 @media (min-width: 769px) and (max-width: 1366px) {
-    /* Cambios para el menú de navegación en tablets */
-    .site-header .nav-links {
-        display: none;
-    }
-    
-    .site-header .mobile-menu-toggle {
-        display: block;
-    }
-    
-    /* Cambio del botón "Comprar Ahora" a icono de carrito en tablet */
-    .cta-button .button {
-        font-size: 0;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        position: relative;
-    }
-    
-    .cta-button .button img.cart-icon {
-        width: 20px;
-        height: 20px;
-        filter: brightness(0) invert(1);
-    }
-    
-    /* Estilos para el menú desplegable */
-    .site-header .nav-links.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: auto;
-        bottom: 0;
-        width: 300px;
-        height: 100vh;
-        background-color: rgba(10, 1, 24, 0.95);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 70px var(--space-md) var(--space-md);
-        border-left: 1px solid var(--glass-border);
-        z-index: 1005;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
-    }
-    
     /* Layout ajustado para tablet */
     .contact-flex-container {
         gap: var(--space-sm);
@@ -100,11 +52,6 @@
     /* Estructura para móviles */
     main {
         margin-top: 80px;
-    }
-    
-    /* Navegación móvil */
-    .site-header .nav-links.active {
-        width: 250px;
     }
     
     /* Sección de contacto en móvil */
@@ -212,21 +159,6 @@
         max-width: 300px;
         margin: 0 auto;
     }
-    
-    /* Header más compacto en móviles pequeños */
-    .logo img {
-        height: 25px;
-    }
-    
-    .logo span {
-        font-size: 1rem;
-    }
-    
-    .cta-button .button,
-    .mobile-menu-toggle {
-        width: 35px;
-        height: 35px;
-    }
 }
 
 /* Clases de utilidad para pantallas específicas */
@@ -248,24 +180,4 @@
         min-height: 44px;
         min-width: 44px;
     }
-}
-
-/* Menú overlay */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: auto;
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1;
 }

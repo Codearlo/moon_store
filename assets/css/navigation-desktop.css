@@ -1,0 +1,137 @@
+/* assets/css/navigation-desktop.css */
+/* Estilos de navegación para desktop únicamente */
+
+/* === ESTILOS PARA DESKTOP === */
+.site-header {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    z-index: 1000;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10, 1, 24, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 0.5rem;
+    display: flex;
+    align-self: center;
+}
+
+.logo span {
+    display: flex;
+    align-self: center;
+    line-height: 40px;
+    position: relative;
+    top: -3px;
+}
+
+/* Enlaces de navegación */
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 1rem;
+}
+
+.nav-links a {
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #B14AFF;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #B14AFF;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a.active {
+    color: #B14AFF;
+    font-weight: 600;
+}
+
+/* Botón CTA */
+.cta-button .button {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    border-radius: 30px;
+    font-weight: 500;
+    text-align: center;
+    background: linear-gradient(45deg, #5D1D9A, #8A2BE2);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.cta-button .button:hover {
+    background: linear-gradient(45deg, #8A2BE2, #B14AFF);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 15px rgba(138, 43, 226, 0.4);
+}
+
+/* Botón de menú móvil (oculto en desktop) */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    z-index: 1020;
+}
