@@ -1,5 +1,4 @@
 <?php
-// backend/register.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -11,10 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once '/backend/config/database.php';
+require_once 'config/database.php';
 
 try {
-    // Obtener datos del POST
     $input = json_decode(file_get_contents('php://input'), true);
     
     $nombres = trim($input['firstName'] ?? '');
@@ -24,28 +22,31 @@ try {
     $password = $input['password'] ?? '';
     
     // Validaciones
-    $errors = [];
-    
-    if (empty($nombres)) $errors[] = 'El nombre es requerido';
-    if (empty($apellidos)) $errors[] = 'El apellido es requerido';
-    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Email inválido';
-    }
-    if (empty($password) || strlen($password) < 6) {
-        $errors[] = 'La contraseña debe tener al menos 6 caracteres';
-    }
-    
-    if (!empty($errors)) {
+    if (empty($nombres) || empty($apellidos) || empty($email) || empty($password)) {
         http_response_code(400);
-        echo json_encode(['error' => implode(', ', $errors)]);
+        echo json_encode(['error' => 'Todos los campos son requeridos']);
         exit;
     }
     
-    // Verificar si el email ya existe
-    $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
-    $stmt->execute([$email]);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Email inválido']);
+        exit;
+    }
     
-    if ($stmt->fetch()) {
+    if (strlen($password) < 6) {
+        http_response_code(400);
+        echo json_encode(['error' => 'La contraseña debe tener al menos 6 caracteres']);
+        exit;
+    }
+    
+    // Verificar si email existe
+    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
         http_response_code(400);
         echo json_encode(['error' => 'Este email ya está registrado']);
         exit;
@@ -55,17 +56,15 @@ try {
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     
     // Insertar usuario
-    $stmt = $pdo->prepare("
-        INSERT INTO usuarios (nombres, apellidos, email, telefono, password_hash) 
-        VALUES (?, ?, ?, ?, ?)
-    ");
+    $stmt = $conn->prepare("INSERT INTO usuarios (nombres, apellidos, email, telefono, password_hash) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $nombres, $apellidos, $email, $telefono, $passwordHash);
     
-    $stmt->execute([$nombres, $apellidos, $email, $telefono, $passwordHash]);
-    
-    echo json_encode([
-        'success' => true,
-        'message' => 'Usuario registrado exitosamente'
-    ]);
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true, 'message' => 'Usuario registrado exitosamente']);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error al registrar usuario']);
+    }
     
 } catch (Exception $e) {
     http_response_code(500);

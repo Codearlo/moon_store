@@ -1,5 +1,4 @@
 <?php
-// backend/login.php
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -11,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once '/backend/config/database.php';
+require_once 'config/database.php';
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -26,9 +25,11 @@ try {
     }
     
     // Buscar usuario
-    $stmt = $pdo->prepare("SELECT id, nombres, apellidos, email, password_hash, es_administrador FROM usuarios WHERE email = ? AND activo = 1");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
+    $stmt = $conn->prepare("SELECT id, nombres, apellidos, email, password_hash, es_administrador FROM usuarios WHERE email = ? AND activo = 1");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
     
     if (!$user || !password_verify($password, $user['password_hash'])) {
         http_response_code(401);
@@ -37,10 +38,11 @@ try {
     }
     
     // Actualizar último acceso
-    $stmt = $pdo->prepare("UPDATE usuarios SET ultimo_acceso = NOW() WHERE id = ?");
-    $stmt->execute([$user['id']]);
+    $stmt = $conn->prepare("UPDATE usuarios SET created_at = NOW() WHERE id = ?");
+    $stmt->bind_param("i", $user['id']);
+    $stmt->execute();
     
-    // Crear sesión simple (en producción usar JWT)
+    // Crear sesión
     session_start();
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_email'] = $user['email'];
