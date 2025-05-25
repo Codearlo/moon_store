@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Moon Store</title>
+    <link rel="icon" href="../assets/img/logo.png" type="image/png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/base.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/components.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/layout.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/animations.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/responsive.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/navigation-desktop.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/navigation-mobile.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/productos.css?v=20250517">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Elementos de fondo -->
+    <div class="bg-elements">
+        <div class="stars"></div>
+    </div>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Contenido principal -->
+    <main class="productos-main page-transition">
+        <!-- Hero Section -->
+        <section class="productos-hero">
+            <div class="section-inner">
+                <div class="hero-content">
+                    <h1>Productos <span class="highlight">Gaming</span></h1>
+                    <p>Descubre nuestra colección de equipos y accesorios de última generación</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filtros -->
+        <section class="filtros-section">
+            <div class="section-inner">
+                <div class="filtros-container glass-card">
+                    <div class="filtros-header">
+                        <h3>Filtrar productos</h3>
+                    </div>
+                    
+                    <div class="filtros-content">
+                        <div class="filtro-grupo">
+                            <label for="categoria">Categoría:</label>
+                            <select id="categoria" name="categoria">
+                                <option value="">Todas las categorías</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filtro-grupo">
+                            <label for="precio-min">Precio mínimo:</label>
+                            <input type="number" id="precio-min" placeholder="0" min="0">
+                        </div>
+                        
+                        <div class="filtro-grupo">
+                            <label for="precio-max">Precio máximo:</label>
+                            <input type="number" id="precio-max" placeholder="10000" min="0">
+                        </div>
+                        
+                        <div class="filtro-grupo">
+                            <label for="buscar">Buscar:</label>
+                            <input type="text" id="buscar" placeholder="Buscar productos...">
+                        </div>
+                        
+                        <button id="aplicar-filtros" class="button primary">Aplicar filtros</button>
+                        <button id="limpiar-filtros" class="button secondary">Limpiar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section class="productos-section">
+            <div class="section-inner">
+                <div class="productos-header">
+                    <div class="resultados-info">
+                        <span id="total-productos">Cargando productos...</span>
+                    </div>
+                    
+                    <div class="ordenar-por">
+                        <label for="ordenar">Ordenar por:</label>
+                        <select id="ordenar">
+                            <option value="nombre">Nombre</option>
+                            <option value="precio-asc">Precio: Menor a mayor</option>
+                            <option value="precio-desc">Precio: Mayor a menor</option>
+                            <option value="fecha-desc">Más recientes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="productos-grid" class="productos-grid">
+                    <!-- Loading -->
+                    <div class="loading-container">
+                        <div class="spinner"></div>
+                        <p>Cargando productos...</p>
+                    </div>
+                </div>
+
+                <!-- Paginación -->
+                <div id="paginacion" class="paginacion" style="display: none;">
+                    <button id="btn-anterior" class="btn-paginacion">Anterior</button>
+                    <span id="pagina-actual">1</span>
+                    <span>de</span>
+                    <span id="total-paginas">1</span>
+                    <button id="btn-siguiente" class="btn-paginacion">Siguiente</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- WhatsApp Button -->
+    <div id="whatsapp-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/components.js?v=20250517"></script>
+    <script src="../assets/js/effects.js?v=20250517"></script>
+    <script src="../assets/js/navigation.js?v=20250517"></script>
+    <script src="../assets/js/functions.js?v=20250517"></script>
+    <script src="../assets/js/productos.js?v=20250517"></script>
+
+</body>
+
+</html>
