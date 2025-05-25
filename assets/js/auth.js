@@ -1,148 +1,117 @@
 // assets/js/auth.js
-// Script simplificado para autenticación
-
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Auth script loaded');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
     
-    // Detectar página
-    const isLoginPage = document.getElementById('loginForm');
-    const isRegisterPage = document.getElementById('registerForm');
-    
-    if (isLoginPage) {
-        initLoginForm();
+    // LOGIN FORM
+    if (loginForm) {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+            });
+        }
+        
+        // Submit login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(loginForm);
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch('../backend/login.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('¡Login exitoso!');
+                    window.location.href = '../index.html';
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error de conexión con el servidor');
+                console.error('Error:', error);
+            }
+        });
     }
     
-    if (isRegisterPage) {
-        initRegisterForm();
+    // REGISTER FORM
+    if (registerForm) {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+            });
+        }
+        
+        if (toggleConfirmPassword && confirmPasswordInput) {
+            toggleConfirmPassword.addEventListener('click', () => {
+                const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+                confirmPasswordInput.type = type;
+            });
+        }
+        
+        // Password strength indicator
+        if (passwordInput) {
+            passwordInput.addEventListener('input', updatePasswordStrength);
+        }
+        
+        // Submit register
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(registerForm);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch('../backend/register.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('¡Registro exitoso!');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error de conexión con el servidor');
+                console.error('Error:', error);
+            }
+        });
     }
 });
 
-function initLoginForm() {
-    const form = document.getElementById('loginForm');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const toggleBtn = document.getElementById('togglePassword');
-    
-    // Toggle password
-    if (toggleBtn && passwordInput) {
-        toggleBtn.addEventListener('click', () => {
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
-        });
-    }
-    
-    // Validación básica
-    if (emailInput) {
-        emailInput.addEventListener('blur', validateEmailField);
-    }
-    
-    // Submit
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const data = {
-            email: formData.get('email'),
-            password: formData.get('password')
-        };
-        
-        try {
-            const response = await fetch('/backend/login.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            
-            if (response.ok) {
-                alert('¡Login exitoso!');
-                window.location.href = '../index.html';
-            } else {
-                alert('Error: ' + result.error);
-            }
-        } catch (error) {
-            alert('Error de conexión');
-        }
-    });
-}
-
-function initRegisterForm() {
-    const form = document.getElementById('registerForm');
-    const passwordInput = document.getElementById('password');
-    const confirmInput = document.getElementById('confirmPassword');
-    const toggleBtn = document.getElementById('togglePassword');
-    const toggleConfirmBtn = document.getElementById('toggleConfirmPassword');
-    
-    // Toggle passwords
-    if (toggleBtn && passwordInput) {
-        toggleBtn.addEventListener('click', () => {
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
-        });
-    }
-    
-    if (toggleConfirmBtn && confirmInput) {
-        toggleConfirmBtn.addEventListener('click', () => {
-            const type = confirmInput.type === 'password' ? 'text' : 'password';
-            confirmInput.type = type;
-        });
-    }
-    
-    // Password strength
-    if (passwordInput) {
-        passwordInput.addEventListener('input', updatePasswordStrength);
-    }
-    
-    // Submit
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        const data = {
-            firstName: formData.get('firstName'),
-            lastName: formData.get('lastName'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            password: formData.get('password')
-        };
-        
-        try {
-            const response = await fetch('/backend/register.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            
-            if (response.ok) {
-                alert('¡Registro exitoso! Ahora puedes iniciar sesión');
-                window.location.href = 'login.html';
-            } else {
-                alert('Error: ' + result.error);
-            }
-        } catch (error) {
-            alert('Error de conexión');
-        }
-    });
-}
-
-function validateEmailField() {
-    const email = this.value;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    if (!emailRegex.test(email)) {
-        showError(this, 'Email inválido');
-    } else {
-        clearError(this);
-    }
-}
-
+// Password strength function
 function updatePasswordStrength() {
     const password = this.value;
     const strengthBar = document.getElementById('strengthFill');
@@ -174,26 +143,5 @@ function updatePasswordStrength() {
     } else {
         strengthBar.classList.add('strong');
         strengthText.textContent = 'Fuerte';
-    }
-}
-
-function showError(input, message) {
-    const formGroup = input.closest('.form-group');
-    const errorElement = formGroup.querySelector('.error-message');
-    
-    formGroup.classList.add('error');
-    if (errorElement) {
-        errorElement.textContent = message;
-        errorElement.classList.add('show');
-    }
-}
-
-function clearError(input) {
-    const formGroup = input.closest('.form-group');
-    formGroup.classList.remove('error');
-    
-    const errorElement = formGroup.querySelector('.error-message');
-    if (errorElement) {
-        errorElement.classList.remove('show');
     }
 }
