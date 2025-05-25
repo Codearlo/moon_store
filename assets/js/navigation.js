@@ -1,5 +1,5 @@
 // assets/js/navigation.js
-// Script completo para la barra de navegación
+// Script completo consolidado para toda la lógica de navegación
 
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar navegación
@@ -10,6 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Forzar recarga de iconos para evitar problemas de caché
     forceReloadIcons();
+    
+    // Verificar cada 2 segundos (por si hay algún delay en la carga)
+    const intervalCheck = setInterval(() => {
+        if (document.querySelector('.cta-button .button')) {
+            initCartIcon();
+            clearInterval(intervalCheck);
+        }
+    }, 2000);
+    
+    // También comprobar cuando se redimensiona la ventana
+    window.addEventListener('resize', () => {
+        initCartIcon();
+        handleResize();
+    });
     
     console.log('Navegación inicializada correctamente');
 });
@@ -259,25 +273,6 @@ function initNavigation() {
     }
     
     /**
-     * Maneja cambios en el tamaño de la ventana
-     */
-    function handleResize() {
-        // Actualizar variables de estado
-        state.isTablet = window.innerWidth <= 1366 || 
-                        (window.innerWidth === 1024 && window.innerHeight === 1366) || 
-                        (window.innerWidth === 1366 && window.innerHeight === 1024);
-        state.isMobile = window.innerWidth <= 768;
-        
-        // Si cambiamos a una resolución grande, asegurar que el menú se cierre
-        if (window.innerWidth > 1366 && !state.isTablet && state.isMobileMenuOpen) {
-            closeMenu();
-        }
-        
-        // Actualizar el icono de carrito
-        initCartIcon();
-    }
-    
-    /**
      * Actualiza la variable CSS para altura en móviles
      */
     function updateMobileHeight() {
@@ -406,16 +401,59 @@ function initNavigation() {
             openMenu();
         }
     }
+    
+    /**
+     * Maneja cambios en el tamaño de la ventana
+     */
+    function handleResize() {
+        // Actualizar variables de estado
+        state.isTablet = window.innerWidth <= 1366 || 
+                        (window.innerWidth === 1024 && window.innerHeight === 1366) || 
+                        (window.innerWidth === 1366 && window.innerHeight === 1024);
+        state.isMobile = window.innerWidth <= 768;
+        
+        // Si cambiamos a una resolución grande, asegurar que el menú se cierre
+        if (window.innerWidth > 1366 && !state.isTablet && state.isMobileMenuOpen) {
+            closeMenu();
+        }
+        
+        // Actualizar el icono de carrito
+        initCartIcon();
+    }
 }
 
 /**
- * Inicializa o corrige el icono del carrito
+ * Espera a que un elemento aparezca en el DOM
+ * @param {string} selector - Selector CSS del elemento
+ * @param {Function} callback - Función a ejecutar cuando aparezca
+ */
+function waitForElement(selector, callback) {
+    if (document.querySelector(selector)) {
+        callback();
+        return;
+    }
+    
+    const observer = new MutationObserver(() => {
+        if (document.querySelector(selector)) {
+            observer.disconnect();
+            callback();
+        }
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+/**
+ * Inicializa o corrige el icono del carrito (CONSOLIDADO desde header-fix.js)
  */
 function initCartIcon() {
     const cartButton = document.querySelector('.cta-button .button');
     if (!cartButton) return;
     
-    // Verificar si estamos en móvil o tablet (cualquier cosa hasta 1366px)
+    // Verificar si estamos en móvil o tablet (cualquier cosa hasta 1366px - incluye iPadPro)
     const isSmallScreen = window.innerWidth <= 1366;
     
     // Si estamos en pantalla pequeña, asegurarnos de que el icono del carrito esté presente
@@ -492,9 +530,32 @@ function forceReloadIcons() {
     }
 }
 
+/**
+ * Marca el enlace de navegación activo según la URL actual (función global)
+ */
+function markActiveNavLink() {
+    setTimeout(() => {
+        const currentPath = window.location.pathname;
+        const fileName = currentPath.split('/').pop() || 'index.html';
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            
+            if (linkHref === fileName) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }, 100);
+}
+
 // Exportar funciones para uso global
 window.navigationModule = {
     initNavigation,
     initCartIcon,
-    forceReloadIcons
+    forceReloadIcons,
+    markActiveNavLink
 };
