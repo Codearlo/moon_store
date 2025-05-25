@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once 'config/database.php';
+require_once '/backend/config/database.php';
 
 try {
     // Obtener datos del POST
