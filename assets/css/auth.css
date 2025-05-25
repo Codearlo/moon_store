@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.auth-main.no-header {
+    padding: var(--space-lg) var(--space-md);
+}
+
 .auth-container {
     width: 100%;
     max-width: 500px;
@@ -465,6 +469,11 @@
     .auth-main {
         padding: calc(var(--header-top-margin) + 40px) var(--space-sm) var(--space-md);
         min-height: calc(100vh - 40px);
+    }
+    
+    .auth-main.no-header {
+        padding: var(--space-md) var(--space-sm);
+        min-height: 100vh;
     }
     
     .auth-card {
