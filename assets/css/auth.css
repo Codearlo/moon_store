@@ -1,0 +1,575 @@
+/* assets/css/auth.css */
+/* Estilos para páginas de autenticación (login y registro) */
+
+/* === CONTENEDOR PRINCIPAL === */
+.auth-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--header-top-margin) + 80px) var(--space-md) var(--space-lg);
+    width: 100%;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* === TARJETA DE AUTENTICACIÓN === */
+.auth-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary), var(--primary-light));
+}
+
+/* === HEADER === */
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.auth-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.auth-logo img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: var(--space-sm);
+    filter: drop-shadow(0 4px 8px rgba(138, 43, 226, 0.3));
+}
+
+.auth-logo h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin: 0;
+    background: linear-gradient(45deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* === FORMULARIO === */
+.auth-form {
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: 0;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: var(--space-md);
+}
+
+.form-group label {
+    display: block;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* === CONTENEDORES DE INPUT === */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 3rem;
+    background: rgba(10, 1, 24, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: var(--transition-default);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+    background: rgba(10, 1, 24, 0.7);
+}
+
+.input-container input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* === ICONOS DE INPUT === */
+.input-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-icon svg {
+    fill: currentColor;
+}
+
+.input-icon img {
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+}
+
+/* === BOTÓN TOGGLE PASSWORD === */
+.toggle-password {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 50%;
+    transition: var(--transition-default);
+    z-index: 1;
+}
+
+.toggle-password:hover {
+    color: var(--primary-light);
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.toggle-password svg {
+    fill: currentColor;
+}
+
+/* === MENSAJES DE ERROR === */
+.error-message {
+    display: block;
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    min-height: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+.form-group.error input {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+.form-group.success input {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.2);
+}
+
+/* === OPCIONES DEL FORMULARIO === */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+/* === CHECKBOX PERSONALIZADO === */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 1.8rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 16px;
+    background: rgba(10, 1, 24, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 3px;
+    transition: var(--transition-default);
+}
+
+.checkbox-container:hover .checkmark {
+    border-color: var(--primary);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+    display: block;
+}
+
+/* === ENLACES === */
+.forgot-password,
+.auth-link {
+    color: var(--primary-light);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition-default);
+}
+
+.forgot-password:hover,
+.auth-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* === BOTÓN DE ENVÍO === */
+.auth-submit {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button-loader .spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* === DIVISOR === */
+.auth-divider {
+    text-align: center;
+    margin: var(--space-md) 0;
+    position: relative;
+}
+
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--glass-border);
+}
+
+.auth-divider span {
+    background: var(--glass-bg);
+    color: var(--text-muted);
+    padding: 0 var(--space-sm);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* === BOTONES SOCIALES === */
+.social-login {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.social-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-default);
+    text-decoration: none;
+}
+
+.social-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.google-button:hover {
+    border-color: #4285F4;
+    box-shadow: 0 4px 15px rgba(66, 133, 244, 0.2);
+}
+
+.facebook-button:hover {
+    border-color: #1877F2;
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.2);
+}
+
+.social-button img {
+    filter: brightness(0) invert(1);
+}
+
+/* === FORTALEZA DE CONTRASEÑA === */
+.password-strength {
+    margin-bottom: var(--space-md);
+}
+
+.strength-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-fill.weak {
+    width: 25%;
+    background: #ff6b6b;
+}
+
+.strength-fill.fair {
+    width: 50%;
+    background: #ffa726;
+}
+
+.strength-fill.good {
+    width: 75%;
+    background: #66bb6a;
+}
+
+.strength-fill.strong {
+    width: 100%;
+    background: #4caf50;
+}
+
+.strength-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* === PIE DEL FORMULARIO === */
+.auth-footer {
+    text-align: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--glass-border);
+}
+
+.auth-footer p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .auth-main {
+        padding: calc(var(--header-top-margin) + 40px) var(--space-sm) var(--space-md);
+        min-height: calc(100vh - 40px);
+    }
+    
+    .auth-card {
+        padding: var(--space-md);
+        margin: 0;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.7rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+    
+    .social-login {
+        flex-direction: column;
+    }
+    
+    .input-container input {
+        padding: 0.7rem 0.7rem 0.7rem 2.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .input-icon {
+        left: 0.7rem;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .toggle-password {
+        right: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: var(--space-sm);
+    }
+    
+    .auth-logo h1 {
+        font-size: 1.5rem;
+    }
+    
+    .auth-header p {
+        font-size: 0.85rem;
+    }
+}
+
+/* === ANIMACIONES === */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-card.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* === ESTADOS DE VALIDACIÓN === */
+.input-container.validating input {
+    border-color: var(--primary);
+}
+
+.input-container.valid input {
+    border-color: #4caf50;
+}
+
+.input-container.invalid input {
+    border-color: #ff6b6b;
+}
+
+/* === MEJORAS DE ACCESIBILIDAD === */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* === FOCUS VISIBLE === */
+.auth-form *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.social-button:focus-visible,
+.checkbox-container:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+}
