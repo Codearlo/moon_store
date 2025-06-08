@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Store</title>
+    <link rel="icon" href="assets/img/logo.png" type="image/png">
+
+    <!-- Meta para control de caché -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/base.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/components.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/layout.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/animations.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/responsive.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/mobile-fixes.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/cache-control.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/navigation.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/navigation-mobile.css?v=20250517">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="/assets/js/cache-control.js?v=20250517"></script>
+    <script src="/assets/js/header-fix.js?v=20250517"></script>
+</head>
+
+<body>
+    <!-- Indicador de modo offline -->
+    <div class="offline-indicator">
+        Estás en modo offline. Algunos contenidos pueden no estar actualizados.
+    </div>
+
+    <!-- Elementos de fondo -->
+    <div class="bg-elements">
+        <div class="stars"></div>
+        <div class="moon"></div>
+    </div>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Contenido principal -->
+    <main class="page-transition main-content">
+        <!-- 1. INICIO - Hero Section -->
+        <section id="inicio" class="hero-section">
+            <div class="glass-card hero-glass">
+                <div class="section-inner hero-content">
+                    <h1>Tecnología de <span class="highlight">otro mundo</span></h1>
+                    <p>Equipos de alto rendimiento diseñados para elevar tu experiencia digital a un nivel cósmico.</p>
+                    <div class="hero-buttons">
+                        <a href="productos.html" class="button primary">Ver Productos</a>
+                        <a href="#servicios" class="button secondary">Servicios</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PRODUCTOS DESTACADOS -->
+        <section id="productos" class="products-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Productos <span class="highlight">Destacados</span></h2>
+                    <p>Descubre nuestra selección de equipos y accesorios de alta gama.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="glass-card product-card animate-fade-in-up">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/pcgaming.svg?v=20250517" alt="PC Gaming" width="30" height="30">
+                        </div>
+                        <h3>PC Gaming</h3>
+                        <p>Equipos gaming de última generación con iluminación LED personalizable.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+
+                    <div class="glass-card product-card animate-fade-in-up animate-delay-1">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/accesorios.svg?v=20250517" alt="Accesorios" width="30"
+                                height="30">
+                        </div>
+                        <h3>Accesorios</h3>
+                        <p>Complementa tu equipo con los mejores periféricos y accesorios del mercado.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+
+                    <div class="glass-card product-card animate-fade-in-up animate-delay-2">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/software.svg?v=20250517" alt="Software" width="30" height="30">
+                        </div>
+                        <h3>Software</h3>
+                        <p>Soluciones de software para optimizar el rendimiento de tu equipo.</p>
+                        <a href="productos.html" class="button small">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICIOS -->
+        <section id="servicios" class="services-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Nuestros <span class="highlight">Servicios</span></h2>
+                    <p>Soluciones técnicas y servicios especializados para optimizar tu experiencia.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="glass-card service-card animate-fade-in-up">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/mantenimiento.svg?v=20250517" alt="Mantenimiento" width="30"
+                                height="30">
+                        </div>
+                        <h3>Mantenimiento</h3>
+                        <p>Servicio técnico especializado para mantener tu equipo en óptimas condiciones.</p>
+                    </div>
+
+                    <div class="glass-card service-card animate-fade-in-up animate-delay-1">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/personalizacion.svg?v=20250517" alt="Personalización" width="30"
+                                height="30">
+                        </div>
+                        <h3>Personalización</h3>
+                        <p>Personaliza tu equipo con nuestros servicios de diseño a medida.</p>
+                    </div>
+
+                    <div class="glass-card service-card animate-fade-in-up animate-delay-2">
+                        <div class="icon-container">
+                            <img src="../assets/img/svg/soporte.svg?v=20250517" alt="Soporte" width="30" height="30">
+                        </div>
+                        <h3>Soporte Premium</h3>
+                        <p>Asistencia técnica 24/7 para resolver cualquier inconveniente con tu equipo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. OFERTAS -->
+        <section id="ofertas" class="offers-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Ofertas <span class="highlight">de Locura</span></h2>
+                    <p>Aprovecha nuestras promociones especiales en productos seleccionados.</p>
+                </div>
+
+                <div class="glass-card offer-banner animate-fade-in-up">
+                    <div class="offer-content">
+                        <h3>¡Hasta 50% de descuento!</h3>
+                        <p>En productos seleccionados por tiempo limitado</p>
+                        <a href="productos.html?ofertas=true" class="button primary">Ver ofertas</a>
+                    </div>
+                    <div class="offer-visual">
+                        <div class="discount-badge">50% OFF</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CLIENTES (TESTIMONIOS) -->
+        <section id="testimonios" class="testimonials-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Lo que dicen nuestros <span class="highlight">Clientes</span></h2>
+                </div>
+
+                <div class="glass-card testimonial animate-fade-in-up">
+                    <div class="quote">"Luna Tech transformó mi experiencia gaming. Su servicio personalizado y la
+                        calidad de sus equipos son incomparables."</div>
+                    <div class="client">
+                        <div class="client-avatar"></div>
+                        <div class="client-info">
+                            <h4>Carlos Mendoza</h4>
+                            <p>Gamer Profesional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. NOSOTROS -->
+        <section id="nosotros" class="about-section section-fade-in">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Sobre <span class="highlight">Nosotros</span></h2>
+                    <p>Conoce quiénes somos y nuestra visión para la tecnología del futuro.</p>
+                </div>
+
+                <div class="glass-card animate-fade-in-up">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>Nuestra Historia</h3>
+                            <p>Luna Tech nació en 2020 con una visión clara: revolucionar la experiencia tecnológica en
+                                Perú. Fundada por un grupo de apasionados por la tecnología y el gaming, nuestra empresa
+                                ha crecido rápidamente para convertirse en un referente en el mercado.</p>
+
+                            <h3>Valores</h3>
+                            <ul class="values-list">
+                                <li><strong>Excelencia:</strong> Nos esforzamos por ofrecer lo mejor en cada aspecto.
+                                </li>
+                                <li><strong>Innovación:</strong> Constantemente buscamos nuevas formas de mejorar.</li>
+                                <li><strong>Integridad:</strong> Actuamos con honestidad y transparencia.</li>
+                                <li><strong>Pasión:</strong> Amamos lo que hacemos y eso se refleja en nuestro trabajo.
+                                </li>
+                            </ul>
+
+                            <h3>Nuestro Equipo</h3>
+                            <div class="team-grid">
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Alejandro Cabana Huamán</h4>
+                                    <p>Fundador</p>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Carolina Huamán Ormeño</h4>
+                                    <p>Socio</p>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Mauriel Cabana Borda</h4>
+                                    <p>Socio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CONTACTO -->
+        <section id="contacto" class="contact-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2><span class="highlight">Contáctanos</span></h2>
+                    <p>Estamos aquí para ayudarte. Envíanos un mensaje o visítanos en nuestra tienda.</p>
+                </div>
+
+                <div class="glass-card contact-card animate-fade-in-up">
+                    <div class="contact-flex-container">
+                        <!-- Columna izquierda: información de contacto -->
+                        <div class="contact-info-column">
+                            <h3 class="contact-title">Información de Contacto</h3>
+
+                            <div class="contact-grid">
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <img src="../assets/img/svg/location.svg?v=20250517" alt="Ubicación" width="24"
+                                            height="24">
+                                    </div>
+                                    <div class="contact-text">
+                                        <p>Prolongación Cutervo 761, Ica, Perú</p>
+                                        <p class="text-muted">Lunes a Sábado: 8:00 AM - 7:00 PM</p>
+                                    </div>
+                                    <button class="map-button"
+                                        onclick="window.open('https://maps.app.goo.gl/6sUN2SP7iDKMgkNf7', '_blank')">
+                                        <img src="../assets/img/svg/map.svg?v=20250517" alt="Ver mapa" width="20"
+                                            height="20">
+                                    </button>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <img src="../assets/img/svg/phone.svg?v=20250517" alt="Teléfono" width="24"
+                                            height="24">
+                                    </div>
+                                    <div class="contact-text">
+                                        <p id="phone-number">+51 904505720</p>
+                                    </div>
+                                    <button class="copy-button" data-copy="+51904505720">
+                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
+                                            height="18">
+                                    </button>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="contact-icon">
+                                        <img src="../assets/img/svg/mail.svg?v=20250517" alt="Email" width="24"
+                                            height="24">
+                                    </div>
+                                    <div class="contact-text">
+                                        <p id="email-address">store.moon.main@gmail.com</p>
+                                    </div>
+                                    <button class="copy-button" data-copy="store.moon.main@gmail.com">
+                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
+                                            height="18">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha: redes sociales (vertical) -->
+                        <div class="social-column">
+                            <h3 class="social-title">Redes</h3>
+                            <div class="social-icons-container">
+                                <a href="#" class="social-icon-link" title="TikTok">
+                                    <div class="social-icon">
+                                        <img src="../assets/img/svg/tiktok.svg?v=20250517" alt="TikTok" width="18"
+                                            height="18">
+                                    </div>
+                                </a>
+                                <a href="#" class="social-icon-link" title="Instagram">
+                                    <div class="social-icon">
+                                        <img src="../assets/img/svg/instagram.svg?v=20250517" alt="Instagram" width="18"
+                                            height="18">
+                                    </div>
+                                </a>
+                                <a href="#" class="social-icon-link" title="Facebook">
+                                    <div class="social-icon">
+                                        <img src="../assets/img/svg/facebook.svg?v=20250517" alt="Facebook" width="18"
+                                            height="18">
+                                    </div>
+                                </a>
+                                <a href="#" class="social-icon-link" title="YouTube">
+                                    <div class="social-icon">
+                                        <img src="../assets/img/svg/youtube.svg?v=20250517" alt="YouTube" width="18"
+                                            height="18">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de contacto permanece en su posición original -->
+                    <div class="contact-cta">
+                        <button id="openContactFormBtn" class="button primary">
+                            <img src="../assets/img/svg/whatsapp.svg?v=20250517" alt="WhatsApp" width="18" height="18"
+                                style="margin-right: 8px; filter: brightness(0) invert(1);">
+                            <span class="button-text">Enviar Mensaje</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para formulario de contacto -->
+        <div id="contactFormModalPlaceholder"></div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- WhatsApp Button -->
+    <div id="whatsapp-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/components.js?v=20250517"></script>
+    <script src="/assets/js/main.js?v=20250517"></script>
+    <script src="/assets/js/effects.js?v=20250517"></script>
+    <script src="/assets/js/navigation.js?v=20250517"></script>
+    <script src="/assets/js/mobile-fixes.js?v=20250517"></script>
+    <script src="/assets/js/functions.js?v=20250517"></script>
+
+    <!-- Script para comprobar estado de conexión -->
+    <script>
+        // Comprobar estado de conexión
+        function updateOnlineStatus() {
+            const isOnline = navigator.onLine;
+            document.body.classList.toggle('is-offline', !isOnline);
+
+            // Si volvemos a estar online, comprobar actualizaciones
+            if (isOnline && window.cacheControl) {
+                window.cacheControl.checkForUpdates();
+            }
+        }
+
+        // Agregar listeners de estado de conexión
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        // Comprobar estado inicial
+        updateOnlineStatus();
+
+        // Recargar recursos críticos al iniciar
+        window.addEventListener('load', function () {
+            if (window.cacheTools) {
+                window.cacheTools.reloadCriticalResources();
+            }
+        });
+    </script>
+</body>
+
+</html>
