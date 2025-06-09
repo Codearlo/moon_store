@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/assets/css/responsive.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/mobile-fixes.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/cache-control.css?v=20250517">
-    <link rel="stylesheet" href="/assets/css/navigation-desktop.css?v=20250517">
+    <link rel="stylesheet" href="/assets/css/navigation.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/navigation-mobile.css?v=20250517">
 
     <!-- Fuentes -->
@@ -29,10 +29,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Script de control de caché -->
+    <!-- Scripts -->
     <script src="/assets/js/cache-control.js?v=20250517"></script>
-
-    <!-- Script para corregir el icono de carrito -->
     <script src="/assets/js/header-fix.js?v=20250517"></script>
 </head>
 
@@ -52,7 +50,7 @@
     <div id="header-placeholder"></div>
 
     <!-- Contenido principal -->
-    <main class="page-transition">
+    <main class="page-transition main-content">
         <!-- 1. INICIO - Hero Section -->
         <section id="inicio" class="hero-section">
             <div class="glass-card hero-glass">
@@ -145,7 +143,28 @@
             </div>
         </section>
 
-        <!-- 4. CLIENTES (TESTIMONIOS) -->
+        <!-- 4. OFERTAS -->
+        <section id="ofertas" class="offers-section">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Ofertas <span class="highlight">de Locura</span></h2>
+                    <p>Aprovecha nuestras promociones especiales en productos seleccionados.</p>
+                </div>
+
+                <div class="glass-card offer-banner animate-fade-in-up">
+                    <div class="offer-content">
+                        <h3>¡Hasta 50% de descuento!</h3>
+                        <p>En productos seleccionados por tiempo limitado</p>
+                        <a href="productos.html?ofertas=true" class="button primary">Ver ofertas</a>
+                    </div>
+                    <div class="offer-visual">
+                        <div class="discount-badge">50% OFF</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CLIENTES (TESTIMONIOS) -->
         <section id="testimonios" class="testimonials-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -166,7 +185,7 @@
             </div>
         </section>
 
-        <!-- 5. NOSOTROS -->
+        <!-- 6. NOSOTROS -->
         <section id="nosotros" class="about-section section-fade-in">
             <div class="section-inner">
                 <div class="section-header">
@@ -218,7 +237,7 @@
             </div>
         </section>
 
-        <!-- 6. CONTACTO -->
+        <!-- 7. CONTACTO -->
         <section id="contacto" class="contact-section">
             <div class="section-inner">
                 <div class="section-header">

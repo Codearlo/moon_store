@@ -1,94 +1,286 @@
-// assets/js/navigation.js
-// Script completo consolidado para toda la lógica de navegación
+/**
+     * Configura el sidebar de perfil
+     */
+    function setupProfileSidebar() {
+        console.log('Configurando sidebar de perfil...');
+        
+        const profileButton = document.getElementById('profileButton');
+        const profileSidebar = document.getElementById('profileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const closeSidebar = document.getElementById('closeSidebar');
+        
+        console.log('Elementos encontrados:', {
+            profileButton: !!profileButton,
+            profileSidebar: !!profileSidebar,
+            sidebarOverlay: !!sidebarOverlay,
+            closeSidebar: !!closeSidebar
+        });
+        
+        if (!profileButton || !profileSidebar) {
+            console.error('No se encontraron elementos del sidebar');
+            return;
+        }
+        
+        // Abrir sidebar
+        profileButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Clic en botón de perfil');
+            openProfileSidebar();
+        });
+        
+        // Cerrar sidebar con botón
+        if (closeSidebar) {
+            closeSidebar.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Clic en cerrar sidebar');
+                closeProfileSidebar();
+            });
+        }
+        
+        // Cerrar sidebar con overlay
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Clic en overlay');
+                closeProfileSidebar();
+            });
+        }
+        
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && profileSidebar.classList.contains('active')) {
+                console.log('ESC presionado');
+                closeProfileSidebar();
+            }
+        });
+        
+        // Verificar estado de usuario al cargar
+        updateSidebarContent();
+        
+        console.log('Sidebar configurado correctamente');
+    }
+    
+    /**
+     * Abre el sidebar de perfil
+     */
+    function openProfileSidebar() {
+        console.log('Abriendo sidebar...');
+        
+        const profileSidebar = document.getElementById('profileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (!profileSidebar || !sidebarOverlay) {
+            console.error('No se encontraron elementos para abrir sidebar');
+            return;
+        }
+        
+        profileSidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Actualizar contenido según estado de usuario
+        updateSidebarContent();
+        
+        console.log('Sidebar abierto');
+    }
+    
+    /**
+     * Cierra el sidebar de perfil
+     */
+    function closeProfileSidebar() {
+        console.log('Cerrando sidebar...');
+        
+        const profileSidebar = document.getElementById('profileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        if (!profileSidebar || !sidebarOverlay) {
+            console.error('No se encontraron elementos para cerrar sidebar');
+            return;
+        }
+        
+        profileSidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        console.log('Sidebar cerrado');
+    }
+    
+    /**
+     * Actualiza el contenido del sidebar según el estado del usuario
+     */
+    function updateSidebarContent() {
+        const guestContent = document.getElementById('guestContent');
+        const userContent = document.getElementById('userContent');
+        const isLoggedIn = checkUserSession();
+        
+        if (isLoggedIn) {
+            // Mostrar contenido de usuario logueado
+            if (guestContent) guestContent.style.display = 'none';
+            if (userContent) userContent.style.display = 'block';
+            
+            // Cargar datos del usuario
+            loadUserData();
+        } else {
+            // Mostrar contenido de invitado
+            if (guestContent) guestContent.style.display = 'block';
+            if (userContent) userContent.style.display = 'none';
+        }
+    }
+    
+    /**
+     * Carga los datos del usuario logueado
+     */
+    function loadUserData() {
+        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        
+        if (userName && userData.nombre) {
+            userName.textContent = userData.nombre;
+        }
+        if (userEmail && userData.email) {
+            userEmail.textContent = userData.email;
+        }
+    }// assets/js/navigation.js
+// Script para la nueva navegación con barra de productos
 
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar navegación
     initNavigation();
     
-    // Inicializar corrección para el icono de carrito en móvil/tablet
-    initCartIcon();
-    
-    // Forzar recarga de iconos para evitar problemas de caché
-    forceReloadIcons();
-    
-    // Verificar cada 2 segundos (por si hay algún delay en la carga)
-    const intervalCheck = setInterval(() => {
-        if (document.querySelector('.cta-button .button')) {
-            initCartIcon();
-            clearInterval(intervalCheck);
-        }
-    }, 2000);
-    
-    // También comprobar cuando se redimensiona la ventana
-    window.addEventListener('resize', () => {
-        initCartIcon();
-        handleResize();
-    });
-    
-    console.log('Navegación inicializada correctamente');
+    console.log('Nueva navegación inicializada correctamente');
 });
 
 /**
- * Inicializa la navegación y el menú móvil
+ * Inicializa toda la funcionalidad de navegación
  */
 function initNavigation() {
     // Variables globales
     const state = {
         isMobileMenuOpen: false,
-        isTablet: window.innerWidth <= 1366 || 
-                 (window.innerWidth === 1024 && window.innerHeight === 1366) || 
-                 (window.innerWidth === 1366 && window.innerHeight === 1024),
+        isTablet: window.innerWidth <= 1366,
         isMobile: window.innerWidth <= 768
     };
+    
+    // Configurar sidebar de perfil
+    setupProfileSidebar();
+    
+    // Configurar búsqueda
+    setupSearch();
+    
+    // Configurar botones de usuario y carrito
+    setupUserActions();
     
     // Configurar menú móvil
     setupMobileMenu();
     
-    // Configurar scroll suave
-    setupSmoothScroll();
+    // Configurar dropdowns
+    setupDropdowns();
     
     // Marcar enlace activo
     markActiveNavigationLink();
     
-    // Configurar animaciones de scroll
-    setupScrollAnimations();
-    
     // Detectar cambios en el tamaño de ventana
     window.addEventListener('resize', handleResize);
     
-    // Configurar altura variable en móviles
-    updateMobileHeight();
-    window.addEventListener('resize', updateMobileHeight);
-    window.addEventListener('orientationchange', () => {
-        setTimeout(updateMobileHeight, 200);
-    });
+    /**
+     * Configura la funcionalidad de búsqueda
+     */
+    function setupSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        
+        if (!searchInput || !searchButton) return;
+        
+        // Enviar búsqueda al presionar Enter
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Enviar búsqueda al hacer clic en el botón
+        searchButton.addEventListener('click', performSearch);
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                // Construir la URL según la página actual
+                const currentPage = window.location.pathname.split('/').pop();
+                let targetUrl;
+                
+                if (currentPage === 'productos.html') {
+                    // Si estamos en productos, actualizar la búsqueda en la misma página
+                    const urlParams = new URLSearchParams(window.location.search);
+                    urlParams.set('buscar', query);
+                    const newUrl = `${window.location.pathname}?${urlParams}`;
+                    window.history.pushState({}, '', newUrl);
+                    
+                    // Disparar evento personalizado para que productos.js recargue los resultados
+                    window.dispatchEvent(new CustomEvent('searchUpdated', { 
+                        detail: { query: query } 
+                    }));
+                    
+                    // También actualizar el campo de búsqueda en los filtros si existe
+                    const filtrosBuscar = document.getElementById('buscar');
+                    if (filtrosBuscar) {
+                        filtrosBuscar.value = query;
+                    }
+                } else {
+                    // Si estamos en otra página, redirigir a productos
+                    targetUrl = `productos.html?buscar=${encodeURIComponent(query)}`;
+                    window.location.href = targetUrl;
+                }
+                
+                // Limpiar input de búsqueda
+                searchInput.value = '';
+                hideSearchSuggestions();
+            }
+        }
+    }
+    
+    /**
+     * Configura los botones de usuario y carrito
+     */
+    function setupUserActions() {
+        const cartButton = document.getElementById('cartButton');
+        
+        if (cartButton) {
+            cartButton.addEventListener('click', () => {
+                // Mostrar modal de carrito o redirigir
+                showCartModal();
+            });
+        }
+    }
+    
+    /**
+     * Verifica si hay una sesión de usuario activa
+     */
+    function checkUserSession() {
+        // Verificar localStorage para token de usuario
+        return localStorage.getItem('user_token') !== null || 
+               localStorage.getItem('user_data') !== null;
+    }
     
     /**
      * Configura el menú móvil
      */
     function setupMobileMenu() {
         const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+        const navMenu = document.getElementById('navMenu');
         const menuOverlay = document.getElementById('menuOverlay');
         
-        if (!menuToggle || !navLinks) return;
+        if (!menuToggle || !navMenu) return;
         
         // Agregar evento al botón de menú
-        menuToggle.addEventListener('click', function() {
-            toggleMenu();
-        });
-        
-        // Agregar eventos a los enlaces
-        const navItems = navLinks.querySelectorAll('a');
-        navItems.forEach(item => {
-            item.addEventListener('click', handleNavLinkClick);
-        });
+        menuToggle.addEventListener('click', toggleMenu);
         
         // Agregar evento al overlay
         if (menuOverlay) {
-            menuOverlay.addEventListener('click', function() {
-                closeMenu();
-            });
+            menuOverlay.addEventListener('click', closeMenu);
         }
         
         // Manejar tecla ESC
@@ -97,298 +289,114 @@ function initNavigation() {
                 closeMenu();
             }
         });
-    }
-    
-    /**
-     * Maneja el clic en los enlaces de navegación
-     * @param {Event} e - Evento de clic
-     */
-    function handleNavLinkClick(e) {
-        const href = e.currentTarget.getAttribute('href');
         
-        // Si es enlace interno
-        if (href.startsWith('#') || (href.includes('#') && !href.includes('.html'))) {
-            e.preventDefault();
-            
-            const targetId = href.split('#')[1] || href.replace('#', '');
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                // Cerrar el menú primero
-                closeMenu(true);
-                
-                // Hacer scroll al elemento después de un breve retraso
-                setTimeout(() => {
-                    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }, 300);
-            }
-        } else if (href === 'index.html') {
-            e.preventDefault();
-            // Si el enlace es a index.html y estamos en la página principal
-            if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
-                // Cerrar el menú primero
-                closeMenu(true);
-                
-                // Hacer scroll al inicio de la página
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            } else {
-                // Si no estamos en la página principal, navegar a ella
-                window.location.href = href;
-            }
-        } else {
-            // Para enlaces a otras páginas, solo cerrar el menú
-            closeMenu(true);
-        }
-    }
-    
-    /**
-     * Configura el desplazamiento suave para enlaces internos
-     */
-    function setupSmoothScroll() {
-        // Seleccionar enlaces internos que no están en la navegación principal
-        const links = document.querySelectorAll('a[href^="#"]:not(.nav-link), a[href*="#"]:not(.nav-link)');
-        
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // Obtener el valor del href
-                const href = link.getAttribute('href');
-                
-                // Verificar si es un enlace interno dentro de la misma página
-                if (href.includes('#') && (!href.includes('.html') || 
-                    (href.includes('.html') && href.split('.html')[0] === window.location.pathname.split('/').pop().split('.html')[0]))) {
-                    
-                    // Obtener el ID del elemento objetivo
-                    const targetId = href.includes('#') ? href.split('#')[1] : href.substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    // Si existe el elemento objetivo, hacer scroll suave
-                    if (targetElement) {
-                        e.preventDefault();
-                        
-                        // Compensar por la barra de navegación fija
-                        const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Actualizar URL sin recargar la página
-                        history.pushState(null, null, '#' + targetId);
-                    }
-                }
-            });
-        });
-    }
-    
-    /**
-     * Marca el enlace de navegación activo según la URL o posición de scroll
-     */
-    function markActiveNavigationLink() {
-        // Obtener la ruta actual
-        const currentPath = window.location.pathname;
-        const currentHash = window.location.hash;
-        
-        // Obtener el nombre de archivo de la URL actual
-        const currentPage = currentPath.split('/').pop() || 'index.html';
-        
-        // Seleccionar todos los enlaces de navegación
-        const navLinks = document.querySelectorAll('.nav-link');
-        
+        // Cerrar menú al hacer clic en enlaces
+        const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            
-            // Remover clase active de todos los enlaces
-            link.classList.remove('active');
-            
-            // Marcar como activo según las condiciones
-            if (
-                // Coincide exactamente con la página actual
-                href === currentPage ||
-                // Estamos en la página de inicio y el enlace es para la página de inicio
-                (currentPage === 'index.html' && href === 'index.html') ||
-                // El enlace contiene un hash que coincide con el hash actual
-                (currentHash && href.includes(currentHash))
-            ) {
-                link.classList.add('active');
-            }
+            link.addEventListener('click', () => {
+                if (state.isMobileMenuOpen) {
+                    closeMenu();
+                }
+            });
         });
     }
     
     /**
-     * Configura animaciones al hacer scroll y actualiza el enlace activo
+     * Configura los dropdowns
      */
-    function setupScrollAnimations() {
-        // Marcar secciones como activas cuando están en viewport
-        const sections = document.querySelectorAll('section[id]');
+    function setupDropdowns() {
+        const dropdowns = document.querySelectorAll('.dropdown');
         
-        if (sections.length > 0) {
-            // Usar throttle para mejorar el rendimiento
-            let isScrolling = false;
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
             
-            window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(() => {
-                        updateActiveSection();
-                        isScrolling = false;
-                    });
-                    isScrolling = true;
-                }
-            });
+            if (!toggle || !menu) return;
             
-            function updateActiveSection() {
-                const scrollPosition = window.scrollY + 100; // Offset para activar un poco antes
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
+            // En móvil, manejar clic para abrir/cerrar
+            if (state.isMobile || state.isTablet) {
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
                     
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        // Marcar enlace correspondiente como activo
-                        document.querySelectorAll('.nav-link').forEach(link => {
-                            link.classList.remove('active');
-                            
-                            if (
-                                link.getAttribute('href').includes('#' + sectionId) || 
-                                (link.getAttribute('href') === 'index.html' && sectionId === 'inicio')
-                            ) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
+                    // Cerrar otros dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle actual dropdown
+                    dropdown.classList.toggle('active');
                 });
             }
-        }
-    }
-    
-    /**
-     * Actualiza la variable CSS para altura en móviles
-     */
-    function updateMobileHeight() {
-        // Solución para 100vh en iOS
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
+        
+        // Cerrar dropdowns al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
     }
     
     /**
      * Abre el menú móvil
      */
     function openMenu() {
-        const navLinks = document.getElementById('navLinks');
-        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
         const menuOverlay = document.getElementById('menuOverlay');
+        const menuToggle = document.getElementById('menuToggle');
         
-        if (!navLinks || !menuToggle) return;
-        
-        // Forzar estilos para iPad Pro específicamente
-        const isIPadPro = (window.innerWidth === 1024 && window.innerHeight === 1366) || 
-                        (window.innerWidth === 1366 && window.innerHeight === 1024);
-        
-        if (isIPadPro) {
-            navLinks.style.display = 'block';
-            navLinks.style.position = 'fixed';
-            navLinks.style.top = '0';
-            navLinks.style.right = '0';
-            navLinks.style.bottom = '0';
-            navLinks.style.width = '300px';
-            navLinks.style.height = '100vh';
-            navLinks.style.backgroundColor = 'rgba(10, 1, 24, 0.95)';
-            navLinks.style.backdropFilter = 'blur(12px)';
-            navLinks.style.webkitBackdropFilter = 'blur(12px)';
-            navLinks.style.padding = '70px 20px 20px';
-            navLinks.style.borderLeft = '1px solid rgba(138, 43, 226, 0.2)';
-            navLinks.style.zIndex = '9999';
-            navLinks.style.overflowY = 'auto';
-            navLinks.style.boxShadow = '-5px 0 15px rgba(0, 0, 0, 0.5)';
-        }
-        
-        // Mostrar menú
-        navLinks.classList.add('active');
+        navMenu.classList.add('mobile-active');
         state.isMobileMenuOpen = true;
-        
-        // NO CAMBIAR el icono del menú toggle a X, solo ocultarlo
-        menuToggle.style.visibility = 'hidden';
         
         // Activar overlay
         if (menuOverlay) {
             menuOverlay.classList.add('active');
         }
         
-        // Prevenir scroll
-        document.body.style.overflow = 'hidden';
-        
-        // Asegurar que el elemento no se oculta
-        navLinks.style.display = 'block';
-        
-        // Crear botón de cierre explícito
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'nav-close-btn';
-        closeBtn.innerHTML = 'X';
-        closeBtn.setAttribute('aria-label', 'Cerrar menú');
-        closeBtn.addEventListener('click', closeMenu);
-        
-        // Eliminar cualquier botón existente antes de añadir uno nuevo
-        const existingCloseBtn = navLinks.querySelector('.nav-close-btn');
-        if (existingCloseBtn) {
-            existingCloseBtn.remove();
+        // Cambiar icono a X
+        if (menuToggle) {
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" fill="currentColor"/>
+                </svg>
+            `;
         }
         
-        navLinks.appendChild(closeBtn);
+        // Prevenir scroll
+        document.body.style.overflow = 'hidden';
     }
     
     /**
      * Cierra el menú móvil
-     * @param {boolean} keepMobileView - Si es true, mantiene la vista móvil consistente
      */
-    function closeMenu(keepMobileView = false) {
-        const navLinks = document.getElementById('navLinks');
-        const menuToggle = document.getElementById('menuToggle');
+    function closeMenu() {
+        const navMenu = document.getElementById('navMenu');
         const menuOverlay = document.getElementById('menuOverlay');
-        const header = document.querySelector('.site-header');
+        const menuToggle = document.getElementById('menuToggle');
         
-        if (!navLinks || !menuToggle) return;
-        
-        // Si estamos en móvil o tablet, aplicar clase para mantener vista consistente
-        if (keepMobileView && state.isTablet) {
-            header.classList.add('mobile-view-locked');
-            
-            // Remover la clase después de un tiempo
-            setTimeout(() => {
-                header.classList.remove('mobile-view-locked');
-            }, 1000);
-        }
-        
-        // Remover clase active
-        navLinks.classList.remove('active');
+        navMenu.classList.remove('mobile-active');
         state.isMobileMenuOpen = false;
-        
-        // Hacer visible el botón de menú de nuevo
-        menuToggle.style.visibility = 'visible';
-        
-        // Restaurar scroll
-        document.body.style.overflow = '';
         
         // Desactivar overlay
         if (menuOverlay) {
             menuOverlay.classList.remove('active');
         }
         
-        // Eliminar el botón de cierre
-        const closeBtn = navLinks.querySelector('.nav-close-btn');
-        if (closeBtn) {
-            closeBtn.remove();
+        // Restaurar icono de hamburguesa
+        if (menuToggle) {
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                </svg>
+            `;
         }
+        
+        // Restaurar scroll
+        document.body.style.overflow = '';
     }
     
     /**
@@ -407,155 +415,135 @@ function initNavigation() {
      */
     function handleResize() {
         // Actualizar variables de estado
-        state.isTablet = window.innerWidth <= 1366 || 
-                        (window.innerWidth === 1024 && window.innerHeight === 1366) || 
-                        (window.innerWidth === 1366 && window.innerHeight === 1024);
+        state.isTablet = window.innerWidth <= 1366;
         state.isMobile = window.innerWidth <= 768;
         
         // Si cambiamos a una resolución grande, asegurar que el menú se cierre
-        if (window.innerWidth > 1366 && !state.isTablet && state.isMobileMenuOpen) {
+        if (window.innerWidth > 1366 && state.isMobileMenuOpen) {
             closeMenu();
         }
         
-        // Actualizar el icono de carrito
-        initCartIcon();
+        // Reconfigurar dropdowns según el tamaño de pantalla
+        setupDropdowns();
     }
 }
 
 /**
- * Espera a que un elemento aparezca en el DOM
- * @param {string} selector - Selector CSS del elemento
- * @param {Function} callback - Función a ejecutar cuando aparezca
+ * Marca el enlace de navegación activo según la URL actual
  */
-function waitForElement(selector, callback) {
-    if (document.querySelector(selector)) {
-        callback();
-        return;
-    }
-    
-    const observer = new MutationObserver(() => {
-        if (document.querySelector(selector)) {
-            observer.disconnect();
-            callback();
-        }
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-/**
- * Inicializa o corrige el icono del carrito (CONSOLIDADO desde header-fix.js)
- */
-function initCartIcon() {
-    const cartButton = document.querySelector('.cta-button .button');
-    if (!cartButton) return;
-    
-    // Verificar si estamos en móvil o tablet (cualquier cosa hasta 1366px - incluye iPadPro)
-    const isSmallScreen = window.innerWidth <= 1366;
-    
-    // Si estamos en pantalla pequeña, asegurarnos de que el icono del carrito esté presente
-    if (isSmallScreen) {
-        // Buscar si ya existe un ícono del carrito
-        let cartIcon = cartButton.querySelector('.cart-icon');
-        
-        // Si no existe, crearlo
-        if (!cartIcon) {
-            // Crear un nuevo icono
-            cartIcon = document.createElement('img');
-            cartIcon.src = '/assets/img/svg/cart.svg?v=' + Date.now(); // Forzar recarga
-            cartIcon.alt = 'Carrito';
-            cartIcon.className = 'cart-icon';
-            cartIcon.width = 20;
-            cartIcon.height = 20;
-            cartIcon.style.filter = 'brightness(0) invert(1)'; // Hacer el icono blanco
-            
-            // Asegurarnos de que el botón no tiene el estilo ::before
-            cartButton.style.position = 'relative';
-            
-            // Agregar el icono al botón
-            cartButton.appendChild(cartIcon);
-            
-            // Ocultar el texto del botón en móvil/tablet
-            const buttonText = cartButton.querySelector('.button-text');
-            if (buttonText) {
-                buttonText.style.display = 'none';
-            }
-        }
-    } else {
-        // En desktop, mostrar el texto del botón y asegurarse de que no haya ícono
-        const buttonText = cartButton.querySelector('.button-text');
-        if (buttonText) {
-            buttonText.style.display = '';
-        }
-        
-        // Remover cualquier ícono existente en desktop
-        const cartIcon = cartButton.querySelector('.cart-icon');
-        if (cartIcon) {
-            cartIcon.remove();
-        }
-    }
-}
-
-/**
- * Fuerza la recarga de iconos críticos para evitar problemas de caché
- */
-function forceReloadIcons() {
-    const timestamp = Date.now();
-    
-    // Seleccionar todos los iconos SVG en el header
-    const svgImages = document.querySelectorAll('.site-header img, .site-header svg');
-    
-    svgImages.forEach(img => {
-        if (img.src) {
-            // Crear una nueva URL con timestamp forzado
-            let newSrc = img.src;
-            if (newSrc.includes('?')) {
-                newSrc = newSrc.split('?')[0] + '?v=' + timestamp;
-            } else {
-                newSrc = newSrc + '?v=' + timestamp;
-            }
-            
-            // Asignar la nueva URL
-            img.src = newSrc;
-        }
-    });
-    
-    // Forzar recarga de logo específicamente
-    const logo = document.querySelector('.logo img');
-    if (logo && logo.src) {
-        logo.src = logo.src.split('?')[0] + '?v=' + timestamp;
-    }
-}
-
-/**
- * Marca el enlace de navegación activo según la URL actual (función global)
- */
-function markActiveNavLink() {
+function markActiveNavigationLink() {
     setTimeout(() => {
         const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
         const fileName = currentPath.split('/').pop() || 'index.html';
         
         const navLinks = document.querySelectorAll('.nav-link');
         
         navLinks.forEach(link => {
-            const linkHref = link.getAttribute('href');
+            const href = link.getAttribute('href');
             
-            if (linkHref === fileName) {
+            // Remover clase active de todos los enlaces
+            link.classList.remove('active');
+            
+            // Marcar como activo según las condiciones
+            if (
+                // Coincide exactamente con la página actual
+                href === fileName ||
+                // Estamos en la página de inicio y el enlace es para la página de inicio
+                (fileName === 'index.html' && href.includes('index.html')) ||
+                // El enlace contiene un hash que coincide con el hash actual
+                (currentHash && href.includes(currentHash))
+            ) {
                 link.classList.add('active');
-            } else {
-                link.classList.remove('active');
             }
         });
     }, 100);
 }
 
+/**
+ * Muestra el modal del carrito (placeholder)
+ */
+function showCartModal() {
+    // Por ahora solo mostrar un alert, después implementar modal real
+    alert('Carrito de compras\n(Funcionalidad pendiente)');
+}
+
+/**
+ * Actualiza el contador del carrito
+ * @param {number} count - Número de items en el carrito
+ */
+function updateCartCount(count) {
+    const cartCount = document.querySelector('.cart-count');
+    if (cartCount) {
+        cartCount.textContent = count;
+        cartCount.style.display = count > 0 ? 'flex' : 'none';
+    }
+}
+
+/**
+ * Función global para cerrar sesión
+ */
+function logout() {
+    // Limpiar datos de sesión
+    localStorage.removeItem('user_token');
+    localStorage.removeItem('user_data');
+    sessionStorage.clear();
+    
+    // Mostrar notificación
+    showNotification('Sesión cerrada correctamente', 'success');
+    
+    // Recargar página para actualizar el estado
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+}
+
+/**
+ * Función para mostrar notificaciones
+ */
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `header-notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                notification.remove();
+            }
+        }, 300);
+    }, 3000);
+}
+
 // Exportar funciones para uso global
 window.navigationModule = {
     initNavigation,
-    initCartIcon,
-    forceReloadIcons,
-    markActiveNavLink
+    markActiveNavigationLink,
+    updateCartCount,
+    showCartModal,
+    logout,
+    showNotification,
+    openProfileSidebar: function() {
+        const profileSidebar = document.getElementById('profileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        profileSidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+    closeProfileSidebar: function() {
+        const profileSidebar = document.getElementById('profileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        profileSidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
 };

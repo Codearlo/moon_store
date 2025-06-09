@@ -7,34 +7,52 @@
     <title>Productos - Moon Store</title>
     <link rel="icon" href="../assets/img/logo.png" type="image/png">
 
+    <!-- Meta para control de caché -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/base.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/components.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/layout.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/animations.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/responsive.css?v=20250517">
-    <link rel="stylesheet" href="../assets/css/navigation-desktop.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/mobile-fixes.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/cache-control.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/navigation.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/navigation-mobile.css?v=20250517">
     <link rel="stylesheet" href="../assets/css/productos.css?v=20250517">
+    <link rel="stylesheet" href="../assets/css/offers.css?v=20250517">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="../assets/js/cache-control.js?v=20250517"></script>
+    <script src="../assets/js/header-fix.js?v=20250517"></script>
 </head>
 
 <body>
+    <!-- Indicador de modo offline -->
+    <div class="offline-indicator">
+        Estás en modo offline. Algunos contenidos pueden no estar actualizados.
+    </div>
+
     <!-- Elementos de fondo -->
     <div class="bg-elements">
         <div class="stars"></div>
+        <div class="moon"></div>
     </div>
 
     <!-- Header -->
     <div id="header-placeholder"></div>
 
     <!-- Contenido principal -->
-    <main class="productos-main page-transition">
+    <main class="productos-main page-transition main-content">
         <!-- Hero Section -->
         <section class="productos-hero">
             <div class="section-inner">
@@ -130,10 +148,40 @@
 
     <!-- Scripts -->
     <script src="../assets/js/components.js?v=20250517"></script>
+    <script src="../assets/js/main.js?v=20250517"></script>
     <script src="../assets/js/effects.js?v=20250517"></script>
     <script src="../assets/js/navigation.js?v=20250517"></script>
+    <script src="../assets/js/mobile-fixes.js?v=20250517"></script>
     <script src="../assets/js/functions.js?v=20250517"></script>
     <script src="../assets/js/productos.js?v=20250517"></script>
+
+    <!-- Script para comprobar estado de conexión -->
+    <script>
+        // Comprobar estado de conexión
+        function updateOnlineStatus() {
+            const isOnline = navigator.onLine;
+            document.body.classList.toggle('is-offline', !isOnline);
+
+            // Si volvemos a estar online, comprobar actualizaciones
+            if (isOnline && window.cacheControl) {
+                window.cacheControl.checkForUpdates();
+            }
+        }
+
+        // Agregar listeners de estado de conexión
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        // Comprobar estado inicial
+        updateOnlineStatus();
+
+        // Recargar recursos críticos al iniciar
+        window.addEventListener('load', function () {
+            if (window.cacheTools) {
+                window.cacheTools.reloadCriticalResources();
+            }
+        });
+    </script>
 
 </body>
 
