@@ -20,6 +20,105 @@
     <link rel="stylesheet" href="/assets/css/responsive.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/mobile-fixes.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/cache-control.css?v=20250517">
+    
+    <style>
+        /* Estilos para el navegador simple */
+        .simple-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 1, 24, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #FFFFFF;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .nav-logo img {
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #B14AFF;
+        }
+        
+        .nav-cta-button {
+            background: linear-gradient(45deg, #5D1D9A, #8A2BE2);
+            color: #FFFFFF;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-cta-button:hover {
+            background: linear-gradient(45deg, #8A2BE2, #B14AFF);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        /* Ajustar el contenido principal */
+        main {
+            margin-top: 80px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-logo span {
+                display: none;
+            }
+            
+            .nav-cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,6 +142,27 @@
         <div class="stars"></div>
         <div class="moon"></div>
     </div>
+
+    <!-- Navegador simple -->
+    <nav class="simple-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/assets/img/logo.png?v=20250517" alt="Moon Store Logo">
+                <span>Moon Store</span>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#ofertas">Ofertas</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            
+            <a href="productos.html" class="nav-cta-button">Comprar Ahora</a>
+        </div>
+    </nav>
 
     <!-- Contenido principal -->
     <main class="page-transition main-content">
