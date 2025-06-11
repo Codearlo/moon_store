@@ -7,67 +7,43 @@
     min-height: 100vh;
 }
 
-/* === HERO SECTION === */
-.productos-hero {
-    padding: var(--space-lg) 0 var(--space-md);
-    text-align: center;
-}
-
-.productos-hero .hero-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: var(--space-sm);
-}
-
-.productos-hero .hero-content p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 /* === FILTROS === */
 .filtros-section {
-    padding: 0 0 var(--space-md);
+    padding: 0 0 var(--space-sm);
 }
 
 .filtros-container {
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-}
-
-.filtros-header h3 {
-    margin-bottom: var(--space-md);
-    color: var(--text-light);
-    font-size: 1.2rem;
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
 }
 
 .filtros-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-sm);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-xs);
     align-items: end;
 }
 
 .filtro-grupo {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .filtro-grupo label {
     color: var(--text-light);
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
 }
 
 .filtro-grupo input,
 .filtro-grupo select {
-    padding: 0.6rem;
+    padding: 0.5rem;
     background: rgba(10, 1, 24, 0.5);
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius-sm);
     color: var(--text-light);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .filtro-grupo input:focus,
@@ -78,9 +54,9 @@
 }
 
 .filtros-content .button {
-    margin-top: var(--space-sm);
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
+    margin-top: var(--space-xs);
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
 }
 
 /* === PRODUCTOS HEADER === */
@@ -274,7 +250,6 @@
     border-top: 3px solid var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: var(--space-sm);
 }
 
 /* === NO PRODUCTOS === */
@@ -322,12 +297,18 @@
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
-    .productos-hero .hero-content h1 {
-        font-size: 2rem;
+    .filtros-container {
+        padding: var(--space-xs);
     }
     
     .filtros-content {
         grid-template-columns: 1fr;
+        gap: var(--space-xs);
+    }
+    
+    .filtros-content .button {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
     }
     
     .productos-header {
@@ -358,11 +339,17 @@
         grid-template-columns: 1fr;
     }
     
-    .filtros-container {
+    .producto-info {
         padding: var(--space-sm);
     }
     
-    .producto-info {
-        padding: var(--space-sm);
+    .filtro-grupo label {
+        font-size: 0.7rem;
+    }
+    
+    .filtro-grupo input,
+    .filtro-grupo select {
+        font-size: 0.75rem;
+        padding: 0.4rem;
     }
 }
