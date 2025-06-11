@@ -22,28 +22,30 @@
     <link rel="stylesheet" href="/assets/css/cache-control.css?v=20250517">
     
     <style>
-        /* Estilos para el navegador simple basado en navigation.css */
+        /* Estilos para el navegador flotante */
         .simple-nav {
             position: fixed;
-            top: 0;
+            top: 50px;
             left: 0;
             right: 0;
+            width: 90%;
+            max-width: 1300px;
+            margin: 0 auto;
             z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
         
         .nav-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 2rem;
+            padding: 1rem 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
         }
         
         .nav-logo {
@@ -137,14 +139,19 @@
         
         /* Ajustar el contenido principal */
         main {
-            margin-top: 80px;
+            margin-top: calc(50px + 80px);
+            padding-top: 20px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
+            .simple-nav {
+                top: 20px;
+                width: 95%;
+            }
+            
             .nav-container {
                 padding: 0.8rem 1rem;
-                gap: 1rem;
             }
             
             .nav-links {
@@ -165,13 +172,13 @@
             }
             
             main {
-                margin-top: 60px;
+                margin-top: calc(20px + 60px);
             }
         }
         
         /* Animación de entrada */
         .simple-nav {
-            animation: slideDown 0.3s ease-out;
+            animation: slideDown 0.5s ease-out;
         }
         
         @keyframes slideDown {
