@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moon Store</title>
+    <title>Moon Store - Tecnología de otro mundo</title>
     <link rel="icon" href="assets/img/logo.png" type="image/png">
 
+    <!-- Meta para control de caché -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
+    <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/base.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/components.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/layout.css?v=20250517">
@@ -18,303 +20,41 @@
     <link rel="stylesheet" href="/assets/css/responsive.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/mobile-fixes.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/cache-control.css?v=20250517">
-    
-    <style>
-        section[id] {
-            scroll-margin-top: 150px;
-        }
+    <link rel="stylesheet" href="/assets/css/index.css?v=20250517">
 
-        .simple-nav {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            right: 0;
-            width: 90%;
-            max-width: 1300px;
-            margin: 0 auto;
-            z-index: 3000;
-            /* Se añade transición para el padding */
-            transition: padding-right 0.3s ease;
-        }
-        
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius-lg);
-            box-shadow: 0 8px 32px 0 var(--glass-shadow);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-logo {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-light);
-            gap: 0.5rem;
-            min-width: 0;
-        }
-        
-        .nav-logo img {
-            height: 40px;
-            flex-shrink: 0;
-        }
-        
-        .nav-logo span {
-            line-height: 1;
-            white-space: nowrap;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 0;
-            margin: 0;
-            padding: 0;
-            flex: 1; 
-            justify-content: center;
-        }
-        
-        .nav-links li {
-            position: relative;
-        }
-        
-        .nav-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            transition: var(--transition-default);
-            position: relative;
-        }
-        
-        .nav-links a:hover {
-            background: rgba(138, 43, 226, 0.1);
-            color: var(--primary-light);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-light);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-shrink: 0;
-        }
-        
-        .nav-cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.8rem 1.6rem;
-            border-radius: var(--border-radius-lg);
-            font-weight: 500;
-            text-align: center;
-            transition: var(--transition-default);
-            background: linear-gradient(45deg, var(--primary-dark), var(--primary));
-            color: var(--text-light);
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            min-width: fit-content;
-        }
-        
-        .nav-cta-button:hover {
-            background: linear-gradient(45deg, var(--primary), var(--primary-light));
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(138, 43, 226, 0.4);
-            color: var(--text-light);
-        }
-
-        .nav-cta-button .cta-icon {
-            display: none;
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            padding: 0.5rem;
-            flex-shrink: 0;
-            z-index: 3001; 
-        }
-
-        main {
-            margin-top: calc(50px + 80px);
-            padding-top: 20px;
-        }
-
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2999; 
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        @media (max-width: 1600px) {
-            .simple-nav {
-                top: 20px;
-                width: 95%;
-            }
-            
-            .nav-container {
-                padding: 1rem 1.5rem;
-                gap: 1.5rem;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                width: 300px;
-                max-width: 80%;
-                height: 100%;
-                padding: 60px 0;
-                flex-direction: column;
-                justify-content: flex-start;
-                background: var(--glass-bg);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                border-left: 1px solid var(--glass-border);
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
-                transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                flex: none;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .nav-links a {
-                padding: 1rem 2rem;
-                justify-content: flex-start;
-                font-size: 1.1rem;
-            }
-            
-            .nav-links a:hover {
-                background: rgba(138, 43, 226, 0.1);
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-        }
-        
-        @media (max-width: 1200px) {
-            .nav-container {
-                padding: 0.8rem 1.5rem;
-            }
-        }
-        
-        @media (max-width: 1024px) {
-            .simple-nav {
-                top: 20px;
-                width: 95%;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            main {
-                margin-top: calc(20px + 60px);
-            }
-
-            .nav-cta-button .cta-text {
-                display: none;
-            }
-            .nav-cta-button .cta-icon {
-                display: block;
-            }
-            .nav-cta-button {
-                padding: 0;
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-            }
-        }
-        
-        .simple-nav {
-            animation: slideDown 0.5s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    </style>
-
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Scripts -->
     <script src="/assets/js/cache-control.js?v=20250517"></script>
     <script src="/assets/js/header-fix.js?v=20250517"></script>
 </head>
 
 <body>
-    <div class="menu-overlay" id="menuOverlay"></div>
-
+    <!-- Indicador de modo offline -->
     <div class="offline-indicator">
         Estás en modo offline. Algunos contenidos pueden no estar actualizados.
     </div>
 
+    <!-- Overlay para el menú móvil -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Elementos de fondo -->
     <div class="bg-elements">
         <div class="stars"></div>
         <div class="moon"></div>
     </div>
 
+    <!-- Navegación específica para index -->
     <nav class="simple-nav">
         <div class="nav-container">
-            <div class="nav-logo">
+            <a href="#inicio" class="nav-logo">
                 <img src="/assets/img/logo.png?v=20250517" alt="Moon Store Logo">
                 <span>Moon Store</span>
-            </div>
+            </a>
             
             <ul class="nav-links" id="navLinks">
                 <li><a href="#inicio">Inicio</a></li>
@@ -324,7 +64,7 @@
             </ul>
             
             <div class="nav-right">
-                <a href="productos.html" class="nav-cta-button">
+                <a href="pages/productos.html" class="nav-cta-button">
                     <span class="cta-text">Comprar Ahora</span>
                     <svg class="cta-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M7.2998 5H22L20 12H8.37675"></path>
@@ -346,20 +86,23 @@
         </div>
     </nav>
 
+    <!-- Contenido principal -->
     <main class="page-transition main-content">
+        <!-- Hero Section -->
         <section id="inicio" class="hero-section">
             <div class="glass-card hero-glass">
                 <div class="section-inner hero-content">
                     <h1>Tecnología de <span class="highlight">otro mundo</span></h1>
                     <p>Equipos de alto rendimiento diseñados para elevar tu experiencia digital a un nivel cósmico.</p>
                     <div class="hero-buttons">
-                        <a href="productos.html" class="button primary">Ver Productos</a>
+                        <a href="pages/productos.html" class="button primary">Ver Productos</a>
                         <a href="#servicios" class="button secondary">Servicios</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Sección de Productos -->
         <section id="productos" class="products-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -370,35 +113,35 @@
                 <div class="card-grid">
                     <div class="glass-card product-card animate-fade-in-up">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/pcgaming.svg?v=20250517" alt="PC Gaming" width="30" height="30">
+                            <img src="/assets/img/svg/pcgaming.svg?v=20250517" alt="PC Gaming" width="30" height="30">
                         </div>
                         <h3>PC Gaming</h3>
                         <p>Equipos gaming de última generación con iluminación LED personalizable.</p>
-                        <a href="productos.html" class="button small">Más información</a>
+                        <a href="pages/productos.html?categoria=gaming" class="button small">Más información</a>
                     </div>
 
                     <div class="glass-card product-card animate-fade-in-up animate-delay-1">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/accesorios.svg?v=20250517" alt="Accesorios" width="30"
-                                height="30">
+                            <img src="/assets/img/svg/accesorios.svg?v=20250517" alt="Accesorios" width="30" height="30">
                         </div>
                         <h3>Accesorios</h3>
                         <p>Complementa tu equipo con los mejores periféricos y accesorios del mercado.</p>
-                        <a href="productos.html" class="button small">Más información</a>
+                        <a href="pages/productos.html?categoria=accesorios" class="button small">Más información</a>
                     </div>
 
                     <div class="glass-card product-card animate-fade-in-up animate-delay-2">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/software.svg?v=20250517" alt="Software" width="30" height="30">
+                            <img src="/assets/img/svg/software.svg?v=20250517" alt="Software" width="30" height="30">
                         </div>
                         <h3>Software</h3>
                         <p>Soluciones de software para optimizar el rendimiento de tu equipo.</p>
-                        <a href="productos.html" class="button small">Más información</a>
+                        <a href="pages/productos.html?categoria=software" class="button small">Más información</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Sección de Servicios -->
         <section id="servicios" class="services-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -409,8 +152,7 @@
                 <div class="card-grid">
                     <div class="glass-card service-card animate-fade-in-up">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/mantenimiento.svg?v=20250517" alt="Mantenimiento" width="30"
-                                height="30">
+                            <img src="/assets/img/svg/mantenimiento.svg?v=20250517" alt="Mantenimiento" width="30" height="30">
                         </div>
                         <h3>Mantenimiento</h3>
                         <p>Servicio técnico especializado para mantener tu equipo en óptimas condiciones.</p>
@@ -418,8 +160,7 @@
 
                     <div class="glass-card service-card animate-fade-in-up animate-delay-1">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/personalizacion.svg?v=20250517" alt="Personalización" width="30"
-                                height="30">
+                            <img src="/assets/img/svg/personalizacion.svg?v=20250517" alt="Personalización" width="30" height="30">
                         </div>
                         <h3>Personalización</h3>
                         <p>Personaliza tu equipo con nuestros servicios de diseño a medida.</p>
@@ -427,7 +168,7 @@
 
                     <div class="glass-card service-card animate-fade-in-up animate-delay-2">
                         <div class="icon-container">
-                            <img src="../assets/img/svg/soporte.svg?v=20250517" alt="Soporte" width="30" height="30">
+                            <img src="/assets/img/svg/soporte.svg?v=20250517" alt="Soporte" width="30" height="30">
                         </div>
                         <h3>Soporte Premium</h3>
                         <p>Asistencia técnica 24/7 para resolver cualquier inconveniente con tu equipo.</p>
@@ -436,6 +177,7 @@
             </div>
         </section>
 
+        <!-- Sección de Testimonios -->
         <section id="testimonios" class="testimonials-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -443,7 +185,7 @@
                 </div>
 
                 <div class="glass-card testimonial animate-fade-in-up">
-                    <div class="quote">"Luna Tech transformó mi experiencia gaming. Su servicio personalizado y la
+                    <div class="quote">"Moon Store transformó mi experiencia gaming. Su servicio personalizado y la
                         calidad de sus equipos son incomparables."</div>
                     <div class="client">
                         <div class="client-avatar"></div>
@@ -456,6 +198,7 @@
             </div>
         </section>
 
+        <!-- Sección de Contacto -->
         <section id="contacto" class="contact-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -471,8 +214,7 @@
                             <div class="contact-grid">
                                 <div class="contact-item">
                                     <div class="contact-icon">
-                                        <img src="../assets/img/svg/location.svg?v=20250517" alt="Ubicación" width="24"
-                                            height="24">
+                                        <img src="/assets/img/svg/location.svg?v=20250517" alt="Ubicación" width="24" height="24">
                                     </div>
                                     <div class="contact-text">
                                         <p>Prolongación Cutervo 761, Ica, Perú</p>
@@ -480,36 +222,31 @@
                                     </div>
                                     <button class="map-button"
                                         onclick="window.open('https://maps.app.goo.gl/6sUN2SP7iDKMgkNf7', '_blank')">
-                                        <img src="../assets/img/svg/map.svg?v=20250517" alt="Ver mapa" width="20"
-                                            height="20">
+                                        <img src="/assets/img/svg/map.svg?v=20250517" alt="Ver mapa" width="20" height="20">
                                     </button>
                                 </div>
 
                                 <div class="contact-item">
                                     <div class="contact-icon">
-                                        <img src="../assets/img/svg/phone.svg?v=20250517" alt="Teléfono" width="24"
-                                            height="24">
+                                        <img src="/assets/img/svg/phone.svg?v=20250517" alt="Teléfono" width="24" height="24">
                                     </div>
                                     <div class="contact-text">
                                         <p id="phone-number">+51 904505720</p>
                                     </div>
                                     <button class="copy-button" data-copy="+51904505720">
-                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18" height="18">
                                     </button>
                                 </div>
 
                                 <div class="contact-item">
                                     <div class="contact-icon">
-                                        <img src="../assets/img/svg/mail.svg?v=20250517" alt="Email" width="24"
-                                            height="24">
+                                        <img src="/assets/img/svg/mail.svg?v=20250517" alt="Email" width="24" height="24">
                                     </div>
                                     <div class="contact-text">
                                         <p id="email-address">store.moon.main@gmail.com</p>
                                     </div>
                                     <button class="copy-button" data-copy="store.moon.main@gmail.com">
-                                        <img src="../assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/copy.svg?v=20250517" alt="Copiar" width="18" height="18">
                                     </button>
                                 </div>
                             </div>
@@ -520,26 +257,22 @@
                             <div class="social-icons-container">
                                 <a href="#" class="social-icon-link" title="TikTok">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/tiktok.svg?v=20250517" alt="TikTok" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/tiktok.svg?v=20250517" alt="TikTok" width="18" height="18">
                                     </div>
                                 </a>
                                 <a href="#" class="social-icon-link" title="Instagram">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/instagram.svg?v=20250517" alt="Instagram" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/instagram.svg?v=20250517" alt="Instagram" width="18" height="18">
                                     </div>
                                 </a>
                                 <a href="#" class="social-icon-link" title="Facebook">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/facebook.svg?v=20250517" alt="Facebook" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/facebook.svg?v=20250517" alt="Facebook" width="18" height="18">
                                     </div>
                                 </a>
                                 <a href="#" class="social-icon-link" title="YouTube">
                                     <div class="social-icon">
-                                        <img src="../assets/img/svg/youtube.svg?v=20250517" alt="YouTube" width="18"
-                                            height="18">
+                                        <img src="/assets/img/svg/youtube.svg?v=20250517" alt="YouTube" width="18" height="18">
                                     </div>
                                 </a>
                             </div>
@@ -548,7 +281,7 @@
 
                     <div class="contact-cta">
                         <button id="openContactFormBtn" class="button primary">
-                            <img src="../assets/img/svg/whatsapp.svg?v=20250517" alt="WhatsApp" width="18" height="18"
+                            <img src="/assets/img/svg/whatsapp.svg?v=20250517" alt="WhatsApp" width="18" height="18"
                                 style="margin-right: 8px; filter: brightness(0) invert(1);">
                             <span class="button-text">Enviar Mensaje</span>
                         </button>
@@ -557,110 +290,24 @@
             </div>
         </section>
 
+        <!-- Placeholder para modal de contacto -->
         <div id="contactFormModalPlaceholder"></div>
     </main>
 
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
+    <!-- Botón de WhatsApp -->
     <div id="whatsapp-placeholder"></div>
 
+    <!-- Scripts -->
+    <script src="/assets/js/components.js?v=20250517"></script>
     <script src="/assets/js/main.js?v=20250517"></script>
     <script src="/assets/js/effects.js?v=20250517"></script>
     <script src="/assets/js/mobile-fixes.js?v=20250517"></script>
     <script src="/assets/js/functions.js?v=20250517"></script>
+    <script src="/assets/js/index.js?v=20250517"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const navLinks = document.getElementById('navLinks');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const header = document.querySelector('.simple-nav');
-
-            if (!mobileMenuToggle || !navLinks || !menuOverlay) return;
-
-            const updateMenuIcon = (isOpen) => {
-                const iconPath = mobileMenuToggle.querySelector('path');
-                if (isOpen) {
-                    iconPath.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
-                } else {
-                    iconPath.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
-                }
-            };
-
-            const closeMenu = () => {
-                navLinks.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                
-                // Restaura los estilos del body y el header
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-                if(header) header.style.paddingRight = '';
-                
-                updateMenuIcon(false);
-            };
-
-            const openMenu = () => {
-                // Calcula el ancho de la barra de scroll ANTES de ocultarla
-                const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-                navLinks.classList.add('active');
-                menuOverlay.classList.add('active');
-                
-                // Aplica los estilos para evitar el salto
-                document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = `${scrollbarWidth}px`;
-                if(header) header.style.paddingRight = `${scrollbarWidth}px`;
-
-                updateMenuIcon(true);
-            };
-
-            mobileMenuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (navLinks.classList.contains('active')) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            menuOverlay.addEventListener('click', closeMenu);
-
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const destination = link.getAttribute('href');
-                    if (destination && destination.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(destination);
-                        if (targetElement) {
-                            closeMenu();
-                            setTimeout(() => {
-                                targetElement.scrollIntoView({ behavior: 'smooth' });
-                            }, 300);
-                        }
-                    } else {
-                        closeMenu();
-                    }
-                });
-            });
-        });
-
-        function updateOnlineStatus() {
-            const isOnline = navigator.onLine;
-            document.body.classList.toggle('is-offline', !isOnline);
-            if (isOnline && window.cacheControl) {
-                window.cacheControl.checkForUpdates();
-            }
-        }
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
-        updateOnlineStatus();
-
-        window.addEventListener('load', function () {
-            if (window.cacheTools) {
-                window.cacheTools.reloadCriticalResources();
-            }
-        });
-    </script>
 </body>
 
 </html>
