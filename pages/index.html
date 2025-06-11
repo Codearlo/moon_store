@@ -114,8 +114,15 @@
             width: 100%;
         }
         
-        .nav-cta-button {
+        /* Contenedor derecho para botón y menú */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             flex-shrink: 0;
+        }
+        
+        .nav-cta-button {
             display: inline-block;
             padding: 0.8rem 1.6rem;
             border-radius: var(--border-radius-lg);
@@ -180,6 +187,7 @@
             
             .nav-container {
                 padding: 0.8rem 1rem;
+                gap: 1rem;
             }
             
             .nav-links {
@@ -213,21 +221,31 @@
             
             .mobile-menu-toggle {
                 display: block;
-                order: 3;
             }
             
-            .nav-logo {
-                order: 1;
+            .nav-right {
+                gap: 0.5rem;
             }
             
             .nav-cta-button {
-                order: 2;
                 padding: 0.6rem 1rem;
                 font-size: 0.8rem;
             }
             
             main {
                 margin-top: calc(20px + 60px);
+            }
+        }
+        
+        /* Móvil mediano (576px y menos) */
+        @media (max-width: 576px) {
+            .nav-logo span {
+                font-size: 1.2rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.75rem;
             }
         }
         
@@ -244,21 +262,51 @@
                 gap: 0.5rem;
             }
             
+            .nav-logo {
+                gap: 0.3rem;
+            }
+            
             .nav-logo img {
                 height: 30px;
             }
             
             .nav-logo span {
-                display: none;
+                font-size: 1rem;
+            }
+            
+            .nav-right {
+                gap: 0.3rem;
             }
             
             .nav-cta-button {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+                font-size: 0.7rem;
+                border-radius: 20px;
+            }
+            
+            .mobile-menu-toggle {
+                padding: 0.3rem;
+            }
+            
+            .mobile-menu-toggle svg {
+                width: 20px;
+                height: 20px;
             }
             
             main {
                 margin-top: calc(10px + 50px);
+            }
+        }
+        
+        /* Móvil muy pequeño (360px y menos) */
+        @media (max-width: 360px) {
+            .nav-logo span {
+                display: none;
+            }
+            
+            .nav-cta-button {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.65rem;
             }
         }
         
@@ -319,13 +367,15 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             
-            <a href="productos.html" class="nav-cta-button">Comprar Ahora</a>
-            
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
-                </svg>
-            </button>
+            <div class="nav-right">
+                <a href="productos.html" class="nav-cta-button">Comprar Ahora</a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
