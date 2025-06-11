@@ -29,7 +29,7 @@
             width: 90%;
             max-width: 1300px;
             margin: 0 auto;
-            z-index: 3000; 
+            z-index: 1000;
         }
         
         .nav-container {
@@ -156,7 +156,7 @@
             cursor: pointer;
             padding: 0.5rem;
             flex-shrink: 0;
-            z-index: 3001; /* Botón por encima de todo */
+            z-index: 3001;
         }
 
         main {
@@ -164,21 +164,21 @@
             padding-top: 20px;
         }
 
-        /* Estilos para el Overlay */
-        .menu-overlay {
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 2999; /* Debajo de la barra de navegación */
+            z-index: 2999;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
         }
 
-        .menu-overlay.active {
+        body.sidebar-open::before {
             opacity: 1;
             pointer-events: auto;
         }
@@ -210,8 +210,7 @@
                 border-left: 1px solid var(--glass-border);
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
                 transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                /* CORRECCIÓN: Evita que la lista de enlaces ocupe espacio en la barra móvil */
-                flex-grow: 0;
+                z-index: 3000;
             }
             
             .nav-links.active {
@@ -231,11 +230,25 @@
             .mobile-menu-toggle {
                 display: block;
             }
+            
+            .nav-right {
+                gap: 1rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.8rem 1.6rem;
+                font-size: 0.9rem;
+            }
         }
         
         @media (max-width: 1200px) {
             .nav-container {
                 padding: 0.8rem 1.5rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.7rem 1.4rem;
+                font-size: 0.87rem;
             }
         }
         
@@ -244,11 +257,124 @@
                 top: 20px;
                 width: 95%;
             }
+            
+            .nav-container {
+                padding: 0.8rem 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-right {
+                gap: 0.8rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.65rem 1.2rem;
+                font-size: 0.85rem;
+            }
         }
         
         @media (max-width: 768px) {
+            .nav-right {
+                gap: 0.5rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.55rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            
             main {
                 margin-top: calc(20px + 60px);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-container {
+                gap: 0.8rem;
+                padding: 0.7rem 0.8rem;
+            }
+            
+            .nav-logo span {
+                font-size: 1.1rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .simple-nav {
+                top: 10px;
+                width: calc(100% - 20px);
+                margin: 0 10px;
+            }
+            
+            .nav-container {
+                padding: 0.6rem 0.7rem;
+                gap: 0.5rem;
+            }
+            
+            .nav-logo {
+                gap: 0.3rem;
+            }
+            
+            .nav-logo img {
+                height: 28px;
+            }
+            
+            .nav-logo span {
+                font-size: 0.95rem;
+            }
+            
+            .nav-right {
+                gap: 0.3rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.45rem 0.65rem;
+                font-size: 0.7rem;
+                border-radius: 20px;
+            }
+            
+            .mobile-menu-toggle {
+                padding: 0.3rem;
+            }
+            
+            .mobile-menu-toggle svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            main {
+                margin-top: calc(10px + 50px);
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .nav-container {
+                padding: 0.5rem 0.6rem;
+            }
+            
+            .nav-logo span {
+                font-size: 0.85rem;
+            }
+            
+            .nav-cta-button {
+                padding: 0.4rem 0.55rem;
+                font-size: 0.65rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .nav-logo span {
+                display: none;
+            }
+            
+            .nav-cta-button {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.62rem;
             }
         }
         
@@ -278,8 +404,6 @@
 </head>
 
 <body>
-    <div class="menu-overlay" id="menuOverlay"></div>
-
     <div class="offline-indicator">
         Estás en modo offline. Algunos contenidos pueden no estar actualizados.
     </div>
@@ -300,6 +424,7 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             
@@ -316,7 +441,7 @@
     </nav>
 
     <main class="page-transition main-content">
-       <section id="inicio" class="hero-section">
+        <section id="inicio" class="hero-section">
             <div class="glass-card hero-glass">
                 <div class="section-inner hero-content">
                     <h1>Tecnología de <span class="highlight">otro mundo</span></h1>
@@ -419,6 +544,57 @@
                         <div class="client-info">
                             <h4>Carlos Mendoza</h4>
                             <p>Gamer Profesional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="about-section section-fade-in">
+            <div class="section-inner">
+                <div class="section-header">
+                    <h2>Sobre <span class="highlight">Nosotros</span></h2>
+                    <p>Conoce quiénes somos y nuestra visión para la tecnología del futuro.</p>
+                </div>
+
+                <div class="glass-card animate-fade-in-up">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>Nuestra Historia</h3>
+                            <p>Luna Tech nació en 2020 con una visión clara: revolucionar la experiencia tecnológica en
+                                Perú. Fundada por un grupo de apasionados por la tecnología y el gaming, nuestra empresa
+                                ha crecido rápidamente para convertirse en un referente en el mercado.</p>
+
+                            <h3>Valores</h3>
+                            <ul class="values-list">
+                                <li><strong>Excelencia:</strong> Nos esforzamos por ofrecer lo mejor en cada aspecto.
+                                </li>
+                                <li><strong>Innovación:</strong> Constantemente buscamos nuevas formas de mejorar.</li>
+                                <li><strong>Integridad:</strong> Actuamos con honestidad y transparencia.</li>
+                                <li><strong>Pasión:</strong> Amamos lo que hacemos y eso se refleja en nuestro trabajo.
+                                </li>
+                            </ul>
+
+                            <h3>Nuestro Equipo</h3>
+                            <div class="team-grid">
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Alejandro Cabana Huamán</h4>
+                                    <p>Fundador</p>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Carolina Huamán Ormeño</h4>
+                                    <p>Socio</p>
+                                </div>
+
+                                <div class="team-member">
+                                    <div class="member-avatar"></div>
+                                    <h4>Mauriel Cabana Borda</h4>
+                                    <p>Socio</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -542,60 +718,63 @@
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
-            const menuOverlay = document.getElementById('menuOverlay');
+            const body = document.body;
 
-            if (!mobileMenuToggle || !navLinks || !menuOverlay) return;
+            if (!mobileMenuToggle || !navLinks) return;
 
-            const updateMenuIcon = (isOpen) => {
-                const iconPath = mobileMenuToggle.querySelector('path');
-                if (isOpen) {
-                    iconPath.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
+            const updateMenuIcon = () => {
+                const icon = mobileMenuToggle.querySelector('path');
+                if (body.classList.contains('sidebar-open')) {
+                    icon.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
                 } else {
-                    iconPath.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
+                    icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
                 }
             };
 
             const closeMenu = () => {
                 navLinks.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                updateMenuIcon(false);
+                body.classList.remove('sidebar-open');
+                updateMenuIcon();
             };
 
             const openMenu = () => {
                 navLinks.classList.add('active');
-                menuOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                updateMenuIcon(true);
+                body.classList.add('sidebar-open');
+                updateMenuIcon();
             };
 
             mobileMenuToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (navLinks.classList.contains('active')) {
+                if (body.classList.contains('sidebar-open')) {
                     closeMenu();
                 } else {
                     openMenu();
                 }
             });
 
-            menuOverlay.addEventListener('click', closeMenu);
-
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const destination = link.getAttribute('href');
-                    if (destination && destination.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(destination);
-                        if (targetElement) {
-                            closeMenu();
-                            setTimeout(() => {
-                                targetElement.scrollIntoView({ behavior: 'smooth' });
-                            }, 300);
+                    closeMenu();
+                    setTimeout(() => {
+                        if (destination && destination.startsWith('#')) {
+                            document.querySelector(destination)?.scrollIntoView({ behavior: 'smooth' });
+                        } else if (destination) {
+                            window.location.href = destination;
                         }
-                    } else {
-                        closeMenu();
-                    }
+                    }, 400);
                 });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (
+                    body.classList.contains('sidebar-open') &&
+                    !mobileMenuToggle.contains(e.target) &&
+                    !navLinks.contains(e.target)
+                ) {
+                    closeMenu();
+                }
             });
         });
 
