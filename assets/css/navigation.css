@@ -53,7 +53,7 @@
 /* === BARRA DE BÚSQUEDA === */
 .search-container {
     flex: 1;
-    max-width: 600px;
+    max-width: none;
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
@@ -488,10 +488,6 @@
         gap: 1.5rem;
     }
     
-    .search-container {
-        max-width: 400px;
-    }
-    
     .nav-container {
         padding: 0 1.5rem;
     }
@@ -527,16 +523,24 @@
         margin-right: 0;
     }
     
-    .search-container {
-        max-width: 200px;
-    }
-    
     .search-button {
         padding: 0.8rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .search-button span {
         display: none;
+    }
+    
+    .search-button svg {
+        width: 20px;
+        height: 20px;
+        margin: 0;
     }
     
     .header-actions {
