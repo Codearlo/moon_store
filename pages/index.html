@@ -186,36 +186,59 @@
             }
         }
         
-        /* Tablet (1024px y menos) */
+        /* Tablet y móvil (1024px y menos) - ACTIVAR MENÚ MÓVIL */
         @media (max-width: 1024px) {
-            .nav-links a {
-                padding: 0.8rem 1rem;
-                font-size: 0.8rem;
+            .simple-nav {
+                top: 20px;
+                width: 95%;
             }
             
-            .nav-cta-button {
-                padding: 0.65rem 1.2rem;
-                font-size: 0.85rem;
+            .nav-container {
+                padding: 0.8rem 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--glass-bg);
+                backdrop-filter: blur(12px);
+                border: 1px solid var(--glass-border);
+                border-radius: var(--border-radius-md);
+                margin-top: 0.5rem;
+                padding: 1rem 0;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                padding: 0.8rem 1.5rem;
+                justify-content: center;
+            }
+            
+            .nav-links a:hover {
+                background: rgba(138, 43, 226, 0.1);
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
             }
             
             .nav-right {
                 gap: 0.8rem;
             }
-        }
-        
-        /* Tablet pequeña (900px y menos) */
-        @media (max-width: 900px) {
-            .nav-container {
-                gap: 1.5rem;
-            }
-            
-            .nav-links a {
-                padding: 0.7rem 0.9rem;
-            }
             
             .nav-cta-button {
-                padding: 0.6rem 1rem;
-                font-size: 0.83rem;
+                padding: 0.65rem 1.2rem;
+                font-size: 0.85rem;
             }
         }
         
