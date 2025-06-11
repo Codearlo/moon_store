@@ -44,7 +44,6 @@
             border-radius: var(--border-radius-lg);
             box-shadow: 0 8px 32px 0 var(--glass-shadow);
             transition: all 0.3s ease;
-            overflow: hidden;
         }
         
         .nav-logo {
@@ -116,7 +115,6 @@
             width: 100%;
         }
         
-        /* Contenedor derecho para botón y menú */
         .nav-right {
             display: flex;
             align-items: center;
@@ -150,7 +148,6 @@
             color: var(--text-light);
         }
         
-        /* Botón de menú móvil */
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -159,15 +156,34 @@
             cursor: pointer;
             padding: 0.5rem;
             flex-shrink: 0;
+            z-index: 2001;
         }
-        
-        /* Ajustar el contenido principal */
+
         main {
             margin-top: calc(50px + 80px);
             padding-top: 20px;
         }
-        
-        /* Pantallas medianas (1600px y menos) - ACTIVAR MENÚ MÓVIL */
+
+        /* Overlay para cuando el menú lateral está activo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        body.sidebar-open::before {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         @media (max-width: 1600px) {
             .simple-nav {
                 top: 20px;
@@ -179,30 +195,34 @@
                 gap: 1.5rem;
             }
             
+            /* --- ESTILOS DE LA BARRA LATERAL (MENÚ MÓVIL) --- */
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                max-width: 80%;
+                height: 100%;
+                padding: 60px 0;
                 flex-direction: column;
+                justify-content: flex-start;
                 background: var(--glass-bg);
-                backdrop-filter: blur(12px);
-                border: 1px solid var(--glass-border);
-                border-radius: var(--border-radius-md);
-                margin-top: 0.5rem;
-                padding: 1rem 0;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border-left: 1px solid var(--glass-border);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+                transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                z-index: 2000;
             }
             
             .nav-links.active {
-                display: flex;
+                right: 0;
             }
             
             .nav-links a {
-                padding: 0.8rem 1.5rem;
-                justify-content: center;
+                padding: 1rem 2rem;
+                justify-content: flex-start;
+                font-size: 1.1rem;
             }
             
             .nav-links a:hover {
@@ -223,7 +243,6 @@
             }
         }
         
-        /* Desktop pequeño (1200px y menos) */
         @media (max-width: 1200px) {
             .nav-container {
                 padding: 0.8rem 1.5rem;
@@ -235,7 +254,6 @@
             }
         }
         
-        /* Tablet y móvil (1024px y menos) */
         @media (max-width: 1024px) {
             .simple-nav {
                 top: 20px;
@@ -245,39 +263,6 @@
             .nav-container {
                 padding: 0.8rem 1rem;
                 gap: 1rem;
-            }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: var(--glass-bg);
-                backdrop-filter: blur(12px);
-                border: 1px solid var(--glass-border);
-                border-radius: var(--border-radius-md);
-                margin-top: 0.5rem;
-                padding: 1rem 0;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links a {
-                padding: 0.8rem 1.5rem;
-                justify-content: center;
-            }
-            
-            .nav-links a:hover {
-                background: rgba(138, 43, 226, 0.1);
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
             }
             
             .nav-right {
@@ -290,51 +275,7 @@
             }
         }
         
-        /* Móvil grande (768px y menos) */
         @media (max-width: 768px) {
-            .simple-nav {
-                top: 20px;
-                width: 95%;
-            }
-            
-            .nav-container {
-                padding: 0.8rem 1rem;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: var(--glass-bg);
-                backdrop-filter: blur(12px);
-                border: 1px solid var(--glass-border);
-                border-radius: var(--border-radius-md);
-                margin-top: 0.5rem;
-                padding: 1rem 0;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links a {
-                padding: 0.8rem 1.5rem;
-                justify-content: center;
-            }
-            
-            .nav-links a:hover {
-                background: rgba(138, 43, 226, 0.1);
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
             .nav-right {
                 gap: 0.5rem;
             }
@@ -349,7 +290,6 @@
             }
         }
         
-        /* Móvil mediano (576px y menos) */
         @media (max-width: 576px) {
             .nav-container {
                 gap: 0.8rem;
@@ -366,7 +306,6 @@
             }
         }
         
-        /* Móvil pequeño (480px y menos) */
         @media (max-width: 480px) {
             .simple-nav {
                 top: 10px;
@@ -415,7 +354,6 @@
             }
         }
         
-        /* Móvil muy pequeño (400px y menos) */
         @media (max-width: 400px) {
             .nav-container {
                 padding: 0.5rem 0.6rem;
@@ -431,7 +369,6 @@
             }
         }
         
-        /* Móvil ultra pequeño (360px y menos) */
         @media (max-width: 360px) {
             .nav-logo span {
                 display: none;
@@ -443,7 +380,6 @@
             }
         }
         
-        /* Animación de entrada */
         .simple-nav {
             animation: slideDown 0.5s ease-out;
         }
@@ -664,7 +600,8 @@
                         </div>
                     </div>
                 </div>
-            </div> </section>
+            </div>
+        </section>
 
         <section id="contacto" class="contact-section">
             <div class="section-inner">
@@ -783,58 +720,59 @@
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
-            
-            // Si no existen los elementos, no continuamos para evitar errores.
+            const body = document.body;
+
             if (!mobileMenuToggle || !navLinks) return;
 
-            // Función para cambiar el ícono del menú (hamburguesa/cruz)
             const updateMenuIcon = () => {
                 const icon = mobileMenuToggle.querySelector('path');
-                if (navLinks.classList.contains('active')) {
-                    // Ícono de "Cerrar" (X)
+                if (body.classList.contains('sidebar-open')) {
                     icon.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
                 } else {
-                    // Ícono de "Menú" (hamburguesa)
                     icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
                 }
             };
 
-            // Función para cerrar el menú
             const closeMenu = () => {
                 navLinks.classList.remove('active');
+                body.classList.remove('sidebar-open');
                 updateMenuIcon();
             };
-            
-            // 1. Evento para abrir/cerrar el menú con el botón
-            mobileMenuToggle.addEventListener('click', (e) => {
-                // Detenemos la propagación del clic para que no lo capture el listener del 'document'.
-                // ¡Esta es la clave para evitar el conflicto!
-                e.stopPropagation(); 
-                
-                navLinks.classList.toggle('active');
+
+            const openMenu = () => {
+                navLinks.classList.add('active');
+                body.classList.add('sidebar-open');
                 updateMenuIcon();
+            };
+
+            mobileMenuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (body.classList.contains('sidebar-open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
             });
 
-            // 2. Evento para cerrar el menú al hacer clic en un enlace
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
-                    // Si el menú está activo, lo cerramos.
-                    if (navLinks.classList.contains('active')) {
+                    if (body.classList.contains('sidebar-open')) {
                         closeMenu();
                     }
                 });
             });
 
-            // 3. Evento para cerrar el menú al hacer clic fuera de él
             document.addEventListener('click', (e) => {
-                // Si el menú está activo y el clic NO fue dentro del contenedor de enlaces...
-                if (navLinks.classList.contains('active') && !navLinks.contains(e.target)) {
+                if (
+                    body.classList.contains('sidebar-open') &&
+                    !mobileMenuToggle.contains(e.target) &&
+                    !navLinks.contains(e.target)
+                ) {
                     closeMenu();
                 }
             });
         });
 
-        // --- Lógica para el estado de conexión (sin cambios) ---
         function updateOnlineStatus() {
             const isOnline = navigator.onLine;
             document.body.classList.toggle('is-offline', !isOnline);
