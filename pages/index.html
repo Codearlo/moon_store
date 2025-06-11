@@ -261,7 +261,6 @@
                 margin-top: 0.5rem;
                 padding: 1rem 0;
                 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
             }
             
             .nav-links.active {
@@ -781,64 +780,72 @@
     <script src="/assets/js/functions.js?v=20250517"></script>
 
     <script>
-        // Script para el menú móvil
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
             
-            if (mobileMenuToggle && navLinks) {
-                mobileMenuToggle.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                    
-                    // Cambiar icono del botón
-                    const icon = mobileMenuToggle.querySelector('path');
+            // Si no existen los elementos, no continuamos para evitar errores.
+            if (!mobileMenuToggle || !navLinks) return;
+
+            // Función para cambiar el ícono del menú (hamburguesa/cruz)
+            const updateMenuIcon = () => {
+                const icon = mobileMenuToggle.querySelector('path');
+                if (navLinks.classList.contains('active')) {
+                    // Ícono de "Cerrar" (X)
+                    icon.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
+                } else {
+                    // Ícono de "Menú" (hamburguesa)
+                    icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
+                }
+            };
+
+            // Función para cerrar el menú
+            const closeMenu = () => {
+                navLinks.classList.remove('active');
+                updateMenuIcon();
+            };
+            
+            // 1. Evento para abrir/cerrar el menú con el botón
+            mobileMenuToggle.addEventListener('click', (e) => {
+                // Detenemos la propagación del clic para que no lo capture el listener del 'document'.
+                // ¡Esta es la clave para evitar el conflicto!
+                e.stopPropagation(); 
+                
+                navLinks.classList.toggle('active');
+                updateMenuIcon();
+            });
+
+            // 2. Evento para cerrar el menú al hacer clic en un enlace
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    // Si el menú está activo, lo cerramos.
                     if (navLinks.classList.contains('active')) {
-                        icon.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
-                    } else {
-                        icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
+                        closeMenu();
                     }
                 });
-                
-                // Cerrar menú al hacer clic en un enlace
-                const links = navLinks.querySelectorAll('a');
-                links.forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                        const icon = mobileMenuToggle.querySelector('path');
-                        icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
-                    });
-                });
-                
-                // Cerrar menú al hacer clic fuera
-                document.addEventListener('click', (e) => {
-                    if (!e.target.closest('.simple-nav')) {
-                        navLinks.classList.remove('active');
-                        const icon = mobileMenuToggle.querySelector('path');
-                        icon.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
-                    }
-                });
-            }
+            });
+
+            // 3. Evento para cerrar el menú al hacer clic fuera de él
+            document.addEventListener('click', (e) => {
+                // Si el menú está activo y el clic NO fue dentro del contenedor de enlaces...
+                if (navLinks.classList.contains('active') && !navLinks.contains(e.target)) {
+                    closeMenu();
+                }
+            });
         });
-        
-        // Comprobar estado de conexión
+
+        // --- Lógica para el estado de conexión (sin cambios) ---
         function updateOnlineStatus() {
             const isOnline = navigator.onLine;
             document.body.classList.toggle('is-offline', !isOnline);
-
-            // Si volvemos a estar online, comprobar actualizaciones
             if (isOnline && window.cacheControl) {
                 window.cacheControl.checkForUpdates();
             }
         }
-
-        // Agregar listeners de estado de conexión
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
-
-        // Comprobar estado inicial
         updateOnlineStatus();
 
-        // Recargar recursos críticos al iniciar
         window.addEventListener('load', function () {
             if (window.cacheTools) {
                 window.cacheTools.reloadCriticalResources();
