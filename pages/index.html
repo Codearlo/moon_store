@@ -164,7 +164,24 @@
             padding-top: 20px;
         }
 
-        /* SE ELIMINÓ EL OVERLAY DE body::before PARA LA PRUEBA */
+        /* ESTILOS PARA EL OVERLAY RESTAURADO Y CORREGIDO */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2999; /* Debajo del menú (3000) */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         @media (max-width: 1600px) {
             .simple-nav {
@@ -260,6 +277,8 @@
 </head>
 
 <body>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
     <div class="offline-indicator">
         Estás en modo offline. Algunos contenidos pueden no estar actualizados.
     </div>
@@ -574,27 +593,63 @@
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuToggle = document.getElementById('mobileMenuToggle');
             const navLinks = document.getElementById('navLinks');
+            const menuOverlay = document.getElementById('menuOverlay');
 
-            if (!mobileMenuToggle || !navLinks) {
-                console.error('Elementos del menú no encontrados.');
-                return;
-            }
+            if (!mobileMenuToggle || !navLinks || !menuOverlay) return;
 
-            // Simplemente añade o quita la clase 'active' para mostrar/ocultar el menú
-            mobileMenuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
+            const updateMenuIcon = (isOpen) => {
+                const iconPath = mobileMenuToggle.querySelector('path');
+                if (isOpen) {
+                    iconPath.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
+                } else {
+                    iconPath.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
+                }
+            };
+
+            const closeMenu = () => {
+                navLinks.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                updateMenuIcon(false);
+            };
+
+            const openMenu = () => {
+                navLinks.classList.add('active');
+                menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                updateMenuIcon(true);
+            };
+
+            mobileMenuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (navLinks.classList.contains('active')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
             });
 
-            // A cada enlace del menú, le decimos que al ser presionado, cierre el menú.
-            // No prevenimos su comportamiento normal, por lo que la navegación funcionará.
+            menuOverlay.addEventListener('click', closeMenu);
+
             navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
+                link.addEventListener('click', (e) => {
+                    const destination = link.getAttribute('href');
+                    if (destination && destination.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(destination);
+                        if (targetElement) {
+                            closeMenu();
+                            setTimeout(() => {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                        }
+                    } else {
+                        closeMenu();
+                    }
                 });
             });
         });
 
-        // El resto del script para online/offline status se mantiene igual
         function updateOnlineStatus() {
             const isOnline = navigator.onLine;
             document.body.classList.toggle('is-offline', !isOnline);
