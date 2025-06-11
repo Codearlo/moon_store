@@ -29,7 +29,8 @@
             width: 90%;
             max-width: 1300px;
             margin: 0 auto;
-            z-index: 1000;
+            /* Z-INDEX CORREGIDO: AHORA ESTÁ POR ENCIMA DEL OVERLAY */
+            z-index: 3000; 
         }
         
         .nav-container {
@@ -156,7 +157,7 @@
             cursor: pointer;
             padding: 0.5rem;
             flex-shrink: 0;
-            z-index: 3001;
+            z-index: 3001; /* Botón por encima de todo */
         }
 
         main {
@@ -164,7 +165,7 @@
             padding-top: 20px;
         }
 
-        /* ESTILOS PARA EL OVERLAY (RESTAURADO) */
+        /* Estilos para el Overlay */
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -172,7 +173,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 2999; /* Debajo del menú (3000) */
+            z-index: 2999; /* Debajo de la barra de navegación */
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
@@ -210,7 +211,7 @@
                 border-left: 1px solid var(--glass-border);
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
                 transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                z-index: 3000;
+                /* z-index del menú es relativo a su padre .simple-nav */
             }
             
             .nav-links.active {
@@ -597,19 +598,32 @@
 
             if (!mobileMenuToggle || !navLinks || !menuOverlay) return;
 
+            const updateMenuIcon = (isOpen) => {
+                const iconPath = mobileMenuToggle.querySelector('path');
+                if (isOpen) {
+                    iconPath.setAttribute('d', 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z');
+                } else {
+                    iconPath.setAttribute('d', 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z');
+                }
+            };
+
             const closeMenu = () => {
                 navLinks.classList.remove('active');
                 menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                updateMenuIcon(false);
             };
 
             const openMenu = () => {
                 navLinks.classList.add('active');
                 menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                updateMenuIcon(true);
             };
 
-            mobileMenuToggle.addEventListener('click', () => {
-                const isOpen = navLinks.classList.contains('active');
-                if (isOpen) {
+            mobileMenuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (navLinks.classList.contains('active')) {
                     closeMenu();
                 } else {
                     openMenu();
@@ -619,10 +633,20 @@
             menuOverlay.addEventListener('click', closeMenu);
 
             navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    // La lógica del enlace es simple: solo cierra el menú.
-                    // El navegador se encargará de la navegación.
-                    closeMenu();
+                link.addEventListener('click', (e) => {
+                    const destination = link.getAttribute('href');
+                    if (destination && destination.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(destination);
+                        if (targetElement) {
+                            closeMenu();
+                            setTimeout(() => {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }, 300);
+                        }
+                    } else {
+                        closeMenu();
+                    }
                 });
             });
         });
