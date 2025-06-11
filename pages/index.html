@@ -7,12 +7,10 @@
     <title>Moon Store</title>
     <link rel="icon" href="assets/img/logo.png" type="image/png">
 
-    <!-- Meta para control de caché -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/base.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/components.css?v=20250517">
     <link rel="stylesheet" href="/assets/css/layout.css?v=20250517">
@@ -463,30 +461,25 @@
         }
     </style>
 
-    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Scripts -->
     <script src="/assets/js/cache-control.js?v=20250517"></script>
     <script src="/assets/js/header-fix.js?v=20250517"></script>
 </head>
 
 <body>
-    <!-- Indicador de modo offline -->
     <div class="offline-indicator">
         Estás en modo offline. Algunos contenidos pueden no estar actualizados.
     </div>
 
-    <!-- Elementos de fondo -->
     <div class="bg-elements">
         <div class="stars"></div>
         <div class="moon"></div>
     </div>
 
-    <!-- Navegador simple -->
     <nav class="simple-nav">
         <div class="nav-container">
             <div class="nav-logo">
@@ -498,7 +491,6 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#ofertas">Ofertas</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
@@ -515,9 +507,7 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <main class="page-transition main-content">
-        <!-- 1. INICIO - Hero Section -->
         <section id="inicio" class="hero-section">
             <div class="glass-card hero-glass">
                 <div class="section-inner hero-content">
@@ -531,7 +521,6 @@
             </div>
         </section>
 
-        <!-- 2. PRODUCTOS DESTACADOS -->
         <section id="productos" class="products-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -571,7 +560,6 @@
             </div>
         </section>
 
-        <!-- 3. SERVICIOS -->
         <section id="servicios" class="services-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -609,28 +597,6 @@
             </div>
         </section>
 
-        <!-- 4. OFERTAS -->
-        <section id="ofertas" class="offers-section">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Ofertas <span class="highlight">de Locura</span></h2>
-                    <p>Aprovecha nuestras promociones especiales en productos seleccionados.</p>
-                </div>
-
-                <div class="glass-card offer-banner animate-fade-in-up">
-                    <div class="offer-content">
-                        <h3>¡Hasta 50% de descuento!</h3>
-                        <p>En productos seleccionados por tiempo limitado</p>
-                        <a href="productos.html?ofertas=true" class="button primary">Ver ofertas</a>
-                    </div>
-                    <div class="offer-visual">
-                        <div class="discount-badge">50% OFF</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. CLIENTES (TESTIMONIOS) -->
         <section id="testimonios" class="testimonials-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -651,7 +617,6 @@
             </div>
         </section>
 
-        <!-- 6. NOSOTROS -->
         <section id="nosotros" class="about-section section-fade-in">
             <div class="section-inner">
                 <div class="section-header">
@@ -700,10 +665,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </div> </section>
 
-        <!-- 7. CONTACTO -->
         <section id="contacto" class="contact-section">
             <div class="section-inner">
                 <div class="section-header">
@@ -713,7 +676,6 @@
 
                 <div class="glass-card contact-card animate-fade-in-up">
                     <div class="contact-flex-container">
-                        <!-- Columna izquierda: información de contacto -->
                         <div class="contact-info-column">
                             <h3 class="contact-title">Información de Contacto</h3>
 
@@ -764,7 +726,6 @@
                             </div>
                         </div>
 
-                        <!-- Columna derecha: redes sociales (vertical) -->
                         <div class="social-column">
                             <h3 class="social-title">Redes</h3>
                             <div class="social-icons-container">
@@ -796,7 +757,6 @@
                         </div>
                     </div>
 
-                    <!-- Botón de contacto permanece en su posición original -->
                     <div class="contact-cta">
                         <button id="openContactFormBtn" class="button primary">
                             <img src="../assets/img/svg/whatsapp.svg?v=20250517" alt="WhatsApp" width="18" height="18"
@@ -808,23 +768,18 @@
             </div>
         </section>
 
-        <!-- Modal para formulario de contacto -->
         <div id="contactFormModalPlaceholder"></div>
     </main>
 
-    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- WhatsApp Button -->
     <div id="whatsapp-placeholder"></div>
 
-    <!-- Scripts -->
     <script src="/assets/js/main.js?v=20250517"></script>
     <script src="/assets/js/effects.js?v=20250517"></script>
     <script src="/assets/js/mobile-fixes.js?v=20250517"></script>
     <script src="/assets/js/functions.js?v=20250517"></script>
 
-    <!-- Script para comprobar estado de conexión -->
     <script>
         // Script para el menú móvil
         document.addEventListener('DOMContentLoaded', () => {
