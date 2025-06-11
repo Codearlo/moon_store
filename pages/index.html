@@ -29,7 +29,6 @@
             width: 90%;
             max-width: 1300px;
             margin: 0 auto;
-            /* Z-INDEX CORREGIDO: AHORA ESTÁ POR ENCIMA DEL OVERLAY */
             z-index: 3000; 
         }
         
@@ -211,7 +210,8 @@
                 border-left: 1px solid var(--glass-border);
                 box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
                 transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                /* z-index del menú es relativo a su padre .simple-nav */
+                /* CORRECCIÓN: Evita que la lista de enlaces ocupe espacio en la barra móvil */
+                flex-grow: 0;
             }
             
             .nav-links.active {
@@ -300,7 +300,6 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
             
@@ -420,57 +419,6 @@
                         <div class="client-info">
                             <h4>Carlos Mendoza</h4>
                             <p>Gamer Profesional</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="nosotros" class="about-section section-fade-in">
-            <div class="section-inner">
-                <div class="section-header">
-                    <h2>Sobre <span class="highlight">Nosotros</span></h2>
-                    <p>Conoce quiénes somos y nuestra visión para la tecnología del futuro.</p>
-                </div>
-
-                <div class="glass-card animate-fade-in-up">
-                    <div class="about-content">
-                        <div class="about-text">
-                            <h3>Nuestra Historia</h3>
-                            <p>Luna Tech nació en 2020 con una visión clara: revolucionar la experiencia tecnológica en
-                                Perú. Fundada por un grupo de apasionados por la tecnología y el gaming, nuestra empresa
-                                ha crecido rápidamente para convertirse en un referente en el mercado.</p>
-
-                            <h3>Valores</h3>
-                            <ul class="values-list">
-                                <li><strong>Excelencia:</strong> Nos esforzamos por ofrecer lo mejor en cada aspecto.
-                                </li>
-                                <li><strong>Innovación:</strong> Constantemente buscamos nuevas formas de mejorar.</li>
-                                <li><strong>Integridad:</strong> Actuamos con honestidad y transparencia.</li>
-                                <li><strong>Pasión:</strong> Amamos lo que hacemos y eso se refleja en nuestro trabajo.
-                                </li>
-                            </ul>
-
-                            <h3>Nuestro Equipo</h3>
-                            <div class="team-grid">
-                                <div class="team-member">
-                                    <div class="member-avatar"></div>
-                                    <h4>Alejandro Cabana Huamán</h4>
-                                    <p>Fundador</p>
-                                </div>
-
-                                <div class="team-member">
-                                    <div class="member-avatar"></div>
-                                    <h4>Carolina Huamán Ormeño</h4>
-                                    <p>Socio</p>
-                                </div>
-
-                                <div class="team-member">
-                                    <div class="member-avatar"></div>
-                                    <h4>Mauriel Cabana Borda</h4>
-                                    <p>Socio</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
